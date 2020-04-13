@@ -6,7 +6,7 @@ import copy
 import json
 
 HELP_INFO = '''
-============= Whitelist helper v1.1 =============
+============= Whitelist helper v0.2.3 =============
 §f!!whitelist add <玩家>  §7将玩家添加至白名单
 §f!!whitelist remove <玩家>  §7将玩家移出白名单
 §f!!whitelist search <玩家>  §7判断玩家是否添加至白名单
@@ -29,7 +29,7 @@ def get_wl():
         return [item['name'] for item in json.load(wl)]
 
 def on_load(server, old_module):
-    server.add_help_message('!!whitelist', 'Whitelist helper帮助')
+    server.add_help_message('!!whitelist', '白名单编辑')
 
 def on_info(server, info):
     content = info.content.strip()[len(MCDR_PREFFIX):]
@@ -58,7 +58,7 @@ def on_info(server, info):
             names = get_wl()
             server.tell(info.player, "{}{}在白名单中".format(target, "" if target in names else "不"))
         except:
-            server.tell(info.player, "命令错误！请使用!!whitelist查看帮助")
+            server.tell(info.player,"命令错误！请使用!!whitelist查看帮助")
 
 
     cmd_mappings = {
