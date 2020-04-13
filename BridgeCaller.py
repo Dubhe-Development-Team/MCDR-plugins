@@ -24,8 +24,7 @@ def on_load(server,old_plugin):
 
     server.add_help_message("!!bc","BridgeCaller插件管理")
     try:
-        os.mkdir('bcfile')
-        os.mkdir('bcfile/tmp')
-        os.mkdir('bcfile/info')
+        for directory in ('bcfile', 'bcfile/tmp', 'bcfile/info'):
+            os.mikdir(directory)
         server.logger.info('已初始化bcfile目录')
     except:pass
