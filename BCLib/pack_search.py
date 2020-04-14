@@ -8,4 +8,4 @@ class Pack():
         self.isroot = isroot
         self.meta = metafile.json()
         self.downlist = []
-        self.needpack = [needpack.append(lib['meta'],server,False) for lib in self.meta['lib']]
+        self.needpack = [Pack(lib['meta'],server,False) for lib in self.meta['lib']]
