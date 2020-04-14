@@ -15,9 +15,11 @@ class Pack():
 
         self.needpack = [Pack(lib['meta'],server,False) for lib in self.meta['lib']]
 
-        for lib in meta['downloads']['datapack']:
-            downlist['datapack'][lib] = meta['downloads']['datapack'][lib]
-            server.logger.info('下载数据包文件源添加: {}'.format(downlist['datapack'][lib]))
-        for lib in meta['downloads']['pyplugin']:
-            downlist['pyplugin'][lib] = meta['downloads']['pyplugin'][lib]
-            server.logger.info('下载插件文件源添加: {}'.format(downlist['pyplugin'][lib]))
+        for lib in self.meta['downloads']['datapack']:
+            self.downlist['datapack'][lib] = self.meta['downloads']['datapack'][lib]
+            server.logger.info('下载数据包文件源添加: {}'.format(self.downlist['datapack'][lib]))
+        for lib in self.meta['downloads']['pyplugin']:
+            self.downlist['pyplugin'][lib] = self.meta['downloads']['pyplugin'][lib]
+            server.logger.info('下载插件文件源添加: {}'.format(self.downlist['pyplugin'][lib]))
+
+        server.logger.info('下载文件信息：{}'.format(str(downlist)))

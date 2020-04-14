@@ -1,0 +1,21 @@
+{
+    "packname":"Datapack", 
+    "packversion":2,
+    "packversion_display":"v1.2",
+    "update_link":"https://xxx.com/datapack.dpmeta",
+    "lib":[
+        {
+            "meta":"https://gitee.com/gu_zt666/BridgeCaller/raw/master/testdata/testdata2.dpmeta",
+            "version":">=2"
+        }
+    ],
+    "downloads":{
+        "datapack":{
+            "Dp1.zip":"https://xxx.com/DpDownload.zip"
+        },
+        "pyplugin":{
+            "plugin1.py":"https://xxx.com/plugin1.py",
+            "plLib/plugin2.py":"https://xxx.com/plugin2.py"
+        }
+    }
+}
