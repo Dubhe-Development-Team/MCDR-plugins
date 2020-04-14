@@ -19,6 +19,9 @@ except:
     except:
         raise
 
+
+HAVE_HELPER_PERMISSION = lambda info,server:server.get_permission_level(info) ==None or server.get_permission_level(info) >= 2
+
 def on_load(server,old_plugin):
     server.logger.info("BridgeCaller {}".format(VERSION))
 
@@ -28,3 +31,18 @@ def on_load(server,old_plugin):
             os.mikdir(directory)
         server.logger.info('已初始化bcfile目录')
     except:pass
+
+def on_info(server,info):
+    command = info.content.split(' ')
+    if command[0] == '!!bc':
+        if command[1] == 'install':
+            if HAVE_HELPER_PERMISSION(info,server):
+                try:
+                    downpack = pack_search.Pack(command[2],server)
+                except:
+                    if info.is_player:
+                        server.tell(info.player,'§c参数错误！请使用!!bc查看帮助')
+                    else:
+                        server.logger.info('参数错误！请使用!!bc查看帮助')
+                    return #back
+                

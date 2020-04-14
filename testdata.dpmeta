@@ -1,17 +1,10 @@
 {
-    "packname":"Datapack",  //包名
-    "packversion":2,   //包版本
+    "packname":"Datapack", 
+    "packversion":2,
     "packversion_display":"v1.2",
     "update_link":"https://xxx.com/datapack.dpmeta",
     "lib":[
-        {
-            "meta":"https://xxx.com/DPH.dpmeta",
-            "version":-1   //All
-        },
-        {
-            "meta":"https://xxx.com/MCLIB.dpmeta",
-            "version":">=2"   //高于或等于2的版本
-        }
+        
     ],
     "downloads":{
         "datapack":{
