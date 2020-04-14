@@ -1,1 +1,1 @@
-__all__ = ['pack_search']
+__all__ = ['pack_search','datapack_lib']
