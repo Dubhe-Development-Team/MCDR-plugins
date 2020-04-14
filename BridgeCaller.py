@@ -10,11 +10,11 @@ VERSION = "v0.1"
 import os
 import requests as rq
 try:
-    import BCLib as blb
+    from BCLib import *
     print('dbg import')
 except:
     try:
-        import plugins.BCLib as blb
+        from plugins.BCLib import *
         
         print('MCDR env import')
     except:
@@ -41,7 +41,7 @@ def on_info(server,info):
         if command[1] == 'install':
             if HAVE_HELPER_PERMISSION(info,server):
                 # try:
-                downpack = blb.pack_search.Pack(command[2],server)
+                downpack = pack_search.Pack(command[2],server)
                 # except:
                 #     if info.is_player:
                 #         server.tell(info.player,'§c参数错误！请使用!!bc查看帮助')
