@@ -23,3 +23,9 @@ class Pack():
             server.logger.info('下载插件文件源添加: {}'.format(self.downlist['pyplugin'][lib]))
 
         server.logger.info('下载文件信息：{}'.format(str(downlist)))
+
+    def get_downlist(self):
+        return self.downlist
+
+    def download(self):
+        pass
