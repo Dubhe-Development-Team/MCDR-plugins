@@ -14,8 +14,8 @@ BridgeCaller是一个对Minecraft数据包提供高级操作支持的插件。�
 | 命令 | 所需权限 | 作用 |
 | :--------| :-----| :----- |
 | !!bc | All | 显示帮助信息 |
-| !!bc install <包链接> | Helper | 从指定链接安装包|
-| !!bc remove <包名> | Helper | 移除包 **注意：如果有依赖此包的包，也会一起移除！**
+| !!bc install <包链接> | Admin | 从指定链接安装包|
+| !!bc remove <包名> | Admin | 移除包 **注意：如果有依赖此包的包，也会一起移除！**
 | !!bc enable <包名> | Helper | 启用包 |
 | !!bc disable <包名> | Helper | 禁用包 |
 | !!bc update \[包名\] | Helper | 从包元数据中指定的链接升级包，包名留空以对所有包进行更新检测 |

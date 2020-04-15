@@ -23,6 +23,7 @@ except:
 global bgSRV
 bgSRV = None
 HAVE_HELPER_PERMISSION = lambda info,server:server.get_permission_level(info) ==None or server.get_permission_level(info) >= 2
+HAVE_ADMIN_PERMISSION = lambda info,server:server.get_permission_level(info) ==None or server.get_permission_level(info) >= 3
 
 def automsg(server,info,msg):
     if info.is_player:
@@ -51,7 +52,7 @@ def on_info(server,info):
     command = info.content.split(' ')
     if command[0] == '!!bc':
         if command[1] == 'install':
-            if HAVE_HELPER_PERMISSION(info,server): 
+            if HAVE_ADMIN_PERMISSION(info,server): 
                 try:
                     server.logger.info('正在寻找包')
                     automsg(server,info,'正在寻找包...请稍后')
