@@ -2,9 +2,18 @@
 
 **注意！该插件还在开发中！本文档中提及的所有特性，都有可能在正式版本中删除或更改！**
 
-BridgeCaller是一个对Minecraft数据包提供高级操作支持的插件。该插件可以让数据包使用随机数，调用系统时间等高级操作。该插件同时还可以对插件进行管理，无需服主自行替换。
+BridgeCaller是一个对Minecraft数据包提供更多原版数据包无法达到的功能的插件。该插件可以让数据包使用随机数，调用系统时间等功能。该插件同时还可以对插件进行管理，无需服主自行替换。
 
-该插件依赖于API [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)。
+## 使用方法
+**_插件尚未开发完毕，可能无法使用！_**
+1. 克隆本仓库到本地
+2. 将文件夹BCLib和BridgeCaller.py复制到MCDR的plugins文件夹下
+
+## 运行环境
+- [Python 3.X ](https://python.org)
+- [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)（版本>=alpha 0.7，否则部分功能无法工作）
+- 确保服务器支持rcon连接
+
 
 ## 插件管理功能
 该插件可以直接安装插件或数据包。此操作需要helper权限。

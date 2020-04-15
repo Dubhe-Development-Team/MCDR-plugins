@@ -24,6 +24,8 @@ global bgSRV
 bgSRV = None
 HAVE_HELPER_PERMISSION = lambda info,server:server.get_permission_level(info) ==None or server.get_permission_level(info) >= 2
 HAVE_ADMIN_PERMISSION = lambda info,server:server.get_permission_level(info) ==None or server.get_permission_level(info) >= 3
+NO_PERMISSION = lambda server,info:server.tell(info.player,"§c权限不足")
+
 
 def automsg(server,info,msg):
     if info.is_player:
@@ -76,5 +78,8 @@ def on_info(server,info):
                 automsg(server,info,"§l将要下载的依赖包：(x{})".format(str(len(packlist))))
                 for dp in packlist:
                     automsg(server,info,"- {}:§7§n{}".format(dp.packname,dp.packlink))
+            else:
+                NO_PERMISSION(server,info)
+        elif command[1]=='remove':
+            pass
             
-                
