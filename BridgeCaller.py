@@ -24,17 +24,6 @@ global bgSRV
 bgSRV = None
 HAVE_HELPER_PERMISSION = lambda info,server:server.get_permission_level(info) ==None or server.get_permission_level(info) >= 2
 
-def start_srv(server):
-    global bgSRV
-    bgSRV = thd.Thread(target=lambda:datapack_lib.start_srv(server),name='Datapack_lib服务线程')
-    bgSRV.start()
-
-def stop_srv(server):
-    global bgSRV
-    bgSRV._stop()
-    server.logger.info('datapack_lib服务已终止')
-
-
 def automsg(server,info,msg):
     if info.is_player:
         server.tell(info.player,msg)
@@ -52,11 +41,11 @@ def on_load(server,old_plugin):
     except:pass
 
     # Start background service
-    start_srv(server)
+    datapack_lib.start_srv(server)
     
 
 def on_unload(server):
-    stop_srv(server)
+    datapack_lib.stop_srv(server)
     
 def on_info(server,info):
     command = info.content.split(' ')

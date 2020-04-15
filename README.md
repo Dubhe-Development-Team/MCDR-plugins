@@ -1,39 +1,36 @@
 # BridgeCaller
 
-#### 介绍
-{**以下是码云平台说明，您可以替换此简介**
-码云是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+**注意！该插件还在开发中！本文档中提及的所有特性，都有可能在正式版本中删除或更改！**
 
-#### 软件架构
-软件架构说明
+BridgeCaller是一个对Minecraft数据包提供高级操作支持的插件。该插件可以让数据包使用随机数，调用系统时间等高级操作。该插件同时还可以对插件进行管理，无需服主自行替换。
 
+该插件依赖于API [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)。
 
-#### 安装教程
+## 插件管理功能
+该插件可以直接安装插件或数据包。此操作需要helper权限。
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+命令列表：
 
-#### 使用说明
+| 命令 | 所需权限 | 作用 |
+| :--------| :-----| :----- |
+| !!bc | All | 显示帮助信息 |
+| !!bc install <包链接> | Helper | 从指定链接安装包|
+| !!bc remove <包名> | Helper | 移除包 **注意：如果有依赖此包的包，也会一起移除！**
+| !!bc enable <包名> | Helper | 启用包 |
+| !!bc disable <包名> | Helper | 禁用包 |
+| !!bc update \[包名\] | Helper | 从包元数据中指定的链接升级包，包名留空以对所有包进行更新检测 |
+| !!bc reload | Helper | 重载所有的包 |
+| !!bc list | All | 显示所有已安装的包
+| !!bc listall | All | 显示所有插件和数据包
+| !!bc search <包名> | All | 查询是否已安装此包
+| !!bc on | Admin | 启用bc包管理功能 |
+| !!bc off | Admin | 禁用bc包管理功能 |
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## 数据包支持
+该功能将会为数据包提供高级功能支持。
 
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 码云特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5.  码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+**提供的功能：**
+### **随机数**
+待补充
+### **获取系统时间**
+待补充
