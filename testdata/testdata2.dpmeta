@@ -9,6 +9,7 @@
     "downloads":{
         "datapack":{
             "DPL.zip":"https://gitee.com/gu_zt666/BridgeCaller/raw/master/testdata/DPL.zip"
-        }
+        },
+        "pyplugin":{}
     }
 }
