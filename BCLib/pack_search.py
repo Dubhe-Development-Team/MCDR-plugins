@@ -1,6 +1,13 @@
 import requests as rq
 import random as rand
 import json,os
+from utils.info import Info
+
+def makeInfo():
+    r = Info()
+    r.player = '@a'
+    return r
+
 
 class Pack():
     def __init__(self,server,fromID=None,isroot=True,downlist={
@@ -29,9 +36,10 @@ class Pack():
         - link:元文件链接(如：https://gitee.com/gu_zt666/BridgeCaller/raw/master/testdata/testdata.dpmeta)
         '''
         self.packlink = link
-        self.server.execute('bossbar add getmeta{} "(由{}发起)正在获取{}的元数据"'.format(self.randID,self.fromID,self.packlink))
-        self.server.execute('bossbar set getmeta{} color green'.format(self.randID))
-        self.server.execute('bossbar set getmeta{} players @a'.format(self.randID))
+        if self.isroot:
+            self.server.execute('bossbar add getmeta{} "(由{}发起)正在获取{}的元数据"'.format(self.randID,self.fromID,self.packlink))
+            self.server.execute('bossbar set getmeta{} color green'.format(self.randID))
+            self.server.execute('bossbar set getmeta{} players @a'.format(self.randID))
         try:
             metafile = rq.get(self.packlink,timeout=60)
             self.meta = metafile.json()
@@ -94,7 +102,7 @@ class Pack():
                     fobj.write(downloadedf)
                 
             self.server.execute('reload')
-            self.server.execute('!!MCDR reload all')
+            self.server._ServerInterface__server.command_manager.reload_plugins(makeInfo())
 
     def check_update(self):
         '''

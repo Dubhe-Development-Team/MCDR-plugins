@@ -28,7 +28,8 @@ HAVE_HELPER_PERMISSION = lambda info,server:server.get_permission_level(info) ==
 HAVE_ADMIN_PERMISSION = lambda info,server:server.get_permission_level(info) ==None or server.get_permission_level(info) >= 3
 NO_PERMISSION = lambda server,info:server.tell(info.player,"§c权限不足")
 
-global pack
+global pack,blb
+blb = None
 pack = None
 
 def automsg(server,info,msg):
@@ -38,6 +39,7 @@ def automsg(server,info,msg):
         server.logger.info(msg)
 
 def on_load(server,old_plugin):
+
     server.logger.info("BridgeCaller {}".format(VERSION))
 
     server.add_help_message("!!bc","BridgeCaller插件管理")
