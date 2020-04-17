@@ -27,6 +27,7 @@ class Pack():
         try:
             metafile = rq.get(self.packlink,timeout=60)
             self.meta = metafile.json()
+            self.meta['child_plugins'] = []
             self.packname = self.meta['packname']
         except:
             raise
@@ -57,11 +58,31 @@ class Pack():
         ### 开始下载
         '''
         for pck in self.needpack:
+            pck.meta['child_plugins'].append(self.packname)
             pck.start_download()
 
         #print("{}start!".format(self.packname))
-        with open('bcfile/info/{}'.format(self.packname),'w') as pakinfo:
+        with open('bcfile/info/{}.dpmeta'.format(self.packname),'w') as pakinfo:
             json.dump(self.meta,pakinfo)
+
+        # Start download
+        if self.isroot:
+            for obj in self.downlist['datapack']:
+                downloadedf = rq.get(self.downlist['datapack'][obj]).content
+                try:
+                    with open('server/world/datapacks/{}'.format(obj),'wb') as fobj:
+                        fobj.write(downloadedf)
+                except:
+                    self.server.execute('datapack disable "file/{}"'.format(obj))
+                    with open('server/world/datapacks/{}'.format(obj),'wb') as fobj:
+                        fobj.write(downloadedf)
+                    self.server.execute('datapack enable "file/{}"'.format(obj))
+            for obj in self.downlist['pyplugin']:
+                downloadedf = rq.get(self.downlist['pyplugin'][obj]).content
+                
+                with open('plugins/{}'.format(obj),'wb') as fobj:
+                    fobj.write(downloadedf)
+                
 
     def check_update(self):
         '''

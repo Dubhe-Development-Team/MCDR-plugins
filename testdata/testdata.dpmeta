@@ -11,11 +11,9 @@
     ],
     "downloads":{
         "datapack":{
-            "Dp1.zip":"https://xxx.com/DpDownload.zip"
         },
         "pyplugin":{
-            "plugin1.py":"https://xxx.com/plugin3.py",
-            "plLib/plugin2.py":"https://xxx.com/plugin2.py"
+            "Here.py":"https://raw.githubusercontent.com/TISUnion/Here/master/Here.py"
         }
     }
 }
