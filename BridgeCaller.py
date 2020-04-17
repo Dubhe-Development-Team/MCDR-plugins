@@ -32,11 +32,7 @@ global pack,blb
 blb = None
 pack = None
 
-def automsg(server,info,msg):
-    if info.is_player:
-        server.tell(info.player,msg)
-    else:
-        server.logger.info(msg)
+
 
 def on_load(server,old_plugin):
 
@@ -63,30 +59,19 @@ def on_info(server,info):
         if command[1] == 'install':
             if HAVE_ADMIN_PERMISSION(info,server): 
                 
-                try:
-                    server.logger.info('正在寻找包')
-                    automsg(server,info,'正在寻找包...请稍后')
-                    pack = pack_search.Pack(server,info.player)
-                    pack.from_cloud(command[2])
-                except:
-                    if info.is_player:
-                        server.tell(info.player,'§c参数错误！请使用!!bc查看帮助')
-                    else:
-                        server.logger.info('参数错误！请使用!!bc查看帮助')
-                    return #back
-                downlist = pack.downlist
-                packlist = pack.needpack
-            
-                automsg(server,info,"§l包名:§r§a{}".format(pack.packname))
-                automsg(server,info,"§l将要下载的数据包：(x{})".format(str(len(downlist['datapack']))))
-                for dp in downlist['datapack']:
-                    automsg(server,info,"- {}:§7§n{}".format(dp,downlist['datapack'][dp]))
-                automsg(server,info,"§l将要下载的插件：(x{})".format(str(len(downlist['pyplugin']))))
-                for dp in downlist['pyplugin']:
-                    automsg(server,info,"- {}:§7§n{}".format(dp,downlist['pyplugin'][dp]))
-                automsg(server,info,"§l将要下载的依赖包：(x{})".format(str(len(packlist))))
-                for dp in packlist:
-                    automsg(server,info,"- {}:§7§n{}".format(dp.packname,dp.packlink))
+                # try: # 因调试需要，为防止错误自动捕获
+                server.logger.info('正在寻找包')
+                server.reply(info,'正在寻找包...请稍后')
+                pack = pack_search.Pack(server,info.player)
+                pack.from_cloud(command[2])
+                pack.show_status(info)
+                # except:
+                #     if info.is_player:
+                #         server.tell(info.player,'§c参数错误！请使用!!bc查看帮助')
+                #     else:
+                #         server.logger.info('参数错误！请使用!!bc查看帮助')
+                #     return #back
+                
             else:
                 NO_PERMISSION(server,info)
         elif command[1]=='remove':

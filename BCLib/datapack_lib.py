@@ -9,14 +9,16 @@ global bgSRV
 bgSRV = None
 
 def start_srv(server):
-    global bgSRV
-    bgSRV = thd.Thread(target=lambda:dpService(server),name='Datapack_lib服务线程')
-    bgSRV.start()
+    # global bgSRV
+    # bgSRV = thd.Thread(target=lambda:dpService(server),name='Datapack_lib服务线程')
+    # bgSRV.start()
+    pass
 
 def stop_srv(server):
-    global bgSRV
-    bgSRV._stop()
-    server.logger.info('Datapack_lib服务已终止')
+    # global bgSRV
+    # bgSRV._stop()
+    # server.logger.info('Datapack_lib服务已终止')
+    pass
 
 
 def dpService(server):

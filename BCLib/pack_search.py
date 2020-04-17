@@ -75,6 +75,16 @@ class Pack():
         '''
         ### 开始下载
         '''
+
+        if self.isroot:
+            self.server.execute('bossbar add down{} "(由{}发起)开始下载……"'.format(self.randID,self.fromID))
+            self.server.execute('bossbar set down{} color green'.format(self.randID))
+            self.server.execute('bossbar set down{} players @a'.format(self.randID))
+
+            self.server.execute('bossbar add downsub{} "子任务"'.format(self.randID))
+            self.server.execute('bossbar set downsub{} color green'.format(self.randID))
+            self.server.execute('bossbar set downsub{} players @a'.format(self.randID))
+
         for pck in self.needpack:
             pck.meta['child_plugins'].append(self.packname)
             pck.start_download()
@@ -85,6 +95,8 @@ class Pack():
 
         # Start download
         if self.isroot:
+            self.server.execute('bossbar set down{} value 0'.format(self.randID))
+            self.server.execute('bossbar set down{} name (由{}发起)正在下载：需要的数据包'.format(self.randID,self.fromID))
             for obj in self.downlist['datapack']:
                 downloadedf = rq.get(self.downlist['datapack'][obj]).content
                 try:
@@ -95,14 +107,31 @@ class Pack():
                     with open('server/world/datapacks/{}'.format(obj),'wb') as fobj:
                         fobj.write(downloadedf)
                     self.server.execute('datapack enable "file/{}"'.format(obj))
+            self.server.execute('bossbar set down{} value 40'.format(self.randID))
+            self.server.execute('bossbar set down{} name (由{}发起)正在下载：需要的插件包'.format(self.randID,self.fromID))
             for obj in self.downlist['pyplugin']:
                 downloadedf = rq.get(self.downlist['pyplugin'][obj]).content
                 
                 with open('plugins/{}'.format(obj),'wb') as fobj:
                     fobj.write(downloadedf)
                 
+            self.server.execute('bossbar set down{} value 80'.format(self.randID))
+            self.server.execute('bossbar set down{} name (由{}发起)正在重新加载以应用所有更改'.format(self.randID,self.fromID))
             self.server.execute('reload')
-            self.server._ServerInterface__server.command_manager.reload_plugins(makeInfo())
+            self.server._ServerInterface__server.command_manager.reload_plugins(makeInfo()) # reload all plugins
+
+    def show_status(self,info):
+        self.server.reply(info,"§l包名:§r§a{}".format(self.packname))
+        self.server.reply(info,"§l将要下载的数据包：(x{})".format(str(len(self.downlist['datapack']))))
+        for dp in self.downlist['datapack']:
+            self.server.reply(info,"- {}:§7§n{}".format(dp,self.downlist['datapack'][dp]))
+        self.server.reply(info,"§l将要下载的插件：(x{})".format(str(len(self.downlist['pyplugin']))))
+        for dp in self.downlist['pyplugin']:
+            self.server.reply(info,"- {}:§7§n{}".format(dp,self.downlist['pyplugin'][dp]))
+        self.server.reply(info,"§l将要下载的依赖包：(x{})".format(str(len(self.needpack))))
+        for dp in self.needpack:
+            self.server.reply(info,"- {}:§7§n{}".format(dp.packname,dp.packlink))
+        self.server.reply(info,'若要开始下载此包，请使用!!bc start_download')
 
     def check_update(self):
         '''
