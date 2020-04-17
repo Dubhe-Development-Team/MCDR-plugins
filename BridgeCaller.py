@@ -22,10 +22,14 @@ except:
 
 global bgSRV
 bgSRV = None
+
+# fast function
 HAVE_HELPER_PERMISSION = lambda info,server:server.get_permission_level(info) ==None or server.get_permission_level(info) >= 2
 HAVE_ADMIN_PERMISSION = lambda info,server:server.get_permission_level(info) ==None or server.get_permission_level(info) >= 3
 NO_PERMISSION = lambda server,info:server.tell(info.player,"§c权限不足")
 
+global pack
+pack = None
 
 def automsg(server,info,msg):
     if info.is_player:
@@ -39,7 +43,7 @@ def on_load(server,old_plugin):
     server.add_help_message("!!bc","BridgeCaller插件管理")
     try:
         for directory in ('bcfile', 'bcfile/tmp', 'bcfile/info'):
-            os.mikdir(directory)
+            os.mkdir(directory)
         server.logger.info('已初始化bcfile目录')
     except:pass
 
@@ -52,23 +56,26 @@ def on_unload(server):
     
 def on_info(server,info):
     command = info.content.split(' ')
+    global pack
     if command[0] == '!!bc':
         if command[1] == 'install':
             if HAVE_ADMIN_PERMISSION(info,server): 
-                try:
-                    server.logger.info('正在寻找包')
-                    automsg(server,info,'正在寻找包...请稍后')
-                    downpack = pack_search.Pack(command[2],server)
-                except:
-                    if info.is_player:
-                        server.tell(info.player,'§c参数错误！请使用!!bc查看帮助')
-                    else:
-                        server.logger.info('参数错误！请使用!!bc查看帮助')
-                    return #back
-                downlist = downpack.downlist
-                packlist = downpack.needpack
+                
+                # try:
+                server.logger.info('正在寻找包')
+                automsg(server,info,'正在寻找包...请稍后')
+                pack = pack_search.Pack(server)
+                pack.from_cloud(command[2])
+                # except:
+                #     if info.is_player:
+                #         server.tell(info.player,'§c参数错误！请使用!!bc查看帮助')
+                #     else:
+                #         server.logger.info('参数错误！请使用!!bc查看帮助')
+                #     return #back
+                downlist = pack.downlist
+                packlist = pack.needpack
             
-                automsg(server,info,"§l包名:§r§a{}".format(downpack.packname))
+                automsg(server,info,"§l包名:§r§a{}".format(pack.packname))
                 automsg(server,info,"§l将要下载的数据包：(x{})".format(str(len(downlist['datapack']))))
                 for dp in downlist['datapack']:
                     automsg(server,info,"- {}:§7§n{}".format(dp,downlist['datapack'][dp]))
@@ -82,4 +89,9 @@ def on_info(server,info):
                 NO_PERMISSION(server,info)
         elif command[1]=='remove':
             pass
-            
+        elif command[1] == 'start_download':
+            if HAVE_ADMIN_PERMISSION(info,server): 
+                #global pack
+                pack.start_download()
+            else:
+                NO_PERMISSION(server,info)
