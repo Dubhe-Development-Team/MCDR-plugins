@@ -63,17 +63,17 @@ def on_info(server,info):
         if command[1] == 'install':
             if HAVE_ADMIN_PERMISSION(info,server): 
                 
-                # try:
-                server.logger.info('正在寻找包')
-                automsg(server,info,'正在寻找包...请稍后')
-                pack = pack_search.Pack(server,info.player)
-                pack.from_cloud(command[2])
-                # except:
-                #     if info.is_player:
-                #         server.tell(info.player,'§c参数错误！请使用!!bc查看帮助')
-                #     else:
-                #         server.logger.info('参数错误！请使用!!bc查看帮助')
-                #     return #back
+                try:
+                    server.logger.info('正在寻找包')
+                    automsg(server,info,'正在寻找包...请稍后')
+                    pack = pack_search.Pack(server,info.player)
+                    pack.from_cloud(command[2])
+                except:
+                    if info.is_player:
+                        server.tell(info.player,'§c参数错误！请使用!!bc查看帮助')
+                    else:
+                        server.logger.info('参数错误！请使用!!bc查看帮助')
+                    return #back
                 downlist = pack.downlist
                 packlist = pack.needpack
             
