@@ -64,7 +64,7 @@ def on_info(server,info):
                 # try:
                 server.logger.info('正在寻找包')
                 automsg(server,info,'正在寻找包...请稍后')
-                pack = pack_search.Pack(server)
+                pack = pack_search.Pack(server,info.player)
                 pack.from_cloud(command[2])
                 # except:
                 #     if info.is_player:

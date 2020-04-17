@@ -3,11 +3,12 @@ import random as rand
 import json,os
 
 class Pack():
-    def __init__(self,server,isroot=True,downlist={
+    def __init__(self,server,fromID=None,isroot=True,downlist={
         "datapack":{},
         "pyplugin":{}
     },needpack=[]):
         
+        self.randID = rand.randint(100000,999999)
         self.server = server
         self.isroot = isroot
         self.packlink = ''
@@ -15,6 +16,11 @@ class Pack():
         self.downlist = downlist # 传递引用，使所有嵌套共用一个列表，以便管理
         self.needpack = needpack
         self.packname = ""
+
+        if fromID==None:
+            self.fromID = '服务器终端'
+        else:
+            self.fromID = fromID
         
     
     def from_cloud(self,link):
@@ -22,8 +28,10 @@ class Pack():
         ### 从网络获取包
         - link:元文件链接(如：https://gitee.com/gu_zt666/BridgeCaller/raw/master/testdata/testdata.dpmeta)
         '''
-
         self.packlink = link
+        self.server.execute('bossbar add getmeta{} "(由{}发起)正在获取{}的元数据"'.format(self.randID,self.fromID,self.packlink))
+        self.server.execute('bossbar set getmeta{} color green'.format(self.randID))
+        self.server.execute('bossbar set getmeta{} players @a'.format(self.randID))
         try:
             metafile = rq.get(self.packlink,timeout=60)
             self.meta = metafile.json()
@@ -32,7 +40,7 @@ class Pack():
         except:
             raise
         try:
-            self.needpack = self.needpack+[Pack(self.server,False,self.downlist,self.needpack).from_cloud(lib['meta']) for lib in self.meta['lib']]
+            self.needpack = self.needpack+[Pack(self.server,self.fromID,False,self.downlist,self.needpack).from_cloud(lib['meta']) for lib in self.meta['lib']]
 
             for lib in self.meta['downloads']['datapack']:
                 self.downlist['datapack'][lib] = self.meta['downloads']['datapack'][lib]
@@ -44,8 +52,10 @@ class Pack():
             self.server.logger.info('下载文件信息：{}'.format(str(self.downlist)))
         except:
             raise
-
+        
+        self.server.execute('bossbar remove getmeta{}'.format(self.randID))
         return self
+
     def from_local(self,file_name):
         '''
         ### 从本地获取包
@@ -83,6 +93,8 @@ class Pack():
                 with open('plugins/{}'.format(obj),'wb') as fobj:
                     fobj.write(downloadedf)
                 
+            self.server.execute('reload')
+            self.server.execute('!!MCDR reload all')
 
     def check_update(self):
         '''

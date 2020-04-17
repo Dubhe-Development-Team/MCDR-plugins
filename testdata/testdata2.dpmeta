@@ -10,6 +10,8 @@
         "datapack":{
             "DPL.zip":"https://gitee.com/gu_zt666/BridgeCaller/raw/master/testdata/DPL.zip"
         },
-        "pyplugin":{}
+        "pyplugin":{
+            "ServerReload.py":"https://gitee.com/gu_zt666/MCDR-plugins/raw/master/plugins/ServerReload/SeverReload-v0.3.2.py"
+        }
     }
 }
