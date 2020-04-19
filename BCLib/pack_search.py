@@ -96,7 +96,7 @@ class Pack():
         # Start download
         if self.isroot:
             self.server.execute('bossbar set down{} value 0'.format(self.randID))
-            self.server.execute('bossbar set down{} name (由{}发起)正在下载：需要的数据包'.format(self.randID,self.fromID))
+            self.server.execute('bossbar set down{} name "(由{}发起)正在下载：需要的数据包"'.format(self.randID,self.fromID))
             for obj in self.downlist['datapack']:
                 downloadedf = rq.get(self.downlist['datapack'][obj]).content
                 try:
@@ -108,7 +108,7 @@ class Pack():
                         fobj.write(downloadedf)
                     self.server.execute('datapack enable "file/{}"'.format(obj))
             self.server.execute('bossbar set down{} value 40'.format(self.randID))
-            self.server.execute('bossbar set down{} name (由{}发起)正在下载：需要的插件包'.format(self.randID,self.fromID))
+            self.server.execute('bossbar set down{} name "(由{}发起)正在下载：需要的插件包"'.format(self.randID,self.fromID))
             for obj in self.downlist['pyplugin']:
                 downloadedf = rq.get(self.downlist['pyplugin'][obj]).content
                 
@@ -116,7 +116,7 @@ class Pack():
                     fobj.write(downloadedf)
                 
             self.server.execute('bossbar set down{} value 80'.format(self.randID))
-            self.server.execute('bossbar set down{} name (由{}发起)正在重新加载以应用所有更改'.format(self.randID,self.fromID))
+            self.server.execute('bossbar set down{} name "(由{}发起)正在重新加载以应用所有更改"'.format(self.randID,self.fromID))
             self.server.execute('reload')
             self.server._ServerInterface__server.command_manager.reload_plugins(makeInfo()) # reload all plugins
 
