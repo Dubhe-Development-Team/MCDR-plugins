@@ -115,3 +115,7 @@ dmypy.json
 .pyre/
 
 .vscode/
+.vs/
+
+*.pyproj
+*.sln
