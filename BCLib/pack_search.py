@@ -100,6 +100,7 @@ class Pack():
             self.server.execute('bossbar set down{} value 0'.format(self.randID))
             self.server.execute('bossbar set down{} name "(由{}发起)正在下载：需要的数据包"'.format(self.randID,self.fromID))
             self.server.execute('bossbar set downsub{} name "正在下载({}/{})：{}"'.format(self.randID,datapack_cnt,0,''))
+            self.server.execute('bossbar set downsub{} max {}'.format(self.randID,datapack_cnt))
             
             # Download datapacks
             down_index = 0
@@ -116,13 +117,15 @@ class Pack():
                     with open('server/world/datapacks/{}'.format(obj),'wb') as fobj:
                         fobj.write(downloadedf)
                     self.server.execute('datapack enable "file/{}"'.format(obj))
-            self.server.execute('bossbar set downsub{} value {}'.format(self.randID,int(datapack_cnt/down_index*100)))
+            self.server.execute('bossbar set downsub{} value {}'.format(self.randID,down_index))
                 
 
             # Download plugins
             self.server.execute('bossbar set down{} value 40'.format(self.randID))
             self.server.execute('bossbar set down{} name "(由{}发起)正在下载：需要的插件包"'.format(self.randID,self.fromID))
             self.server.execute('bossbar set downsub{} name "正在下载({}/{})：{}"'.format(self.randID,plugin_cnt,0,''))
+            self.server.execute('bossbar set downsub{} max {}'.format(self.randID,plugin_cnt))
+
             
             down_index = 0
             self.server.execute('bossbar set downsub{} value 0'.format(self.randID))
@@ -134,7 +137,8 @@ class Pack():
                 
                 with open('plugins/{}'.format(obj),'wb') as fobj:
                     fobj.write(downloadedf)
-                self.server.execute('bossbar set downsub{} value {}'.format(self.randID,int(plugin_cnt/down_index*100)))
+                self.server.execute('bossbar set downsub{} value {}'.format(self.randID,down_index))
+
                 
             self.server.execute('bossbar remove downsub{}'.format(self.randID))
                
