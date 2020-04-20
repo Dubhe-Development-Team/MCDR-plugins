@@ -92,12 +92,21 @@ class Pack():
         #print("{}start!".format(self.packname))
         with open('bcfile/info/{}.dpmeta'.format(self.packname),'w') as pakinfo:
             json.dump(self.meta,pakinfo)
-
+        
+        plugin_cnt = len(self.downlist['pyplugin'])
+        datapack_cnt = len(self.downlist['datapack'])
         # Start download
         if self.isroot:
             self.server.execute('bossbar set down{} value 0'.format(self.randID))
             self.server.execute('bossbar set down{} name "(由{}发起)正在下载：需要的数据包"'.format(self.randID,self.fromID))
+            self.server.execute('bossbar set downsub{} name "正在下载({}/{})：{}"'.format(self.randID,datapack_cnt,0,''))
+            
+            # Download datapacks
+            down_index = 0
             for obj in self.downlist['datapack']:
+                down_index += 1
+                self.server.execute('bossbar set downsub{} name "正在下载({}/{})：{}"'.format(self.randID,down_index,datapack_cnt,obj))
+                
                 downloadedf = rq.get(self.downlist['datapack'][obj]).content
                 try:
                     with open('server/world/datapacks/{}'.format(obj),'wb') as fobj:
@@ -107,18 +116,34 @@ class Pack():
                     with open('server/world/datapacks/{}'.format(obj),'wb') as fobj:
                         fobj.write(downloadedf)
                     self.server.execute('datapack enable "file/{}"'.format(obj))
+            self.server.execute('bossbar set downsub{} value {}'.format(self.randID,int(datapack_cnt/down_index*100)))
+                
+
+            # Download plugins
             self.server.execute('bossbar set down{} value 40'.format(self.randID))
             self.server.execute('bossbar set down{} name "(由{}发起)正在下载：需要的插件包"'.format(self.randID,self.fromID))
+            self.server.execute('bossbar set downsub{} name "正在下载({}/{})：{}"'.format(self.randID,plugin_cnt,0,''))
+            
+            down_index = 0
+            self.server.execute('bossbar set downsub{} value 0'.format(self.randID))
+            
             for obj in self.downlist['pyplugin']:
+                down_index += 1
+                self.server.execute('bossbar set downsub{} name "正在下载({}/{})：{}"'.format(self.randID,down_index,plugin_cnt,obj))
                 downloadedf = rq.get(self.downlist['pyplugin'][obj]).content
                 
                 with open('plugins/{}'.format(obj),'wb') as fobj:
                     fobj.write(downloadedf)
+                self.server.execute('bossbar set downsub{} value {}'.format(self.randID,int(plugin_cnt/down_index*100)))
                 
+            self.server.execute('bossbar remove downsub{}'.format(self.randID))
+               
             self.server.execute('bossbar set down{} value 80'.format(self.randID))
             self.server.execute('bossbar set down{} name "(由{}发起)正在重新加载以应用所有更改"'.format(self.randID,self.fromID))
             self.server.execute('reload')
             self.server._ServerInterface__server.command_manager.reload_plugins(makeInfo()) # reload all plugins
+            self.server.execute('bossbar remove down{}'.format(self.randID))
+
 
     def show_status(self,info):
         self.server.reply(info,"§l包名:§r§a{}".format(self.packname))

@@ -79,6 +79,6 @@ def on_info(server,info):
         elif command[1] == 'start_download':
             if HAVE_ADMIN_PERMISSION(info,server): 
                 #global pack
-                pack.start_download()
+                down_thread = thd.Thread(target=pack.start_download(),name="Download Thread")
             else:
                 NO_PERMISSION(server,info)
