@@ -12,8 +12,10 @@
     "downloads":{
         "datapack":{
         },
-        "pyplugin":{
-            "Here.py":"https://raw.githubusercontent.com/TISUnion/Here/master/Here.py"
-        }
+      "pyplugin": {
+        "Here.py": "https://raw.githubusercontent.com/TISUnion/Here/master/Here.py",
+        "Beep.py": "https://raw.githubusercontent.com/TISUnion/Beep/master/beep.py",
+        "AutoCleaner.py": "https://raw.githubusercontent.com/Forgot-Dream/MCDR-AutoCleaner/master/AutoCleaner.py"
+      }
     }
 }
