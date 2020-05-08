@@ -2,7 +2,7 @@
     "packname":"Datapack", 
     "packversion":2,
     "packversion_display":"v1.2",
-    "update_link":"https://xxx.com/datapack.dpmeta",
+    "update_link":"https://gitee.com/gu_zt666/BridgeCaller/raw/master/testdata/testdata.dpmeta",
     "lib":[
         {
             "meta":"https://gitee.com/gu_zt666/BridgeCaller/raw/master/testdata/testdata2.dpmeta",

@@ -28,9 +28,9 @@ HAVE_HELPER_PERMISSION = lambda info,server:server.get_permission_level(info) ==
 HAVE_ADMIN_PERMISSION = lambda info,server:server.get_permission_level(info) ==None or server.get_permission_level(info) >= 3
 NO_PERMISSION = lambda server,info:server.tell(info.player,"§c权限不足")
 
-global pack,blb
+global tasks,blb
 blb = None
-pack = None
+tasks = pack_actions.getTaskList()
 
 
 
@@ -54,23 +54,26 @@ def on_unload(server):
     
 def on_info(server,info):
     command = info.content.split(' ')
-    global pack
+    if info.player == None:
+        info.player_bcsign = '服务器终端'
+    else:
+        info.player_bcsign = info.player
+
+    global tasks
     if command[0] == '!!bc':
         if command[1] == 'install':
             if HAVE_ADMIN_PERMISSION(info,server): 
                 
-                # try: # 因调试需要，为防止错误自动捕获
-                server.logger.info('正在寻找包')
-                server.reply(info,'正在寻找包...请稍后')
-                pack = pack_search.Pack(server,info.player)
-                pack.from_cloud(command[2])
-                pack.show_status(info)
-                # except:
-                #     if info.is_player:
-                #         server.tell(info.player,'§c参数错误！请使用!!bc查看帮助')
-                #     else:
-                #         server.logger.info('参数错误！请使用!!bc查看帮助')
-                #     return #back
+                try: # 因调试需要，为防止错误自动捕获
+                    server.logger.info('正在寻找包')
+                    server.reply(info,'正在寻找包...请稍后')
+                    tasks[info.player_bcsign] = packobj.Pack(server,info.player_bcsign)
+                    tasks[info.player_bcsign].from_cloud(command[2])
+                    tasks[info.player_bcsign].show_status(info)
+                except Exception as exp:
+                    server.reply(info,'§c错误: {}'.format(exp))
+                    del tasks[info.player_bcsign]
+                    return #back
                 
             else:
                 NO_PERMISSION(server,info)
@@ -79,6 +82,23 @@ def on_info(server,info):
         elif command[1] == 'start_download':
             if HAVE_ADMIN_PERMISSION(info,server): 
                 #global pack
-                down_thread = thd.Thread(target=pack.start_download(),name="Download Thread")
+                down_thread = thd.Thread(target=tasks[info.player_bcsign].start_download(),name="Download Thread")
             else:
                 NO_PERMISSION(server,info)
+        elif command[1] == 'chkupdate':
+            if HAVE_HELPER_PERMISSION(info,server): 
+                tasks[info.player_bcsign] = packobj.Pack(server,info.player_bcsign)
+                try:
+                    tasks[info.player_bcsign].from_local(command[2])
+                except FileNotFoundError as exp:
+                    server.reply(info,'§c无效的插件名！ {}'.format(exp))
+                    return
+                except IndexError as exp:
+                    server.reply(info,'§c请输入插件名！ {}'.format(exp))
+                    return
+                if tasks[info.player_bcsign].chkupdate():
+                    tasks[info.player_bcsign].show_status()
+                else:
+                    server.reply('暂无无可用更新')
+        else:
+            server.reply(info,"§c命令错误！使用!!bc查看帮助")

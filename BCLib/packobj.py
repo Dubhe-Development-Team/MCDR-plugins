@@ -1,12 +1,12 @@
 import requests as rq
 import random as rand
 import json,os
-from utils.info import Info
+try:
+    from plugins.BCLib.pack_actions import *
+except:
+    from BCLib.pack_actions import *
 
-def makeInfo():
-    r = Info()
-    r.player = '@a'
-    return r
+from utils.info import Info
 
 
 class Pack():
@@ -23,13 +23,10 @@ class Pack():
         self.downlist = downlist # 传递引用，使所有嵌套共用一个列表，以便管理
         self.needpack = needpack
         self.packname = ""
+        self.version = 0
+        self.fromID = fromID
+        self.childPacks = []
 
-        if fromID==None:
-            self.fromID = '服务器终端'
-        else:
-            self.fromID = fromID
-        
-    
     def from_cloud(self,link):
         '''
         ### 从网络获取包
@@ -62,14 +59,25 @@ class Pack():
             raise
         
         self.server.execute('bossbar remove getmeta{}'.format(self.randID))
+        self.version = self.meta['packversion']
+
         return self
 
-    def from_local(self,file_name):
+    def from_local(self,file_name,outMCDR=False):
         '''
         ### 从本地获取包
         - file_name:文件名(如：/home/wrc/test.dpmeta)
+        - outMCDR:是否处于外部
         '''
-        pass
+        if not outMCDR:
+            file_name = "./bcfile/info/{}.dpmeta".format(file_name)
+
+        with open(file_name) as meta:
+            self.meta = json.load(meta)
+        self.version = self.meta['packversion']
+        self.childPacks = self.meta['child_plugins']
+        self.version = self.meta['packversion']
+        self.packname = self.meta['packname']
 
     def start_download(self):
         '''
@@ -148,7 +156,6 @@ class Pack():
             self.server._ServerInterface__server.command_manager.reload_plugins(makeInfo()) # reload all plugins
             self.server.execute('bossbar remove down{}'.format(self.randID))
 
-
     def show_status(self,info):
         self.server.reply(info,"§l包名:§r§a{}".format(self.packname))
         self.server.reply(info,"§l将要下载的数据包：(x{})".format(str(len(self.downlist['datapack']))))
@@ -162,12 +169,18 @@ class Pack():
             self.server.reply(info,"- {}:§7§n{}".format(dp.packname,dp.packlink))
         self.server.reply(info,'若要开始下载此包，请使用!!bc start_download')
 
-    def check_update(self):
+    def chkupdate(self):
         '''
         ### 检查包更新
+        True:有更新
+        False:无更新
         '''
-        pass
-
+        self.packlink = self.meta['update_link']
+        vernow = self.meta['packversion']
+        self.from_cloud(self.packlink)
+        
+        return vernow < self.version
+            
     def remove(self,mode=0):
         '''
         ### 移除包
@@ -175,3 +188,10 @@ class Pack():
         - mode=0:只移除此包和依赖此包的包
         '''
         pass
+
+    def __del__(self):
+        self.server.execute('bossbar remove getmeta{}'.format(self.randID))
+        self.server.execute('bossbar remove downsub{}'.format(self.randID))
+        self.server.execute('bossbar remove down{}'.format(self.randID))
+
+        

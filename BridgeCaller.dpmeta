@@ -1,0 +1,19 @@
+{
+    "packname":"BridgeCaller",
+    "packversion":0,
+    "packversion_display":"v0.1",
+    "update_link":"",
+    "lib":[
+    ],
+    "downloads":{
+        "datapack":{
+        },
+        "pyplugin":{
+            "BridgeCaller.py":"https://xxx.com/plugin1.py",
+            "BCLib/__init__.py": "https://xxx.com/plugin2.py",
+            "BCLib/datapack_lib.py": "",
+            "BCLib/pack_search.py": "",
+            "BCLib/VERY IMPORTANT! DONT EDLETE!": ""
+        }
+    }
+}

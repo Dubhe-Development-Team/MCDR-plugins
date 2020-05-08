@@ -1,25 +1,55 @@
 {
-    "packname":"Datapack",  //包名
-    "packversion":2,   //包版本
-    "packversion_display":"v1.2",
-    "update_link":"https://xxx.com/datapack.dpmeta",
-    "lib":[
+    "packname": "Datapack", //包名
+    "packversion": 2, //包版本
+    "packversion_display": "v1.2", //包版本的显示名
+    "child_plugins": [], //依赖改包的包。由BridgeCaller生成，不用填写
+    "update_link": "https://xxx.com/datapack.dpmeta", //升级地址
+    "lib": [
         {
-            "meta":"https://xxx.com/DPH.dpmeta",
-            "version":-1   //All
+            "meta": "https://xxx.com/DPH.dpmeta", //依赖的包的地址
+            "version": -1 //All
         },
         {
-            "meta":"https://xxx.com/MCLIB.dpmeta",
-            "version":">=2"   //高于或等于2的版本
+            "meta": "https://xxx.com/MCLIB.dpmeta",
+            "version": ">=2" //高于或等于2的版本
         }
     ],
-    "downloads":{
-        "datapack":{
-            "Dp1.zip":"https://xxx.com/DpDownload.zip"
+    "downloads": { //需要下载的项
+        "datapack": { //需要下载的数据包
+            "Dp1.zip": "https://xxx.com/DpDownload.zip"
         },
-        "pyplugin":{
-            "plugin1.py":"https://xxx.com/plugin1.py",
-            "plLib/plugin2.py":"https://xxx.com/plugin2.py"
+        "pyplugin": { //需要下载的MCDR插件
+            "plugin1.py": "https://xxx.com/plugin1.py",
+            "plLib/plugin2.py": "https://xxx.com/plugin2.py"
         }
+    },
+    "setup_info": { //安装选项。该项为可选项。
+        "need_restart_server": false, //安装后是否需要重启服务器
+        "need_restart_MCDR": false, //安装后是否重启MCDR
+        "update_execute": [ // 将要执行的操作。对于第一次安装和升级插件都有效
+            {
+                "type": "pyplugin", //pyplgin:MCDR插件   mcfunction:Minecraft 函数
+                "name": "plugin1", //要执行的文件名。python插件不需要.py，和import语法一致（如：BCLib.lib2）。函数直接使用/function的调用形式即可
+                "execute_pos": "server_start" //执行位置。分别为finished_upd,server_start,server_restart和server_closed，可选，默认为finished_upd
+                /*
+            作用：
+                finished_upd:升级过程完毕后执行
+                server_restart:服务器重启操作时服务器关闭后执行
+                server_start:服务器在插件升级后第一次启动时执行
+                server_closed:服务器在插件升级后第一次关服后执行
+            注意：server_restart和server_closed不支持mcfunction执行。
+            */
+            },
+            {
+                "type": "mcfunction",
+                "name": "eg1:launch/setup",
+                "execute_pos": "finished_upd"
+            },
+            {
+                "type": "pyplugin",
+                "name": "egp.setup",
+                "execute_pos": "finished_upd"
+            }
+        ]
     }
 }
