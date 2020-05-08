@@ -1,5 +1,7 @@
 '''
-# BridgeCaller v0.1
+BridgeCaller v0.1
+
+该插件提供数据接口。请使用BCLib中的bcapi。
 
 依赖的库：
 - requests
@@ -10,7 +12,11 @@ VERSION = "v0.1"
 import os
 import requests as rq
 import threading as thd
-from .BCLib import *
+import importlib as il
+try:
+    from .BCLib import *
+except:
+    from plugins.BCLib import *
 
 global bgSRV
 bgSRV = None

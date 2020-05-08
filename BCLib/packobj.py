@@ -1,3 +1,9 @@
+'''
+packobj
+
+BridgeCaller包对象(Pack)
+
+'''
 import requests as rq
 import random as rand
 import json,os
@@ -7,6 +13,16 @@ from utils.info import Info
 
 
 class Pack():
+    '''
+    Pack:包对象
+
+    from_cloud：从云端获取包
+    from_local：从本地获取包
+    start_download：开始下载
+    chkupdate：检查更新
+    show_status：显示包信息
+    remove：移除包
+    '''
     def __init__(self,server,fromID=None,isroot=True,downlist={
         "datapack":{},
         "pyplugin":{}

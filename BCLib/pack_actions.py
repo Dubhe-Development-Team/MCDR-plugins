@@ -10,8 +10,6 @@ PacksTasksNow = {}
 }
 '''
 
-
-########################################
 def makeInfo():
     r = Info()
     r.player = '@a'
@@ -20,9 +18,3 @@ def makeInfo():
 def getTaskList():
     return PacksTasksNow
 
-###########PUBLIC LIB##################
-def isInstalled(name,version=-1):
-    pass
-
-def getPackInfo(name):
-    pass
