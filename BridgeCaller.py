@@ -99,6 +99,6 @@ def on_info(server,info):
                 if tasks[info.player_bcsign].chkupdate():
                     tasks[info.player_bcsign].show_status()
                 else:
-                    server.reply('暂无无可用更新')
+                    server.reply(info,'暂无无可用更新')
         else:
             server.reply(info,"§c命令错误！使用!!bc查看帮助")
