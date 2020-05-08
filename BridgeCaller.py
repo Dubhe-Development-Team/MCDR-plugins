@@ -12,11 +12,13 @@ VERSION = "v0.1"
 import os
 import requests as rq
 import threading as thd
-import importlib as il
-try:
-    from .BCLib import *
-except:
-    from plugins.BCLib import *
+import importlib as ilib
+
+global pack_actions,packobj,datapack_lib
+
+pack_actions = ilib.import_module('plugins.BCLib.pack_actions')
+packobj = ilib.import_module('plugins.BCLib.packobj')
+datapack_lib = ilib.import_module('plugins.BCLib.datapack_lib')
 
 global bgSRV
 bgSRV = None
@@ -33,8 +35,14 @@ tasks = pack_actions.getTaskList()
 
 
 def on_load(server,old_plugin):
+    global pack_actions,packobj,datapack_lib
 
     server.logger.info("BridgeCaller {}".format(VERSION))
+    # 动态重载
+    
+    for m in (pack_actions,packobj,datapack_lib):
+        server.logger.info('已加载{}'.format(m))
+        ilib.reload(m)
 
     server.add_help_message("!!bc","BridgeCaller插件管理")
     try:
