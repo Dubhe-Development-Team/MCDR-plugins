@@ -1,10 +1,7 @@
 import requests as rq
 import random as rand
 import json,os
-try:
-    from plugins.BCLib.pack_actions import *
-except:
-    from BCLib.pack_actions import *
+from .pack_actions import *
 
 from utils.info import Info
 

@@ -10,15 +10,7 @@ VERSION = "v0.1"
 import os
 import requests as rq
 import threading as thd
-try:
-    from BCLib import *
-    print('dbg import')
-except:
-    try:
-        from plugins.BCLib import *
-        print('MCDR env import')
-    except:
-        raise
+from .BCLib import *
 
 global bgSRV
 bgSRV = None
@@ -90,15 +82,13 @@ def on_info(server,info):
                 tasks[info.player_bcsign] = packobj.Pack(server,info.player_bcsign)
                 try:
                     tasks[info.player_bcsign].from_local(command[2])
-                except FileNotFoundError as exp:
-                    server.reply(info,'§c无效的插件名！ {}'.format(exp))
-                    return
-                except IndexError as exp:
-                    server.reply(info,'§c请输入插件名！ {}'.format(exp))
+                except Exception as exp:
+                    server.reply(info,"错误：{}".format(exp))
                     return
                 if tasks[info.player_bcsign].chkupdate():
-                    tasks[info.player_bcsign].show_status()
+                    server.reply(info,'检测到新版本：')
+                    tasks[info.player_bcsign].show_status(info)
                 else:
-                    server.reply(info,'暂无无可用更新')
+                    server.reply(info,'已是最新版本。')
         else:
             server.reply(info,"§c命令错误！使用!!bc查看帮助")
