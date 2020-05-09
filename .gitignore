@@ -117,9 +117,6 @@ dmypy.json
 .vscode/
 .vs/
 
-*.pyproj
-*.sln
-*.user
 
 # pycharm
 /.idea
