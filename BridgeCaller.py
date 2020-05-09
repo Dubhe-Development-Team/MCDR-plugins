@@ -28,17 +28,15 @@ HAVE_HELPER_PERMISSION = lambda info,server:server.get_permission_level(info) ==
 HAVE_ADMIN_PERMISSION = lambda info,server:server.get_permission_level(info) ==None or server.get_permission_level(info) >= 3
 NO_PERMISSION = lambda server,info:server.tell(info.player,"§c权限不足")
 
-global tasks,blb
+global tasks,blb,COMMAND_LINKS
 blb = None
 tasks = pack_actions.getTaskList()
 
 COMMAND_LINKS = {
-    "install":[pack_actions.installPack,True,3],
-    "start_download":[pack_actions.startDownload,False,2],
-    "chkupdate":[pack_actions.checkUpdate,True,2]
 }
 
 def launch_cmd(server,info,launch_target,arg=None):
+    
     if server.get_permission_level(info) ==None or server.get_permission_level(info) >= launch_target[2]:
         if launch_target[1]:
             launch_target[0](server,info,arg)
@@ -48,7 +46,13 @@ def launch_cmd(server,info,launch_target,arg=None):
         NO_PERMISSION(server,info)
 
 def on_load(server,old_plugin):
-    global pack_actions,packobj,datapack_lib
+    # define commands
+    global pack_actions,packobj,datapack_lib,COMMAND_LINKS
+    COMMAND_LINKS = {
+        "install":[pack_actions.installPack,True,3],
+        "start_download":[pack_actions.startDownload,False,2],
+        "chkupdate":[pack_actions.checkUpdate,True,2]
+    }
 
     server.logger.info("BridgeCaller {}".format(VERSION))
     # 动态重载
@@ -69,7 +73,11 @@ def on_load(server,old_plugin):
         except:
             pass
     server.logger.info('已初始化bcfile目录')
-    
+
+    # gen file SHA-256
+    server.logger.info('开始更新SHA-256缓存')
+    pack_actions.refreshSHA256(server)
+    server.logger.info('SHA-256缓存更新完毕')
 
     # Start background service
     datapack_lib.start_srv(server)
@@ -79,6 +87,7 @@ def on_unload(server):
     datapack_lib.stop_srv(server)
     
 def on_info(server,info):
+    global COMMAND_LINKS
     command = info.content.split(' ')
     if info.player == None:
         info.player_bcsign = '服务器终端'
