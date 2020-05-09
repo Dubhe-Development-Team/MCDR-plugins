@@ -29,11 +29,27 @@ BridgeCaller是一个对Minecraft数据包提供更多原版数据包无法达�
 | !!bc disable <包名> | Helper | 禁用包 |
 | !!bc update \[包名\] | Helper | 从包元数据中指定的链接升级包，包名留空以对所有包进行更新检测 |
 | !!bc reload | Helper | 重载所有的包 |
+| !!bc regen-SHA-256 | Helper | 重新计算SHA-256缓存，在同文件判断出现问题时可以使用 |
+| !!bc SHA-256 <路径> | All | 查询对应文件的SHA-256，在下文详细解释 |
 | !!bc list | All | 显示所有已安装的包
 | !!bc listall | All | 显示所有插件和数据包
 | !!bc search <包名> | All | 查询是否已安装此包
 | !!bc on | Admin | 启用bc包管理功能 |
 | !!bc off | Admin | 禁用bc包管理功能 |
+
+### SHA-256
+使用方法：!!bc SHA-256 <路径>
+
+<路径>为**类型**+**路径**
+
+支持的类型为：
+- pyplugins：Python插件
+- datapacks：数据包
+
+如：\
+!!bc SHA-256 pyplugins/BridgeCaller.py \
+!!bc SHA-256 datapacks/dp1.zip
+
 
 ## 数据包支持
 该功能将为数据包提供一些数据包无法达到或很难达到的功能的接口。
