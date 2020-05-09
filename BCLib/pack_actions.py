@@ -13,7 +13,7 @@ DownloadThreads = {}
 }
 '''
 def format_err_msg(msg):
-    msg_list = ['§c'+x for x in str(msg)]
+    msg_list = ['§c'+x+'§c' for x in str(msg)]
     return ''.join(msg_list)
     
 
