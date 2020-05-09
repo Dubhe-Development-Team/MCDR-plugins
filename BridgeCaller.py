@@ -95,11 +95,9 @@ def on_info(server,info):
 
     global tasks
     if command[0] == '!!bc':
-        try:
-            if command[1] == None:
-                server.reply('未知的命令！')
-        except:
-            server.reply('未知的命令！')
+        if len(command)==1:
+            pack_actions.show_help_msg(server,info)
+            return 
         try:
             if not COMMAND_LINKS[command[1]][1]:
                 launch_cmd(server,info,COMMAND_LINKS[command[1]])

@@ -54,6 +54,28 @@ def getPackInfo(name):
     pass
 
 ###### 内部函数，如果不知道这些函数的作用，请勿调用！#####
+def show_help_msg(server,info):
+    help_msg ="""
+###############################################
+§7!!bc    §r显示帮助信息
+§7!!bc install <包链接>   §r从指定链接安装包
+§7!!bc remove <包名>    §r移除包 注意：如果有依赖此包的包，也会一起移除！
+§7!!bc enable <包名>    §r启用包
+§7!!bc disable <包名>    §r禁用包
+§7!!bc update [包名]    §r从包元数据中指定的链接升级包，包名留空以对所有包进行更新检测
+§7!!bc reload    §r重载所有的包
+§7!!bc regen-SHA-256    §r重新计算SHA-256缓存，在同文件判断出现问题时可以使用
+§7!!bc SHA-256 <路径>    §r查询对应文件的SHA-256，在下文详细解释
+§7!!bc list    §r显示所有已安装的包
+§7!!bc listall    §r显示所有插件和数据包
+§7!!bc search <包名>    §r查询是否已安装此包
+§7!!bc on    §r启用bc包管理功能
+§7!!bc off    §r禁用bc包管理功能
+查看更多帮助，请前往：§9§nhttps://gitee.com/gu_zt666/BridgeCaller"""
+    
+    server.reply(info,help_msg)
+
+
 def refreshSHA256(server):
     server.logger.info('开始更新SHA-256缓存')
     for i in ('./bcfile/cache/sha-256/pyplugins','./bcfile/cache/sha-256/datapacks'):
