@@ -32,7 +32,20 @@ global tasks,blb
 blb = None
 tasks = pack_actions.getTaskList()
 
+COMMAND_LINKS = {
+    "install":[pack_actions.installPack,True,3],
+    "start_download":[pack_actions.startDownload,False,2],
+    "chkupdate":[pack_actions.checkUpdate,True,2]
+}
 
+def launch_cmd(server,info,launch_target,arg=None):
+    if server.get_permission_level(info) ==None or server.get_permission_level(info) >= launch_target[2]:
+        if launch_target[1]:
+            launch_target[0](server,info,arg)
+        else:
+            launch_target[0](server,info)
+    else:
+        NO_PERMISSION(server,info)
 
 def on_load(server,old_plugin):
     global pack_actions,packobj,datapack_lib
@@ -45,11 +58,18 @@ def on_load(server,old_plugin):
         ilib.reload(m)
 
     server.add_help_message("!!bc","BridgeCaller插件管理")
-    try:
-        for directory in ('bcfile', 'bcfile/tmp', 'bcfile/info'):
+    
+    for directory in ('bcfile', 'bcfile/tmp', 'bcfile/info','bcfile/cache',
+                    'bcfile/cache/sha-256','bcfile/cache/sha-256/pyplugins',
+                    'bcfile/cache/sha-256/datapacks','bcfile/filelink',
+                    'bcfile/filelink/pyplugins','bcfile/filelink/datapacks'):
+        try:
             os.mkdir(directory)
-        server.logger.info('已初始化bcfile目录')
-    except:pass
+            server.logger.info("创建目录：{}".format(directory))
+        except:
+            pass
+    server.logger.info('已初始化bcfile目录')
+    
 
     # Start background service
     datapack_lib.start_srv(server)
@@ -67,42 +87,22 @@ def on_info(server,info):
 
     global tasks
     if command[0] == '!!bc':
-        if command[1] == 'install':
-            if HAVE_ADMIN_PERMISSION(info,server): 
-                
-                try: # 因调试需要，为防止错误自动捕获
-                    server.logger.info('正在寻找包')
-                    server.reply(info,'正在寻找包...请稍后')
-                    tasks[info.player_bcsign] = packobj.Pack(server,info.player_bcsign)
-                    tasks[info.player_bcsign].from_cloud(command[2])
-                    tasks[info.player_bcsign].show_status(info)
-                except Exception as exp:
-                    server.reply(info,'§c错误: {}'.format(exp))
-                    del tasks[info.player_bcsign]
-                    return #back
-                
+        try:
+            if command[1] == None:
+                server.reply('未知的命令！')
+        except:
+            server.reply('未知的命令！')
+        try:
+            if not COMMAND_LINKS[command[1]][1]:
+                launch_cmd(server,info,COMMAND_LINKS[command[1]])
             else:
-                NO_PERMISSION(server,info)
-        elif command[1]=='remove':
-            pass
-        elif command[1] == 'start_download':
-            if HAVE_ADMIN_PERMISSION(info,server): 
-                #global pack
-                down_thread = thd.Thread(target=tasks[info.player_bcsign].start_download(),name="Download Thread")
-            else:
-                NO_PERMISSION(server,info)
-        elif command[1] == 'chkupdate':
-            if HAVE_HELPER_PERMISSION(info,server): 
-                tasks[info.player_bcsign] = packobj.Pack(server,info.player_bcsign)
-                try:
-                    tasks[info.player_bcsign].from_local(command[2])
-                except Exception as exp:
-                    server.reply(info,"错误：{}".format(exp))
-                    return
-                if tasks[info.player_bcsign].chkupdate():
-                    server.reply(info,'检测到新版本：')
-                    tasks[info.player_bcsign].show_status(info)
-                else:
-                    server.reply(info,'已是最新版本。')
-        else:
-            server.reply(info,"§c命令错误！使用!!bc查看帮助")
+                launch_cmd(server,info,COMMAND_LINKS[command[1]],command[2])
+        except IndexError as exp:
+            server.reply(info,'§c参数缺失！ {}'.format(exp))
+        except KeyError as exp:
+            server.reply(info,'§c参数错误！ {}'.format(exp))
+        except Exception as exp:
+            server.reply(info,'§c{}'.format(pack_actions.format_err_msg(exp)))
+            try:pack_actions.delTask(info.player_bcsign)
+            except:pass
+
