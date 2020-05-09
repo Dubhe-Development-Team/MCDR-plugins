@@ -9,7 +9,6 @@ import random as rand
 import json,os
 from .pack_actions import *
 
-from utils.info import Info
 
 
 class Pack():

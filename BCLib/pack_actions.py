@@ -18,3 +18,8 @@ def makeInfo():
 def getTaskList():
     return PacksTasksNow
 
+def isInstalled(name,version=-1):
+    pass
+
+def getPackInfo(name):
+    pass
