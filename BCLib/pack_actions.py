@@ -55,12 +55,14 @@ def getPackInfo(name):
 
 ###### 内部函数，如果不知道这些函数的作用，请勿调用！#####
 def refreshSHA256(server):
+    server.logger.info('开始更新SHA-256缓存')
     for i in ('./bcfile/cache/sha-256/pyplugins','./bcfile/cache/sha-256/datapacks'):
         shutil.rmtree(i)
         os.mkdir(i)
 
     gen_floderSHA('./plugins','./bcfile/cache/sha-256/pyplugins')
     gen_floderSHA('./server/world/datapacks','./bcfile/cache/sha-256/datapacks')
+    server.logger.info('SHA-256缓存更新完毕')
 
 def installPack(server,info,name):
     server.logger.info('正在寻找包')

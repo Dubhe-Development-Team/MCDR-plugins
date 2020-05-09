@@ -166,6 +166,7 @@ class Pack():
             self.server.execute('bossbar set down{} name "(由{}发起)正在重新加载以应用所有更改"'.format(self.randID,self.fromID))
             self.server.execute('reload')
             self.server._ServerInterface__server.command_manager.reload_plugins(makeInfo()) # reload all plugins
+            refreshSHA256(self.server)
             self.server.execute('bossbar remove down{}'.format(self.randID))
 
     def show_status(self,info):

@@ -75,9 +75,8 @@ def on_load(server,old_plugin):
     server.logger.info('已初始化bcfile目录')
 
     # gen file SHA-256
-    server.logger.info('开始更新SHA-256缓存')
     pack_actions.refreshSHA256(server)
-    server.logger.info('SHA-256缓存更新完毕')
+    
 
     # Start background service
     datapack_lib.start_srv(server)
