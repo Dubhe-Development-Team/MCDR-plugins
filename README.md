@@ -4,6 +4,7 @@
 
 BridgeCaller是一个对Minecraft数据包提供更多原版数据包无法达到的功能的插件。该插件可以让数据包使用随机数，调用系统时间等功能。该插件同时还可以对插件进行管理，无需服主自行替换。
 
+
 ## 使用方法
 **_插件尚未开发完毕，可能无法使用！_**
 1. 克隆本仓库到本地
@@ -26,8 +27,8 @@ BridgeCaller是一个对Minecraft数据包提供更多原版数据包无法达�
 | !!bc install <包链接> | Admin | 从指定链接安装包|
 | !!bc remove <包名> | Admin | 移除包 **注意：如果有依赖此包的包，也会一起移除！**
 | !!bc enable <包名> | Helper | 启用包 |
-| !!bc disable <包名> | Helper | 禁用包 |
-| !!bc update \[包名\] | Helper | 从包元数据中指定的链接升级包，包名留空以对所有包进行更新检测 |
+| !!bc disable <包名> | Help | 禁用包 |
+| !!bc update <包名> | Helper | 从包元数据中指定的链接升级包 |
 | !!bc reload | Helper | 重载所有的包 |
 | !!bc regen-SHA-256 | Helper | 重新计算SHA-256缓存，在同文件判断出现问题时可以使用 |
 | !!bc SHA-256 <路径> | All | 查询对应文件的SHA-256，在下文详细解释 |
