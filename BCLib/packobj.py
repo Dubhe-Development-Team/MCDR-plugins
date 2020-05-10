@@ -38,6 +38,7 @@ class Pack():
         self.version = 0
         self.fromID = fromID
         self.childPacks = []
+        self.download_thread = None
 
     def from_cloud(self,link):
         '''
@@ -90,6 +91,9 @@ class Pack():
         self.childPacks = self.meta['child_plugins']
         self.version = self.meta['packversion']
         self.packname = self.meta['packname']
+
+    def start_download_thread(self):
+        pass
 
     def start_download(self):
         '''

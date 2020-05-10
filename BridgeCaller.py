@@ -24,8 +24,6 @@ global bgSRV
 bgSRV = None
 
 # fast function
-HAVE_HELPER_PERMISSION = lambda info,server:server.get_permission_level(info) ==None or server.get_permission_level(info) >= 2
-HAVE_ADMIN_PERMISSION = lambda info,server:server.get_permission_level(info) ==None or server.get_permission_level(info) >= 3
 NO_PERMISSION = lambda server,info:server.tell(info.player,"§c权限不足")
 
 global tasks,blb,COMMAND_LINKS
@@ -104,9 +102,9 @@ def on_info(server,info):
             else:
                 launch_cmd(server,info,COMMAND_LINKS[command[1]],command[2])
         except IndexError as exp:
-            server.reply(info,'§c参数缺失！ {}'.format(exp))
+            server.reply(info,'§c参数缺失！ {}'.format(pack_actions.format_err_msg(exp)))
         except KeyError as exp:
-            server.reply(info,'§c参数错误！ {}'.format(exp))
+            server.reply(info,'§c参数错误！ {}'.format(pack_actions.format_err_msg(exp)))
         except Exception as exp:
             server.reply(info,'§c{}'.format(pack_actions.format_err_msg(exp)))
             try:pack_actions.delTask(info.player_bcsign)
