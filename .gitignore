@@ -123,3 +123,6 @@ dmypy.json
 
 # pycharm
 /.idea
+
+# Cjsah
+test.py
