@@ -121,8 +121,7 @@ dmypy.json
 # pycharm
 /.idea
 
-
-# VS 奇怪的东西
-BridgeCaller.pyproj
-BridgeCaller.pyproj.user
-BridgeCaller.sln
+#VS的奇怪东西
+.pyproj
+.user
+.sln
