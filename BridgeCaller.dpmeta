@@ -2,18 +2,21 @@
     "packname":"BridgeCaller",
     "packversion":0,
     "packversion_display":"v0.1",
-    "update_link":"",
+    "update_link":"https://gitee.com/gu_zt666/BridgeCaller/raw/master/BridgeCaller.dpmeta",
     "lib":[
     ],
     "downloads":{
         "datapack":{
         },
         "pyplugin":{
-            "BridgeCaller.py":"https://xxx.com/plugin1.py",
-            "BCLib/__init__.py": "https://xxx.com/plugin2.py",
-            "BCLib/datapack_lib.py": "",
-            "BCLib/pack_search.py": "",
-            "BCLib/VERY IMPORTANT! DONT EDLETE!": ""
+            "BridgeCaller.py":"https://gitee.com/gu_zt666/BridgeCaller/raw/master/BridgeCaller.py",
+            "BCLib/__init__.py": "https://gitee.com/gu_zt666/BridgeCaller/raw/master/BCLib/__init__.py",
+            "BCLib/datapack_lib.py": "https://gitee.com/gu_zt666/BridgeCaller/raw/master/BCLib/datapack_lib.py",
+            "BCLib/packobj.py": "https://gitee.com/gu_zt666/BridgeCaller/raw/master/BCLib/packobj.py",
+            "BCLib/pack_actions.py": "https://gitee.com/gu_zt666/BridgeCaller/raw/master/BCLib/pack_actions.py",
+            "BCLib/bcapi.py": "https://gitee.com/gu_zt666/BridgeCaller/raw/master/BCLib/bcapi.py",
+            "BCLib/VERY IMPORTANT! DONT EDLETE!": "https://gitee.com/gu_zt666/BridgeCaller/raw/master/BCLib/VERY%20IMPORTANT!%20DONT%20EDLETE!",
+            "BcLib/langs/zh-CN.json":"https://gitee.com/gu_zt666/BridgeCaller/raw/master/BCLib/langs/zh-CN.json"
         }
     }
 }
