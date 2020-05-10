@@ -95,7 +95,7 @@ def installPack(server,info,name):
 
 def startDownload(server,info):
     try:
-        DownloadThreads[info.player_bcsign] = thd.Thread(target=PacksTasksNow[info.player_bcsign].start_download(),name="Download Thread")
+        DownloadThreads[info.player_bcsign] = thd.Thread(target=PacksTasksNow[info.player_bcsign].start_download(),name="BridgeCaller: Download Thread")
     except KeyError:
         server.reply(info,'§c目前没有要下载的任务')
 
