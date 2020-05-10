@@ -121,8 +121,15 @@ dmypy.json
 # pycharm
 /.idea
 
+<<<<<<< HEAD
 # Visual Studio
 *.sln
 *.pyproj
 *.user
 BridgeCaller.pyproj.user
+=======
+#VS的奇怪东西
+.pyproj
+.user
+.sln
+>>>>>>> 54eea51c44a1be5768ef471acd8aa60da32eef17
