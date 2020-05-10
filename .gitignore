@@ -117,12 +117,9 @@ dmypy.json
 .vscode/
 .vs/
 
+*.pyproj
+*.sln
+*.user
 
 # pycharm
 /.idea
-
-# Visual Studio
-*.sln
-*.pyproj
-*.user
-BridgeCaller.pyproj.user
