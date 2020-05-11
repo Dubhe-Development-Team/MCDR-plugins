@@ -10,6 +10,8 @@ BridgeCaller是一个对Minecraft数据包提供更多原版数据包无法达�
 1. 克隆本仓库到本地
 2. 将文件夹BCLib和BridgeCaller.py复制到MCDR的plugins文件夹下
 
+~~注：完成后将会发布release版本~~
+
 ## 运行环境
 - [Python 3.X ](https://python.org)
 - [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)（版本>=alpha 0.7，否则部分功能无法工作）
