@@ -55,6 +55,6 @@ def get_date(server):
             return
 
 
-def radom(server):
+def random(server):
     server.execute("scoreboard objectives add bc.rand dummy")
     server.execute("scoreboard players set $random bc.rand " + random.randint(-100000, 100000))
