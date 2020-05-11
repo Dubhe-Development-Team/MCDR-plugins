@@ -8,7 +8,7 @@ import os
 import nbtlib
 
 global path
-
+global seed
 
 # 获取服务器目录
 def get_path():
@@ -38,6 +38,7 @@ def get_seed(server):
     # 文件内容分成列表
     nbt = str(nbtlib.load(path).root['Data']).split(', ')
     # 读取失败赋值不变
+    global seed
     seed = "读取失败"
     for i in nbt:
         # 获取种子
@@ -45,9 +46,6 @@ def get_seed(server):
             seed = i[12:-1]
             print(seed)
             break
-    # 种子写入到玩家$seed的bc.seed计分板
-    server.execute("scoreboard objectives add bc.seed dummy")
-    server.execute("scoreboard players set $seed bc.seed " + seed)
 
 
 # 获取玩家真实ID

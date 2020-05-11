@@ -40,19 +40,17 @@ def dpService(server):
 def get_time(server):
     server.execute("scoreboard objectives add bc.time dummy")
     global STOP_SIGN
-    while True:
-        d = datetime.today()
+    d = datetime.today()
 
-        server.execute("scoreboard players set #year bc.time " + str(d.year))
-        server.execute("scoreboard players set #month bc.time " + str(d.month))
-        server.execute("scoreboard players set #day bc.time " + str(d.day))
-        server.execute("scoreboard players set #hour bc.time " + str(d.hour))
-        server.execute("scoreboard players set #minute bc.time " + str(d.minute))
-        server.execute("scoreboard players set #second bc.time " + str(d.second))
-        server.execute("scoreboard players set #week bc.time " + str(d.isoweekday()))
-        time.sleep(1)
-        if STOP_SIGN:
-            return
+    server.execute("scoreboard players set #year bc.time " + str(d.year))
+    server.execute("scoreboard players set #month bc.time " + str(d.month))
+    server.execute("scoreboard players set #day bc.time " + str(d.day))
+    server.execute("scoreboard players set #hour bc.time " + str(d.hour))
+    server.execute("scoreboard players set #minute bc.time " + str(d.minute))
+    server.execute("scoreboard players set #second bc.time " + str(d.second))
+    server.execute("scoreboard players set #week bc.time " + str(d.isoweekday()))
+    if STOP_SIGN:
+        return
 
 
 def rand(server):
