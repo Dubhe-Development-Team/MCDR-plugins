@@ -18,7 +18,7 @@ DownloadThreads = {}
 
 
 def format_err_msg(msg):
-    msg_list = ['§c'+x+'§c' for x in str(msg)]
+    msg_list = ['§c' + x + '§c' for x in str(msg)]
     return ''.join(msg_list)
 
 
@@ -29,7 +29,7 @@ def genSHA_256(filename):
 
 def gen_floderSHA(floder, target):
     for i in os.listdir(floder):
-        if not os.path.isfile(floder+'/'+i):
+        if not os.path.isfile(floder + '/' + i):
             try:
                 os.mkdir('{}/{}'.format(target, i))
             except:
@@ -37,7 +37,7 @@ def gen_floderSHA(floder, target):
             gen_floderSHA('{}/{}'.format(floder, i), '{}/{}'.format(target, i))
         else:
             with open('{}/{}.sha-256'.format(target, i), 'w') as sha:
-                sha.write(str(genSHA_256(floder+'/'+i)))
+                sha.write(str(genSHA_256(floder + '/' + i)))
 
 
 def makeInfo():
@@ -81,7 +81,7 @@ def show_help_msg(server, info):
 §7!!bc on    §r启用bc包管理功能
 §7!!bc off    §r禁用bc包管理功能
 查看更多帮助，请前往：§9§nhttps://gitee.com/gu_zt666/BridgeCaller"""
-    
+
     server.reply(info, help_msg)
 
 
@@ -106,7 +106,8 @@ def installPack(server, info, name):
 
 def startDownload(server, info):
     try:
-        DownloadThreads[info.player_bcsign] = thd.Thread(target=PacksTasksNow[info.player_bcsign].start_download(), name="BridgeCaller: Download Thread")
+        DownloadThreads[info.player_bcsign] = thd.Thread(target=PacksTasksNow[info.player_bcsign].start_download(),
+                                                         name="BridgeCaller: Download Thread")
     except KeyError:
         server.reply(info, '§c目前没有要下载的任务')
 
@@ -114,7 +115,7 @@ def startDownload(server, info):
 def checkUpdate(server, info, name):
     PacksTasksNow[info.player_bcsign] = Pack(server, info.player_bcsign)
     PacksTasksNow[info.player_bcsign].from_local(name)
-    
+
     if PacksTasksNow[info.player_bcsign].chkupdate():
         server.reply(info, '检测到新版本：')
         PacksTasksNow[info.player_bcsign].show_status(info)

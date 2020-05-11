@@ -6,7 +6,7 @@ BridgeCaller包对象(Pack)
 """
 import requests as rq
 import random as rand
-import json,os
+import json, os
 from .pack_actions import *
 
 
