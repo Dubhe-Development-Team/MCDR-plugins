@@ -1,6 +1,6 @@
 # Economy
 
-[English](https://github.com/zhang-anzhi/Economy/blob/master/readme_en.md)
+[English](https://gitee.com/gu_zt666/MCDR-plugins/blob/Economy/README_EN.MD)
 
 > [MCDReforged](https://github.com/Fallen-Breath/MCDReforged) 经济插件
 >
