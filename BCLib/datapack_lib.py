@@ -17,7 +17,7 @@ STOP_SIGN = 0
 
 def start_srv(server):
     global bgSRV
-    bgSRV = thd.Thread(target=lambda:dpService(server),name='BridgeCaller: Datapack_lib服务线程')
+    bgSRV = thd.Thread(target=lambda: dpService(server), name='BridgeCaller: Datapack_lib服务线程')
     bgSRV.start()
 
 
@@ -27,9 +27,9 @@ def stop_srv(server):
 
 
 def dpService(server):
-    '''数据包辅助服务'''
+    """数据包辅助服务"""
     # service start code
-    thd.Thread(target=lambda:get_date(server),name="BridgeCaller: 日期服务").start()
+    thd.Thread(target=lambda: get_date(server), name="BridgeCaller: 日期服务").start()
     server.logger.info('datapack_lib已启动')
     global STOP_SIGN
     while True:
