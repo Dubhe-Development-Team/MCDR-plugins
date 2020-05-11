@@ -29,7 +29,7 @@ def stop_srv(server):
 def dpService(server):
     """数据包辅助服务"""
     # service start code
-    thd.Thread(target=lambda: get_date(server), name="BridgeCaller: 日期服务").start()
+    thd.Thread(target=lambda: get_time(server), name="BridgeCaller: 时间获取服务").start()
     server.logger.info('datapack_lib已启动')
     global STOP_SIGN
     while True:
@@ -37,7 +37,7 @@ def dpService(server):
             return
 
 
-def get_date(server):
+def get_time(server):
     server.execute("scoreboard objectives add bc.time dummy")
     global STOP_SIGN
     while True:
@@ -55,6 +55,6 @@ def get_date(server):
             return
 
 
-def random(server):
+def rand(server):
     server.execute("scoreboard objectives add bc.rand dummy")
     server.execute("scoreboard players set $random bc.rand " + random.randint(-100000, 100000))
