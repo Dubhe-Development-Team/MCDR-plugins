@@ -13,6 +13,7 @@ import os
 import requests as rq
 import threading as thd
 import importlib as ilib
+import nbtlib
 
 global pack_actions, packobj, datapack_lib
 
