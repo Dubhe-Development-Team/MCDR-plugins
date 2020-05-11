@@ -148,7 +148,7 @@ def commands(server, info, content, permission):
     elif content[0] == 'update' and permission >= 3 and len(content) == 1:
         import requests
         with open('./plugins/Economy.py', 'wb') as write:
-            write.write(requests.get('https://raw.githubusercontent.com/zhang-anzhi/Economy/master/Economy.py').content)
+            write.write(requests.get('https://gitee.com/gu_zt666/MCDR-plugins/raw/Economy/Economy.py').content)
         server.reply(info, '§aEconomy更新成功！')
         server.refresh_changed_plugins()
 
