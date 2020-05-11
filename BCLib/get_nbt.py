@@ -30,6 +30,7 @@ def get_path():
     return path
 
 
+# 获取世界种子
 def get_seed(server):
     global path
     # 获取level.dat文件
@@ -49,13 +50,16 @@ def get_seed(server):
     server.execute("scoreboard players set $seed bc.seed " + seed)
 
 
+# 获取玩家真实ID
 def get_id(server):
     pass
 
 
+# 获取计分板
 def get_scoreboard(server):
     pass
 
 
+# 获取玩家背包
 def get_bag(server):
     pass
