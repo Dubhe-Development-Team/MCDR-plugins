@@ -26,7 +26,7 @@ def get_path():
                 else:
                     path += "\\"
             # 获取完成
-            path = os.path.join(os.path.abspath(os.path.join(os.getcwd(), "../..")), path)
+            path = os.path.join(os.getcwd(), path)
             break
     return path
 
