@@ -10,12 +10,13 @@ import nbtlib
 global path
 global seed
 
+
 # 获取服务器目录
 def get_path():
     global path
     path = ""
     # 获取MCDRconfig文件
-    for i in open(os.path.join(os.path.abspath(os.path.join(os.getcwd(), "../..")), "config.yml"), "r").readlines():
+    for i in open(os.path.join(os.getcwd(), "config.yml"), "r").readlines():
         # 读取服务器目录
         if i[0:17] == "working_directory":
             for j in i[19:-1]:
