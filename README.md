@@ -59,6 +59,6 @@ BridgeCaller是一个对Minecraft数据包提供更多原版数据包无法达�
 #### 随机数
 待补充
 #### 获取系统时间
-bc随时在获取系统时间
-保存在计分板**bc.time**中
+bc随时在获取系统时间 \
+保存在计分板**bc.time**中 \
 具体时间分别储存在虚拟玩家**$year**,**$month**,**$day**,**$hour**,**$minute**,**$second**,**$week**中
