@@ -5,13 +5,17 @@ lock
 
 """
 
+ALL = '**'
 
 class Lock():
-    def __init__(self, main_action):
+    def __init__(self, server, main_action):
         pass
 
     def add_lock(self, action):
         pass
 
     def release_lock(self, action):
+        pass
+
+    def get_lock_status(self, action):
         pass
