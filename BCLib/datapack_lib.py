@@ -13,7 +13,7 @@ from .get_nbt import start_srv as start_nbt_srv , stop_srv as stop_nbt_srv
 global bgSRV
 bgSRV = None
 global STOP_SIGN
-STOP_SIGN = 0 #debug
+STOP_SIGN = 0   # debug
 
 
 def start_srv(server):

@@ -81,9 +81,9 @@ def on_load(server, old_plugin):
 
     # Start background service
     # 如果服务器暂未启动，就不启动，等待至服务器启动后再启动服务。
-    if SERVER_STARTED:datapack_lib.start_srv(server)
-    
-    
+    if SERVER_STARTED:
+        datapack_lib.start_srv(server)
+
 
 def on_unload(server):
     datapack_lib.stop_srv(server)
@@ -117,6 +117,7 @@ def on_info(server, info):
                 pack_actions.delTask(info.player_bcsign)
             except:
                 pass
+
 
 def on_server_startup(server):
     global SERVER_STARTED
