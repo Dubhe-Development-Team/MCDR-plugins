@@ -80,7 +80,7 @@ def on_load(server, old_plugin):
 
     # Start background service
     datapack_lib.start_srv(server)
-    get_nbt.get_seed(server)
+    get_nbt.start_srv(server)
     
 
 def on_unload(server):
