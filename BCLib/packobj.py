@@ -49,29 +49,13 @@ class Pack():
             self.server.execute('bossbar add getmeta{} "(由{}发起)正在获取{}的元数据"'.format(self.randID, self.fromID, self.packlink))
             self.server.execute('bossbar set getmeta{} color green'.format(self.randID))
             self.server.execute('bossbar set getmeta{} players @a'.format(self.randID))
-        try:
-            metafile = rq.get(self.packlink, timeout=60)
-            self.meta = metafile.json()
-            self.meta['child_plugins'] = []
-            self.packname = self.meta['packname']
-        except:
-            raise
-        try:
-            self.needpack = self.needpack+[Pack(self.server, self.fromID, False, self.downlist, self.needpack).from_cloud(lib['meta']) for lib in self.meta['lib']]
-
-            for lib in self.meta['downloads']['datapack']:
-                self.downlist['datapack'][lib] = self.meta['downloads']['datapack'][lib]
-                self.server.logger.info('下载数据包文件源添加: {}'.format(self.downlist['datapack'][lib]))
-            for lib in self.meta['downloads']['pyplugin']:
-                self.downlist['pyplugin'][lib] = self.meta['downloads']['pyplugin'][lib]
-                self.server.logger.info('下载插件文件源添加: {}'.format(self.downlist['pyplugin'][lib]))
-
-            self.server.logger.info('下载文件信息：{}'.format(str(self.downlist)))
-        except:
-            raise
         
+        metafile = rq.get(self.packlink, timeout=60)
+        self.meta = metafile.json()
+        self.meta['child_plugins'] = []
+        self.packname = self.meta['packname']
+        self.chkdata()
         self.server.execute('bossbar remove getmeta{}'.format(self.randID))
-        self.version = self.meta['packversion']
 
         return self
 
@@ -86,10 +70,7 @@ class Pack():
 
         with open(file_name) as meta:
             self.meta = json.load(meta)
-        self.version = self.meta['packversion']
-        self.childPacks = self.meta['child_plugins']
-        self.version = self.meta['packversion']
-        self.packname = self.meta['packname']
+        self.chkdata()
 
     def start_download_thread(self):
         pass
@@ -201,6 +182,21 @@ class Pack():
         - mode=0:只移除此包和依赖此包的包
         """
         pass
+
+    def chkdata(self):
+        self.version = self.meta['packversion']
+        self.childPacks = self.meta['child_plugins']
+        self.packname = self.meta['packname']
+        self.needpack = self.needpack+[Pack(self.server, self.fromID, False, self.downlist, self.needpack).from_cloud(lib['meta']) for lib in self.meta['lib']]
+
+        for lib in self.meta['downloads']['datapack']:
+            self.downlist['datapack'][lib] = self.meta['downloads']['datapack'][lib]
+            self.server.logger.info('下载数据包文件源添加: {}'.format(self.downlist['datapack'][lib]))
+        for lib in self.meta['downloads']['pyplugin']:
+            self.downlist['pyplugin'][lib] = self.meta['downloads']['pyplugin'][lib]
+            self.server.logger.info('下载插件文件源添加: {}'.format(self.downlist['pyplugin'][lib]))
+
+        self.server.logger.info('下载文件信息：{}'.format(str(self.downlist)))
 
     def __del__(self):
         self.server.execute('bossbar remove getmeta{}'.format(self.randID))
