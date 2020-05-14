@@ -7,15 +7,15 @@ BridgeCaller是一个对Minecraft数据包提供更多原版数据包无法达�
 
 ## 使用方法
 **_插件尚未开发完毕，可能无法使用！_**
-1. 克隆本仓库到本地
-2. 将文件夹BCLib和BridgeCaller.py复制到MCDR的plugins文件夹下
+1. 从release下载最新发行版。若要获得最新特性，可以克隆本仓库**注意：仓库内可能会包含有未完善的功能，谨慎使用**
+2. 将压缩包BCLib和BridgeCaller.py复制到MCDR的plugins文件夹下
 
 ~~注：完成后将会发布release版本~~
 
 ## 运行环境
 - [Python 3.X ](https://python.org)
 - [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)（版本>=alpha 0.7，否则部分功能无法工作）
-- 确保服务器支持rcon连接
+- 确保服务器支持rcon连接（否则在执行命令时会刷屏，导致服务器崩溃）
 
 
 ## 插件管理功能
@@ -63,3 +63,6 @@ BridgeCaller是一个对Minecraft数据包提供更多原版数据包无法达�
 #### 获取系统时间
 bc随时在获取系统时间 \
 保存在计分板为 **bc.time** 的虚拟玩家 **$year**, **$month**, **$day**, **$hour**, **$minute**, **$second**, **$week** 中
+
+## 关于本仓库的Pull Requests
+我们欢迎您使用PR协助我们开发，但要注意：**请不要夹带私货（如后门等），否则我们将拒绝您的PR请求。**
