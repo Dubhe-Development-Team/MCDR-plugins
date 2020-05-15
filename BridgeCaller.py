@@ -14,13 +14,12 @@ import requests as rq
 import threading as thd
 import importlib as ilib
 
-global pack_actions, packobj, datapack_lib, get_nbt, SERVER_STARTED
+global pack_actions, packobj, datapack_lib, SERVER_STARTED
 SERVER_STARTED = False
 
 pack_actions = ilib.import_module('plugins.BCLib.pack_actions')
 packobj = ilib.import_module('plugins.BCLib.packobj')
 datapack_lib = ilib.import_module('plugins.BCLib.datapack_lib')
-get_nbt = ilib.import_module('plugins.BCLib.get_nbt')
 
 global bgSRV
 bgSRV = None
@@ -49,7 +48,7 @@ def launch_cmd(server, info, launch_target, arg=None):
 
 def on_load(server, old_plugin):
     # define commands
-    global pack_actions, packobj, datapack_lib, get_nbt, COMMAND_LINKS
+    global pack_actions, packobj, datapack_lib, COMMAND_LINKS
     COMMAND_LINKS = {
         "install": [pack_actions.installPack, True, 3],
         "start_download": [pack_actions.startDownload, False, 2],
@@ -59,7 +58,7 @@ def on_load(server, old_plugin):
     server.logger.info("BridgeCaller {}".format(VERSION))
     # 动态重载
     
-    for m in (pack_actions, packobj, datapack_lib, get_nbt):
+    for m in (pack_actions, packobj, datapack_lib):
         server.logger.info('已加载{}'.format(m))
         ilib.reload(m)
 
@@ -83,7 +82,7 @@ def on_load(server, old_plugin):
     # 如果服务器暂未启动，就不启动，等待至服务器启动后再启动服务。
     if SERVER_STARTED:
         pass
-        #datapack_lib.start_srv(server)
+        # datapack_lib.start_srv(server)
 
 
 def on_unload(server):
@@ -124,4 +123,4 @@ def on_server_startup(server):
     global SERVER_STARTED
     SERVER_STARTED = True
     # Start background service
-    #datapack_lib.start_srv(server)
+    # datapack_lib.start_srv(server)

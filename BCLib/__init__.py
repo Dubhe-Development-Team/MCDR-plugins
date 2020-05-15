@@ -12,4 +12,4 @@ get_nbt： 读取nbt文件并调用
 """
 
 
-__all__ = ['packobj', 'datapack_lib', 'pack_actions', 'player', 'get_nbt','lock']
+__all__ = ['packobj', 'datapack_lib', 'pack_actions', 'player', 'lock']
