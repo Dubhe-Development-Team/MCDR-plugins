@@ -49,7 +49,7 @@ def get_time(server):
     global STOP_SIGN
     time.sleep(3)
     if not server.is_rcon_running():
-        server.logger.info("服务器未开启rcon，时间获取服务关闭")
+        server.logger.info("服务器未开启rcon，时间获取服务已关闭")
         return
     while True:
         if STOP_SIGN:
@@ -72,7 +72,7 @@ def rand(server):
     global STOP_SIGN
     time.sleep(3)
     if not server.is_rcon_running():
-        server.logger.info("服务器未开启rcon，随机数服务关闭")
+        server.logger.info("服务器未开启rcon，随机数服务已关闭")
         return
     while True:
         if STOP_SIGN:
