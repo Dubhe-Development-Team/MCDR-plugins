@@ -30,9 +30,10 @@ def stop_srv(server):
 def dpService(server):
     """数据包辅助服务"""
     # service start code
+    thd.Thread(target=lambda: initialization(server), name="BridgeCaller: 初始化服务").start()
     thd.Thread(target=lambda: get_time(server), name="BridgeCaller: 时间获取服务").start()
     thd.Thread(target=lambda: rand(server), name="BridgeCaller: 随机数服务").start()
-    thd.Thread(target=lambda: get_seed(), name="BridgeCaller: 种子获取服务").start()
+    thd.Thread(target=lambda: get_seed(server), name="BridgeCaller: 种子获取服务").start()
     server.logger.info('datapack_lib已启动')
     global STOP_SIGN
     while True:
@@ -40,10 +41,17 @@ def dpService(server):
             return
 
 
-def get_time(server):
+def initialization(server):
     server.execute("scoreboard objectives add bc dummy")
+
+
+def get_time(server):
     global STOP_SIGN
+    time.sleep(3)
     while True:
+        if not server.is_rcon_running():
+            server.execute("say 服务器未开启rcon，时间获取服务关闭")
+            break
         if server.rcon_query("scoreboard players get #time bc") == "#time has 1 [bc]":
             d = datetime.today()
             server.execute("scoreboard players set #time bc 0")
@@ -61,9 +69,12 @@ def get_time(server):
 
 
 def rand(server):
-    server.execute("scoreboard objectives add bc dummy")
     global STOP_SIGN
+    time.sleep(3)
     while True:
+        if not server.is_rcon_running():
+            server.execute("say 服务器未开启rcon，时间获取服务关闭")
+            break
         if server.rcon_query("scoreboard players get #random bc") == "#random has 1 [bc]":
             server.execute("scoreboard players set #random bc 0")
             server.execute("scoreboard objectives add bc.rand dummy")
@@ -74,7 +85,7 @@ def rand(server):
 
 
 # 获取世界种子
-def get_seed():
+def get_seed(server):
     # 获取level.dat文件
     path = os.path.join(get_path(), "world", "level.dat")
     # 文件内容分成列表
@@ -86,7 +97,8 @@ def get_seed():
         if i[0:10] == "RandomSeed":
             seed = i[12:-1]
             break
-    return "地图种子为： " + str(seed)
+    server.execute("say 世界种子为： " + str(seed))
+    # return "世界种子为： " + str(seed)
 
 
 # 获取玩家真实ID
@@ -102,7 +114,7 @@ def get_bag():
 # 获取服务器目录
 def get_path():
     path = ""
-    # 获取MCDRconfig文件
+    # 获取MCDR config文件
     for i in open(os.path.join(os.getcwd(), "config.yml"), "r").readlines():
         # 读取服务器目录
         if i[0:17] == "working_directory":
