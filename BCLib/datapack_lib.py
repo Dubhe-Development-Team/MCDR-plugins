@@ -33,7 +33,7 @@ def dpService(server):
     thd.Thread(target=lambda: initialization(server), name="BridgeCaller: 初始化服务").start()
     thd.Thread(target=lambda: get_time(server), name="BridgeCaller: 时间获取服务").start()
     thd.Thread(target=lambda: rand(server), name="BridgeCaller: 随机数服务").start()
-    thd.Thread(target=lambda: get_seed(server), name="BridgeCaller: 种子获取服务").start()
+    thd.Thread(target=lambda: get_seed(server), name="BridgeCaller: 世界种子获取服务").start()
     server.logger.info('datapack_lib已启动')
     global STOP_SIGN
     while True:
@@ -48,9 +48,11 @@ def initialization(server):
 def get_time(server):
     global STOP_SIGN
     time.sleep(3)
+    if not server.is_rcon_running():
+        server.execute("say 服务器未开启rcon，时间获取服务关闭")
+        return
     while True:
-        if not server.is_rcon_running():
-            server.execute("say 服务器未开启rcon，时间获取服务关闭")
+        if STOP_SIGN:
             return
         if server.rcon_query("scoreboard players get #time bc") == "#time has 1 [bc]":
             d = datetime.today()
@@ -64,24 +66,22 @@ def get_time(server):
             server.execute("scoreboard players set $second bc.time " + str(d.second))
             server.execute("scoreboard players set $week bc.time " + str(d.isoweekday()))
         time.sleep(1)
-        if STOP_SIGN:
-            return
 
 
 def rand(server):
     global STOP_SIGN
     time.sleep(3)
+    if not server.is_rcon_running():
+        server.execute("say 服务器未开启rcon，时间获取服务关闭")
+        return
     while True:
-        if not server.is_rcon_running():
-            server.execute("say 服务器未开启rcon，时间获取服务关闭")
+        if STOP_SIGN:
             return
         if server.rcon_query("scoreboard players get #random bc") == "#random has 1 [bc]":
             server.execute("scoreboard players set #random bc 0")
             server.execute("scoreboard objectives add bc.rand dummy")
             server.execute("scoreboard players set $random bc.rand " + str(random.randint(-100000, 100000)))
         time.sleep(1)
-        if STOP_SIGN:
-            return
 
 
 # 获取世界种子
