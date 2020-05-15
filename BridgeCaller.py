@@ -37,7 +37,7 @@ COMMAND_LINKS = {
 
 def launch_cmd(server, info, launch_target, arg=None):
     
-    if server.get_permission_level(info) == None or server.get_permission_level(info) >= launch_target[2]:
+    if server.get_permission_level(info) is None or server.get_permission_level(info) >= launch_target[2]:
         if launch_target[1]:
             launch_target[0](server, info, arg)
         else:
@@ -92,7 +92,7 @@ def on_unload(server):
 def on_info(server, info):
     global COMMAND_LINKS
     command = info.content.split(' ')
-    if info.player == None:
+    if info.player is None:
         info.player_bcsign = '服务器终端'
     else:
         info.player_bcsign = info.player
