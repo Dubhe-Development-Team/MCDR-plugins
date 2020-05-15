@@ -15,7 +15,7 @@ BridgeCaller是一个对Minecraft数据包提供更多原版数据包无法达�
 ## 运行环境
 - [Python 3.X ](https://python.org)
 - [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)（版本>=alpha 0.7，否则部分功能无法工作）
-- 确保服务器支持rcon连接（否则在执行命令时会刷屏，导致服务器崩溃）
+- 确保服务器支持rcon连接（否则在执行命令时会刷屏，导致服务器崩溃）rcon开启方法见[这里](https://gitee.com/gu_zt666/BridgeCaller/blob/master/rcon.md)
 
 
 ## 插件管理功能
