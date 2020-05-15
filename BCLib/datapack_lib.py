@@ -33,7 +33,7 @@ def dpService(server):
     thd.Thread(target=lambda: initialization(server), name="BridgeCaller: 初始化服务").start()
     thd.Thread(target=lambda: get_time(server), name="BridgeCaller: 时间获取服务").start()
     thd.Thread(target=lambda: rand(server), name="BridgeCaller: 随机数服务").start()
-    thd.Thread(target=lambda: get_seed(server), name="BridgeCaller: 世界种子获取服务").start()
+    thd.Thread(target=lambda: get_seed(server), name="BridgeCaller: 种子获取服务").start()
     server.logger.info('datapack_lib已启动')
     global STOP_SIGN
     while True:
@@ -91,14 +91,16 @@ def get_seed(server):
     # 文件内容分成列表
     levelnbt = str(nbtlib.load(path).root['Data']).split(', ')
     # 读取失败赋值不变
-    seed = "读取失败"
+    seed = "null"
     for i in levelnbt:
         # 获取种子
         if i[0:10] == "RandomSeed":
             seed = i[12:-1]
             break
-    server.execute("say 世界种子为： " + str(seed))
-    # return "世界种子为： " + str(seed)
+    if seed == "null":
+        server.logger.info("世界种子读取失败")
+    else:
+        server.logger.info("世界种子为： " + str(seed))
 
 
 # 获取玩家真实ID
