@@ -51,7 +51,7 @@ def get_time(server):
     while True:
         if not server.is_rcon_running():
             server.execute("say 服务器未开启rcon，时间获取服务关闭")
-            break
+            return
         if server.rcon_query("scoreboard players get #time bc") == "#time has 1 [bc]":
             d = datetime.today()
             server.execute("scoreboard players set #time bc 0")
@@ -74,7 +74,7 @@ def rand(server):
     while True:
         if not server.is_rcon_running():
             server.execute("say 服务器未开启rcon，时间获取服务关闭")
-            break
+            return
         if server.rcon_query("scoreboard players get #random bc") == "#random has 1 [bc]":
             server.execute("scoreboard players set #random bc 0")
             server.execute("scoreboard objectives add bc.rand dummy")
