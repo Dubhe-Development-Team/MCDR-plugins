@@ -24,7 +24,7 @@ class Pack():
     def __init__(self, server, fromID=None, isroot=True, downlist={
         "datapack": {},
         "pyplugin": {}
-    }, needpack=[]):
+    }, needpack=[], needpack_name=[]):
         
         self.randID = rand.randint(100000, 999999)
         self.server = server
@@ -32,6 +32,7 @@ class Pack():
         self.packlink = ''
         self.meta = {}
         self.downlist = downlist    # 传递引用，使所有嵌套共用一个列表，以便管理
+        self.needpack_name = needpack_name
         self.needpack = needpack
         self.packname = ""
         self.version = 0
@@ -49,7 +50,11 @@ class Pack():
             self.server.execute('bossbar add getmeta{} "(由{}发起)正在获取{}的元数据"'.format(self.randID, self.fromID, self.packlink))
             self.server.execute('bossbar set getmeta{} color green'.format(self.randID))
             self.server.execute('bossbar set getmeta{} players @a'.format(self.randID))
-        
+        else:
+            # 检查是否出现原地tp的情况
+            if self.packname in self.needpack_name:
+                return
+
         metafile = rq.get(self.packlink, timeout=60)
         self.meta = metafile.json()
         self.meta['child_plugins'] = []
@@ -187,7 +192,18 @@ class Pack():
         self.version = self.meta['packversion']
         self.childPacks = self.meta['child_plugins']
         self.packname = self.meta['packname']
-        self.needpack = self.needpack+[Pack(self.server, self.fromID, False, self.downlist, self.needpack).from_cloud(lib['meta']) for lib in self.meta['lib']]
+        self.needpack_name.append(str(self.packname))
+        #print(self.needpack_name) #debug
+        self.needpack = self.needpack+[
+            Pack(self.server, self.fromID, False, 
+                self.downlist, self.needpack, self.needpack_name).from_cloud(lib['meta']) 
+            for lib in self.meta['lib']
+        ]
+
+        try:
+            while True:self.needpack.remove(None)
+        except:
+            pass
 
         for lib in self.meta['downloads']['datapack']:
             self.downlist['datapack'][lib] = self.meta['downloads']['datapack'][lib]

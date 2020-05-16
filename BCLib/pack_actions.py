@@ -99,6 +99,10 @@ def refreshSHA256(server):
 def installPack(server, info, name):
     server.logger.info('正在寻找包')
     server.reply(info, '正在寻找包...请稍后')
+    try:
+        del PacksTasksNow[info.player_bcsign]
+    except:
+        pass
     PacksTasksNow[info.player_bcsign] = Pack(server, info.player_bcsign)
     PacksTasksNow[info.player_bcsign].from_cloud(name)
     PacksTasksNow[info.player_bcsign].show_status(info)
