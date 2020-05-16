@@ -52,7 +52,8 @@ def on_load(server, old_plugin):
     COMMAND_LINKS = {
         "install": [pack_actions.installPack, True, 3],
         "start_download": [pack_actions.startDownload, False, 2],
-        "chkupdate": [pack_actions.checkUpdate, True, 2]
+        "chkupdate": [pack_actions.checkUpdate, True, 2],
+        "debug": [pack_actions.debug, False, 1]
     }
 
     server.logger.info("BridgeCaller {}".format(VERSION))

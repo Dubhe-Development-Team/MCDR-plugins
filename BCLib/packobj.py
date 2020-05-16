@@ -50,18 +50,17 @@ class Pack():
             self.server.execute('bossbar add getmeta{} "(由{}发起)正在获取{}的元数据"'.format(self.randID, self.fromID, self.packlink))
             self.server.execute('bossbar set getmeta{} color green'.format(self.randID))
             self.server.execute('bossbar set getmeta{} players @a'.format(self.randID))
-        else:
-            # 检查是否出现原地tp的情况
-            if self.packname in self.needpack_name:
-                return
+        
 
         metafile = rq.get(self.packlink, timeout=60)
         self.meta = metafile.json()
         self.meta['child_plugins'] = []
-        self.packname = self.meta['packname']
+        if self.meta['packname'] in self.needpack_name: # check if tp
+            self.server.logger.info('已剔除重复包: {}'.format(self.meta['packname']))
+            return
         self.chkdata()
         self.server.execute('bossbar remove getmeta{}'.format(self.randID))
-
+        
         return self
 
     def from_local(self, file_name, outMCDR=False):

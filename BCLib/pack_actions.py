@@ -107,6 +107,8 @@ def installPack(server, info, name):
     PacksTasksNow[info.player_bcsign].from_cloud(name)
     PacksTasksNow[info.player_bcsign].show_status(info)
 
+def debug(server, info):
+    pass
 
 def startDownload(server, info):
     try:
