@@ -12,7 +12,7 @@ broadcast-rcon-to-ops
 
 3. 将enable-rcon设置为`true`。
 
-4. 将rcon.paddword设置为你的rcon连接密码，如`rcon.password=123456`
+4. 将rcon.paddword设置为你的rcon连接密码，如`rcon.password=123456`**请设置强度较高的密码，因为rcon连接具有最高权限，可能会有不法分子通过你设置的弱口令直接连接rcon,获得服务器控制权**
 
 5. 将broadcast-rcon-to-ops设置为`true`**（这里必须为true，否则BridgeCaller的datapack_lib功能将无法运行）**
 
