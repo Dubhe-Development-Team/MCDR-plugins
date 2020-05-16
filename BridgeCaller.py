@@ -82,7 +82,6 @@ def on_load(server, old_plugin):
     # Start background service
     # 如果服务器暂未启动，就不启动，等待至服务器启动后再启动服务。
     if SERVER_STARTED:
-        pass
         datapack_lib.start_srv(server)
 
 
