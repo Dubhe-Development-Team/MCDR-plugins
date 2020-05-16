@@ -4,7 +4,10 @@
     "packversion_display":"v1.2",
     "update_link":"https://gitee.com/gu_zt666/BridgeCaller/raw/master/testdata/testdata2.dpmeta",
     "lib":[
-        
+        {
+            "meta":"https://gitee.com/gu_zt666/BridgeCaller/raw/master/testdata/testdata.dpmeta",
+            "version":">=2"
+        }
     ],
     "downloads":{
         "datapack":{
