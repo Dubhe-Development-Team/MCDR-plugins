@@ -4,6 +4,7 @@ import threading as thd
 import hashlib as hlib
 import os
 import shutil
+import time
 
 # define global
 global PacksTasksNow, DownloadThreads
@@ -42,7 +43,8 @@ def gen_floderSHA(floder, target):
 
 def makeInfo():
     r = Info()
-    r.player = '@a'
+    r.player = None
+    r.player_bcsign = '服务器终端'
     return r
 
 
@@ -85,7 +87,8 @@ def show_help_msg(server, info):
     server.reply(info, help_msg)
 
 
-def refreshSHA256(server):
+def refreshSHA256(server,info=makeInfo()):
+    start_time = time.time()
     server.logger.info('开始更新SHA-256缓存')
     for i in ('./bcfile/cache/sha-256/pyplugins', './bcfile/cache/sha-256/datapacks'):
         shutil.rmtree(i)
@@ -93,7 +96,8 @@ def refreshSHA256(server):
 
     gen_floderSHA('./plugins', './bcfile/cache/sha-256/pyplugins')
     gen_floderSHA('./server/world/datapacks', './bcfile/cache/sha-256/datapacks')
-    server.logger.info('SHA-256缓存更新完毕')
+    end_time = time.time()
+    server.reply(info,'SHA-256缓存更新完毕，用时{}秒。'.format(round(end_time-start_time,5)))
 
 
 def installPack(server, info, name):
