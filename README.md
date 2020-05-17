@@ -32,7 +32,7 @@ BridgeCaller是一个为MCDR和Minecraft数据包提供更多原版数据包无�
 | !!bc disable <包名> | Help | 禁用包 |
 | !!bc update <包名> | Helper | 从包元数据中指定的链接升级包 |
 | !!bc reload | Helper | 重载所有的包 |
-| !!bc regen-SHA-256 | Helper | 重新计算SHA-256缓存，在同文件判断出现问题时可以使用 |
+| !!bc refresh-SHA-256 | Helper | 重新计算SHA-256缓存，在同文件判断出现问题时可以使用 |
 | !!bc SHA-256 <路径> | All | 查询对应文件的SHA-256，在下文详细解释 |
 | !!bc list | All | 显示所有已安装的包
 | !!bc listall | All | 显示所有插件和数据包
