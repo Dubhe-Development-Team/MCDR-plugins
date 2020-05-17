@@ -2,7 +2,7 @@
 
 **注意！该插件还在开发中！本文档中提及的所有特性，都有可能在正式版本中删除或更改！**
 
-BridgeCaller是一个对Minecraft数据包提供更多原版数据包无法达到的功能的插件。该插件可以让数据包使用随机数，调用系统时间等功能。该插件同时还可以对插件进行管理，无需服主自行替换。
+BridgeCaller是一个为MCDR和Minecraft数据包提供更多原版数据包无法达到的功能的插件。该插件可以让数据包使用随机数，调用系统时间等功能。该插件同时还可以对插件进行管理，无需服主自行替换。
 
 
 ## 使用方法
@@ -15,7 +15,7 @@ BridgeCaller是一个对Minecraft数据包提供更多原版数据包无法达�
 ## 运行环境
 - [Python 3.X ](https://python.org)
 - [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)（版本>=alpha 0.7，否则部分功能无法工作）
-- 确保服务器支持rcon连接（否则在执行命令时会刷屏，导致服务器崩溃）rcon开启方法见[这里](https://gitee.com/gu_zt666/BridgeCaller/blob/master/rcon.md)
+- 确保服务器支持rcon连接（否则datapack_lib相关功能将无法使用）rcon开启方法见[这里](https://gitee.com/gu_zt666/BridgeCaller/blob/master/rcon.md)
 
 
 ## 插件管理功能
@@ -49,10 +49,11 @@ BridgeCaller是一个对Minecraft数据包提供更多原版数据包无法达�
 - pyplugins：Python插件
 - datapacks：数据包
 
-如：\
-!!bc SHA-256 pyplugins/BridgeCaller.py \
+如：
+```
+!!bc SHA-256 pyplugins/BridgeCaller.py 
 !!bc SHA-256 datapacks/dp1.zip
-
+```
 
 ## 数据包支持
 该功能将为数据包提供一些数据包无法达到或很难达到的功能的接口。
