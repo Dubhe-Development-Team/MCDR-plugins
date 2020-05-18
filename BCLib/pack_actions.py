@@ -87,7 +87,7 @@ def show_help_msg(server, info):
     server.reply(info, help_msg)
 
 
-def refreshSHA256(server,info=makeInfo()):
+def refreshSHA256(server, info=makeInfo()):
     start_time = time.time()
     server.logger.info('开始更新SHA-256缓存')
     for i in ('./bcfile/cache/sha-256/pyplugins', './bcfile/cache/sha-256/datapacks'):
@@ -97,7 +97,7 @@ def refreshSHA256(server,info=makeInfo()):
     gen_floderSHA('./plugins', './bcfile/cache/sha-256/pyplugins')
     gen_floderSHA('./server/world/datapacks', './bcfile/cache/sha-256/datapacks')
     end_time = time.time()
-    server.reply(info,'SHA-256缓存更新完毕，用时{}秒。'.format(round(end_time-start_time,5)))
+    server.reply(info, 'SHA-256缓存更新完毕，用时{}秒。'.format(round(end_time-start_time,5)))
 
 
 def installPack(server, info, name):
@@ -111,8 +111,10 @@ def installPack(server, info, name):
     PacksTasksNow[info.player_bcsign].from_cloud(name)
     PacksTasksNow[info.player_bcsign].show_status(info)
 
+
 def debug(server, info):
     pass
+
 
 def startDownload(server, info):
     try:

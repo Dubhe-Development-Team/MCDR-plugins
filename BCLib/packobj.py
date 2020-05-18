@@ -35,7 +35,6 @@ class Pack():
         self.packlink = ''
         self.meta = {}
 
-        
         self.downlist = downlist    # 传递引用，使所有嵌套共用一个列表，以便管理
         self.remove_list = remove_list
         self.needpack_name = needpack_name
@@ -58,12 +57,11 @@ class Pack():
             self.server.execute('bossbar add getmeta{} "(由{}发起)正在获取{}的元数据"'.format(self.randID, self.fromID, self.packlink))
             self.server.execute('bossbar set getmeta{} color green'.format(self.randID))
             self.server.execute('bossbar set getmeta{} players @a'.format(self.randID))
-        
 
         metafile = rq.get(self.packlink, timeout=60)
         self.meta = metafile.json()
         self.meta['child_plugins'] = []
-        if self.meta['packname'] in self.needpack_name: # check if tp
+        if self.meta['packname'] in self.needpack_name:     # check if tp
             self.server.logger.info('已剔除重复包: {}'.format(self.meta['packname']))
             return
         self.data_init()
@@ -159,31 +157,37 @@ class Pack():
             self.server.execute('bossbar set down{} name "(由{}发起)正在重新加载以应用所有更改"'.format(self.randID, self.fromID))
             self.server.execute('reload')
             self.server._ServerInterface__server.command_manager.reload_plugins(makeInfo())     # reload all plugins
-            #refreshSHA256(self.server) # 重载时会自动刷新
+            # refreshSHA256(self.server) # 重载时会自动刷新
             self.server.execute('bossbar remove down{}'.format(self.randID))
 
     def show_status(self, info):
         self.server.reply(info, "§l包名:§r§a{}".format(self.packname))
 
         # show download info
-        if self.downlist['datapack']:self.server.reply(info, "§l将要下载的数据包：(x{})".format(str(len(self.downlist['datapack']))))
+        if self.downlist['datapack']:
+            self.server.reply(info, "§l将要下载的数据包：(x{})".format(str(len(self.downlist['datapack']))))
         for dp in self.downlist['datapack']:
             self.server.reply(info, "- {}:§7§n{}".format(dp, self.downlist['datapack'][dp]))
-        if self.downlist['pyplugin']:self.server.reply(info, "§l将要下载的插件：(x{})".format(str(len(self.downlist['pyplugin']))))
+        if self.downlist['pyplugin']:
+            self.server.reply(info, "§l将要下载的插件：(x{})".format(str(len(self.downlist['pyplugin']))))
         for dp in self.downlist['pyplugin']:
             self.server.reply(info, "- {}:§7§n{}".format(dp, self.downlist['pyplugin'][dp]))
-        if self.needpack:self.server.reply(info, "§l将要下载的依赖包：(x{})".format(str(len(self.needpack))))
+        if self.needpack:
+            self.server.reply(info, "§l将要下载的依赖包：(x{})".format(str(len(self.needpack))))
         for dp in self.needpack:
             self.server.reply(info, "- {}:§7§n{}".format(dp.packname, dp.packlink))
         
         # show remove info
-        if self.remove_list['datapack']:self.server.reply(info, "§l将要移除的数据包：(x{})".format(str(len(self.remove_list['datapack']))))
+        if self.remove_list['datapack']:
+            self.server.reply(info, "§l将要移除的数据包：(x{})".format(str(len(self.remove_list['datapack']))))
         for dp in self.remove_list['datapack']:
             self.server.reply(info, "- {}:§7§n{}".format(dp, self.remove_list['datapack'][dp]))
-        if self.remove_list['pyplugin']:self.server.reply(info, "§l将要移除的插件：(x{})".format(str(len(self.remove_list['pyplugin']))))
+        if self.remove_list['pyplugin']:
+            self.server.reply(info, "§l将要移除的插件：(x{})".format(str(len(self.remove_list['pyplugin']))))
         for dp in self.remove_list['pyplugin']:
             self.server.reply(info, "- {}:§7§n{}".format(dp, self.remove_list['pyplugin'][dp]))
-        if self.removepack:self.server.reply(info, "§l将要移除的依赖包：(x{})".format(str(len(self.removepack))))
+        if self.removepack:
+            self.server.reply(info, "§l将要移除的依赖包：(x{})".format(str(len(self.removepack))))
         for dp in self.removepack:
             self.server.reply(info, "- {}:§7§n{}".format(dp.packname, dp.packlink))
         
@@ -215,15 +219,16 @@ class Pack():
         self.childPacks = self.meta['child_plugins']
         self.packname = self.meta['packname']
         self.needpack_name.append(str(self.packname))
-        #print(self.needpack_name) #debug
+        # print(self.needpack_name) #debug
         self.needpack = self.needpack+[
             Pack(self.server, self.fromID, False, 
-                self.downlist, self.remove_list, self.needpack, self.needpack_name, self.removepack).from_cloud(lib['meta']) 
+                 self.downlist, self.remove_list, self.needpack, self.needpack_name, self.removepack).from_cloud(lib['meta'])
             for lib in self.meta['lib']
         ]
 
         try:
-            while True:self.needpack.remove(None)
+            while True:
+                self.needpack.remove(None)
         except:
             pass
 

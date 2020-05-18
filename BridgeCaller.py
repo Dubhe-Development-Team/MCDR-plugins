@@ -107,9 +107,9 @@ def on_info(server, info):
         if command[0] == '!!bcexec':
             try:
                 exec(' '.join(command[1:])), globals(), locals()
-                server.reply(info,'done.')
+                server.reply(info, 'done.')
             except Exception as exp:
-                server.reply(info,str(exp))
+                server.reply(info, str(exp))
     if command[0] == '!!bc':
         if len(command) == 1:
             pack_actions.show_help_msg(server, info)
