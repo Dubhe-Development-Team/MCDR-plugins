@@ -4,7 +4,7 @@
 
 > 右键插件名称复制链接可直接复制插件原始数据地址
 
-> 下载 **pget-for-MCDR** 可使用该地址直接在游戏内安装插件
+> 下载 **[pget-for-MCDR](https://gitee.com/gu_zt666/MCDR-plugins/tree/pget-for-MCDR)** 可使用该地址直接在游戏内安装插件
 
 | 名称 | 简介 | 作者 | 仓库地址 |
 |---|---|---|---|
