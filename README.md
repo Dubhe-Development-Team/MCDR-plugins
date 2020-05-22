@@ -12,7 +12,8 @@
 | [Backup](https://gitee.com/gu_zt666/MCDR-plugins/edit/Backup/backup.py) | 存档备份插件 | [Cjsah](https://gitee.com/cjsah) | [链接](https://gitee.com/gu_zt666/MCDR-plugins/tree/Backup) |
 | [SeverReload](https://gitee.com/gu_zt666/MCDR-plugins/raw/SeverReload/SeverReload.py) | 重启服务器或重新加载数据包 | [userwrc](https://gitee.com/userwrc)、[Dinosaur_MC](https://gitee.com/dinosaur_mc)、[Felente](https://gitee.com/felente) | [链接](https://gitee.com/gu_zt666/MCDR-plugins/tree/SeverReload/) |
 | [pget-for-MCDR](https://gitee.com/gu_zt666/MCDR-plugins/raw/pget-for-MCDR/pget_for_MCDR.py) | 游戏内下载插件 | [zhang_anzhi](https://gitee.com/zhang_anzhi) | [链接](https://gitee.com/gu_zt666/MCDR-plugins/tree/pget-for-MCDR) |
-| []() |  | []() | [链接]() |
-| []() |  | []() | [链接]() |
-| []() |  | []() | [链接]() |
+| [server_change](https://gitee.com/gu_zt666/MCDR-plugins/raw/server_change/server_change.py) | 群组服跳转插件 | [zhang_anzhi](https://gitee.com/zhang_anzhi) | [链接](https://gitee.com/gu_zt666/MCDR-plugins/tree/server_change) |
+| [QuickAnswer](https://gitee.com/gu_zt666/MCDR-plugins/raw/QuickAnswer/QuickAnswer.py) | 有奖答题插件 | [zhang_anzhi](https://gitee.com/zhang_anzhi) | [链接](https://gitee.com/gu_zt666/MCDR-plugins/tree/QuickAnswer) |
+| [vault](https://gitee.com/gu_zt666/MCDR-plugins/raw/vault/vault.py) | 经济类插件前置 | [zhang_anzhi](https://gitee.com/zhang_anzhi) | [链接](https://gitee.com/gu_zt666/MCDR-plugins/tree/vault) |
+| [AdvancedBan](https://gitee.com/gu_zt666/MCDR-plugins/raw/AdvancedBan/AdvancedBan.py) | 玩家管理插件 | [zhang_anzhi](https://gitee.com/zhang_anzhi) | [链接](https://gitee.com/gu_zt666/MCDR-plugins/tree/AdvancedBan) |
 | []() |  | []() | [链接]() |
