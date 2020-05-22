@@ -1,7 +1,7 @@
 # Whitelist
 [English](https://gitee.com/gu_zt666/MCDR-plugins/blob/Whitelist/README_EN.MD)
 
-> [MCDReforged](https://github.com/Fallen-Breath/MCDReforged) 白名单管理
+> [MCDReforged](https://github.com/Fallen-Breath/MCDReforged) 白名单管理插件
 >
 > 这是一个白名单管理插件
 >
