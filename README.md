@@ -3,3 +3,4 @@
 
 ## 使用
 使用!!pget [url] 来下载插件
+url为插件py文件原始数据地址，如https://gitee.com/gu_zt666/MCDR-plugins/raw/pget-for-MCDR/pget_for_MCDR.py
