@@ -18,5 +18,5 @@
 | [QuickAnswer](https://gitee.com/gu_zt666/MCDR-plugins/raw/QuickAnswer/QuickAnswer.py) | 有奖答题插件 | [zhang_anzhi](https://gitee.com/zhang_anzhi) | [链接](https://gitee.com/gu_zt666/MCDR-plugins/tree/QuickAnswer) |
 | [vault](https://gitee.com/gu_zt666/MCDR-plugins/raw/vault/vault.py) | 经济类插件前置 | [zhang_anzhi](https://gitee.com/zhang_anzhi) | [链接](https://gitee.com/gu_zt666/MCDR-plugins/tree/vault) |
 | [AdvancedBan](https://gitee.com/gu_zt666/MCDR-plugins/raw/AdvancedBan/AdvancedBan.py) | 玩家管理插件 | [zhang_anzhi](https://gitee.com/zhang_anzhi) | [链接](https://gitee.com/gu_zt666/MCDR-plugins/tree/AdvancedBan) |
-| BridgeCaller | 推翻Bukkit的MCDR革命性插件 | [zhang_anzhi](https://gitee.com/zhang_anzhi)、[古镇天](https://gitee.com/gu_zt666)、[userwrc](https://gitee.com/userwrc)、[Cjsah](https://gitee.com/cjsah)、[Dinosaur_MC](https://gitee.com/dinosaur_mc)、[Felente](https://gitee.com/felente) | [链接](https://gitee.com/gu_zt666/BridgeCaller) |
+| BridgeCaller | 推翻Bukkit的MCDR革命性插件 | [古镇天](https://gitee.com/gu_zt666)、[userwrc](https://gitee.com/userwrc)、[Cjsah](https://gitee.com/cjsah)、[Dinosaur_MC](https://gitee.com/dinosaur_mc)、[Felente](https://gitee.com/felente) | [链接](https://gitee.com/gu_zt666/BridgeCaller) |
 <!-- | []() |  | []() | [链接]() | --->
