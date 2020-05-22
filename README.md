@@ -1,6 +1,6 @@
 # vault
 
-[English](https://github.com/zhang-anzhi/vault/blob/master/readme_en.md)
+[English](https://gitee.com/gu_zt666/MCDR-plugins/blob/vault/README_EN.md)
 
 > 经济类插件前置
 >
