@@ -1,6 +1,6 @@
 # vault
 
-[简体中文](https://github.com/zhang-anzhi/vault/blob/master/readme.md)
+[简体中文](https://gitee.com/gu_zt666/MCDR-plugins/tree/vault)
 
 > Economic plugin preposition
 >
