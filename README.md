@@ -17,5 +17,11 @@
 
 | 命令 | 功能 | 权限 |
 |---|---|---|
-| !!backup | 查看帮助 | user |
-| !!backup [name] | 备份服务器 | user |
+| !!backup help | 查看帮助 | helper |
+| !!backup add [name] | 添加备份 | helper |
+| !!backup remove [name] | 删除备份 | helper |
+| !!backup rename [oldname] [newname] | 重命名备份 | helper |
+| !!backup back | 回档 | helper |
+| !!backup auto <on/off/[time]> | 自动备份(分钟) | helper |
+
+**§c注§7： §b[name]§r仅可使用字母、数字、下划线，长度限制为20字符以内       §b< >§r可不填**
