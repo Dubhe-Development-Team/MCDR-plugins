@@ -1,13 +1,19 @@
 import os, shutil, zipfile, re
 from time import sleep
+import time
+
 VERSION = "v1.0"
 
-global bkup, config_file, backup_file, server_file, auto_time, auto_judge
+global bkup, config_file, backup_file, server_file, auto_time, auto_judge, backup
 bkup = False
-config_file = "plugin/backup_config.yml"
+config_file = "plugins/backup_config.yml"
 backup_file = ""
 server_file = ""
+auto_time = 15
+auto_judge = False
+backup = []
 """
+备份
 屏蔽特殊字符
 list回档,confirm
 删档
@@ -16,20 +22,30 @@ list回档,confirm
 """
 
 
+def debug(server, info):
+    global bkup, config_file, backup_file, server_file, auto_time, auto_judge
+    server.tell(info.player, ' 备份状态 ：' + str(bkup))
+    server.tell(info.player, ' 配置目录 ：' + str(config_file))
+    server.tell(info.player, ' 备份目录 ：' + str(backup_file))
+    server.tell(info.player, '服务器目录：' + str(server_file))
+    server.tell(info.player, ' 备份间隔 ：' + str(auto_time))
+    server.tell(info.player, ' 自动备份 ：' + str(auto_judge))
+
+
 def on_load(server, old_module):
     global config_file
     server.logger.info("服务器备份 {}".format(VERSION))
     server.add_help_message("!!backup help", "备份帮助菜单")
     # 如果配置文件不存在就生成一个新的
     if not os.path.exists(config_file):
-        f = open(config_file, "a")
+        f = open(config_file, "a+")
         f.write("# the backup file\n")
         f.write("file: backup\n")
         f.close()
     getpath()
     sleep(1)
     if backup_file == "":
-        f = open(config_file, "a")
+        f = open(config_file, "a+")
         f.write("# the backup file\n")
         f.write("file: backup\n")
         f.close()
@@ -47,61 +63,73 @@ def on_info(server, info):
         if args[0] == '!!backup':
             if server.get_permission_level(info) >= 2:
                 if len(args) == 1:
-                    server.tell(info.player, "使用!!backup help获取备份帮助菜单")
+                    server.tell(info.player, "§r[Backup] 使用!!backup help获取备份帮助菜单")
                 elif len(args) == 2 and args[1] == "help":
                     backup_help_msg(server, info)
+                elif len(args) == 2 and args[1] == "auto":
+                    autobackuplist(server, info)
+                elif len(args) == 2 and args[1] == "debug":
+                    debug(server, info)
                 else:
                     if not bkup:
                         if len(args) == 2 and args[1] == "back":
-                            backbackup(server, info)
+                            listbackup(server, info)
                         elif len(args) == 3 and args[1] == "add":
-                            if re.match("^[A-Za-z0-9_]*$", args[2]):
+                            if re.match("^[A-Za-z0-9_]{1,20}$", args[2]):
                                 addbackup(server, info, args[2])
                             else:
-                                server.tell(info.player, "请使用字母、数字、下划线命名")
+                                server.tell(info.player, "§r[Backup] 请使用字母、数字、下划线命名，并且长度不要超过20")
                         elif len(args) == 3 and args[1] == "remove":
-                            if re.match("^[A-Za-z0-9_]*$", args[2]):
+                            if re.match("^[A-Za-z0-9_]{1,20}$", args[2]):
                                 removebackup(server, info, args[2])
                             else:
-                                server.tell(info.player, "请使用字母、数字、下划线命名")
+                                server.tell(info.player, "§r[Backup] 请使用字母、数字、下划线命名，并且长度不要超过20")
+                        elif len(args) == 3 and args[1] == "back":
+                            if re.match("^[A-Za-z0-9_]{1,20}$", args[2]):
+                                backbackup(server, args[2])
+                            else:
+                                server.tell(info.player, "§r[Backup] 请使用字母、数字、下划线命名，并且长度不要超过20")
                         elif len(args) == 3 and args[1] == "auto":
                             if args[2] == "on":
-                                auto_judge = 1
+                                auto_judge = True
                             elif args[2] == "off":
-                                auto_judge = 0
+                                auto_judge = False
                             elif args[2].isdecimal():
                                 if 1 <= int(args[2]) <= 30:
-                                    auto_time = int(args[2])
+                                    if auto_judge == 1:
+                                        auto_time = int(args[2])
+                                    else:
+                                        server.tell(info.player, "§r[Backup] 请先启动自动备份")
                                 elif int(args[2]) < 1:
-                                    server.tell(info.player, "数太小了！")
+                                    server.tell(info.player, "§r[Backup] 数太小了！")
                                 elif int(args[2]) > 30:
-                                    server.tell(info.player, "数太大了！")
+                                    server.tell(info.player, "§r[Backup] 数太大了！")
                             else:
-                                server.tell(info.player, '输入无效')
+                                server.tell(info.player, '§r[Backup] 输入无效')
                         elif len(args) == 4 and args[1] == "rename":
-                            if re.match("^[A-Za-z0-9_]*$", args[2]) and re.match("^[A-Za-z0-9_]*$", args[3]):
+                            if re.match("^[A-Za-z0-9_]{1,20}$", args[2]) and re.match("^[A-Za-z0-9_]{1,20}$", args[3]):
                                 renamebackup(server, info, args[2], args[3])
                             else:
-                                server.tell(info.player, "请使用字母、数字、下划线命名")
+                                server.tell(info.player, "§r[Backup] 请使用字母、数字、下划线命名，并且长度不要超过20")
                         else:
-                            server.tell(info.player, '输入无效')
+                            server.tell(info.player, '§r[Backup] 输入无效')
                     else:
-                        server.tell(info.player, "§4上一个操作还没结束！")
+                        server.tell(info.player, "§r[Backup] §4上一个操作还没结束！")
             else:
-                server.tell(info.player, "你没有权限执行此操作")
+                server.tell(info.player, "§r[Backup] 你没有权限执行此操作")
 
 
 def backup_help_msg(server, info):
     help_msg = """
-§2####################################################§r
+§2#########################################################§r
 §7!!backup help                         §r显示此菜单
-§7!!backup add [name]                   §r添加备份
-§7!!backup remove [name]                §r删除备份
-§7!!backup rename [oldname] [newname]   §r重命名备份
+§7!!backup add [name]                    §r添加备份
+§7!!backup remove [name]                 §r删除备份
+§7!!backup rename [oldname] [newname]     §r重命名备份
 §7!!backup back                         §r回档
-§7!!backup auto <on/off/[time]>         §r自动备份(分钟)
+§7!!backup auto <on/off/[time]>           §r自动备份(分钟)
 §c注§7： §b[name]§r仅可使用字母、数字、下划线       §b< >§r可不填
-§2####################################################§r"""
+§2#########################################################§r"""
     server.tell(info.player, help_msg)
 
 
@@ -109,7 +137,9 @@ def addbackup(server, info, name):
     global bkup, backup_file, server_file
     bkup = True
     if not os.path.exists(os.path.join(backup_file, name + ".zip")):
-        server.say('§r[server] §9开始备份服务器……')
+        server.say('§r[Backup] §9开始备份服务器……')
+        server.execute("save-all")
+        sleep(3)
         f = zipfile.ZipFile(name + '.zip', 'w', zipfile.ZIP_DEFLATED)
         for dirpath, dirnames, filenames in os.walk(server_file):
             fpath = dirpath.replace(server_file, '')
@@ -120,27 +150,100 @@ def addbackup(server, info, name):
                 f.write(os.path.join(dirpath, filename), fpath + filename)
         f.close()
         shutil.move(os.path.join(os.getcwd(), name + ".zip"), os.path.join(os.getcwd(), backup_file))
-        server.say('§r[server] §9备份完成')
+        server.say('§r[Backup] §9备份完成')
     else:
-        server.tell(info.player, '§e已存在名为§b ' + name + ' §e的备份文件')
+        server.tell(info.player, '§r[Backup] §e已存在名为§b ' + name + ' §e的备份文件')
     bkup = False
 
 
 def removebackup(server, info, name):
-    pass
+    global bkup, backup_file
+    bkup = True
+    if os.path.exists(os.path.join(backup_file, name + ".zip")):
+        server.tell(info.player, '§r[Backup] 删除备份文件中')
+        os.remove(os.path.join(backup_file, name + ".zip"))
+        server.tell(info.player, '§r[Backup] 删除完成')
+    else:
+        server.tell(info.player, '§r[Backup] §5未找到名为§b ' + name + ' §5的备份文件')
+    bkup = False
 
 
-def backbackup(server, info):
-    pass
+def listbackup(server, info):
+    global bkup, backup_file, backup
+    for filename in os.listdir(backup_file):
+        if filename[-4:] == ".zip":
+            backup.append(filename[:-4])
+    if not backup:
+        server.tell(info.player, '§r[Backup] 没有可回档文件')
+    else:
+        server.tell(info.player, '§r[Backup] 获取中......')
+        for i in backup:
+            server.execute('tellraw ' + info.player + ' [{"text":"["},{"text":"' + i +
+                           '","color":"dark_green","clickEvent":{"action":"run_command","value":"!!backup back ' + i +
+                           '"},"hoverEvent":{"action":"show_text","value":[{"text":"点我恢复此存档"}]}},{"text":"]"}]')
+            sleep(0.5)
+
+
+def backbackup(server, name):
+    global backup_file, server_file, bkup, backup
+    bkup = True
+    if os.path.exists(os.path.join(backup_file, name + ".zip")):
+        server.stop()
+        while True:
+            if not server.is_server_running():
+                filelist = os.listdir(server_file)
+                for f in filelist:
+                    filepath = os.path.join(server_file, f)
+                    if os.path.isfile(filepath):
+                        os.remove(filepath)
+                    elif os.path.isdir(filepath):
+                        shutil.rmtree(filepath, True)
+                sleep(1)
+                fz = zipfile.ZipFile(os.path.join(backup_file, name + ".zip"), 'r')
+                for file in fz.namelist():
+                    fz.extract(file, server_file)
+                server.logger.info("回档完成")
+                sleep(0.5)
+                server.logger.info("正在启动服务器")
+                server.start()
+                bkup = False
+                return
+            sleep(1)
 
 
 def renamebackup(server, info, oldname, newname):
-    pass
+    global bkup, backup_file
+    bkup = True
+    if os.path.exists(os.path.join(backup_file, oldname + ".zip")):
+        os.rename(os.path.join(backup_file, oldname + ".zip"), os.path.join(backup_file, newname + ".zip"))
+        server.tell(info.player, '§r[Backup] 完成')
+    else:
+        server.tell(info.player, '§r[Backup] §5未找到名为§b ' + oldname + ' §5的备份文件')
+    bkup = False
 
 
 def autobackup(server, info):
-    global bkup, auto_time, auto_judge
-    pass
+    global auto_time, auto_judge
+    times = 0
+    while True:
+        if not server.is_server_running():
+            return
+        if auto_judge:
+            if times >= auto_time * 60:
+                addbackup(server, info, time.strftime("%Y%m%d%H%M%S", time.localtime()))
+                times = 0
+        if times > 3600:
+            times = 0
+        sleep(1)
+        times += 1
+        if not server.is_server_startup():
+            return
+
+
+def autobackuplist(server, info):
+    global auto_time, auto_judge
+    server.tell(info.player, '自动备份：' + str(auto_judge))
+    server.tell(info.player, '备份间隔：' + str(auto_time))
 
 
 def getpath():
