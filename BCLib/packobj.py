@@ -214,7 +214,8 @@ class Pack():
         - mode=1:完全移除
         - mode=0:只移除此包和依赖此包的包
         """
-        self.remove_list.append(self)
+        self.removepack.append(self)
+        self.removepack_name.append(self.packname)
         
 
     def data_init(self):
