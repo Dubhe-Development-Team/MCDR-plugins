@@ -27,7 +27,7 @@ class Pack():
     }, remove_list={
         "datapack": {},
         "pyplugin": {}
-    }, needpack=[], needpack_name=[], removepack=[]):
+    }, needpack=[], needpack_name=[], removepack=[], removepack_name=[]):
         
         self.randID = rand.randint(100000, 999999)
         self.server = server
@@ -36,10 +36,12 @@ class Pack():
         self.meta = {}
 
         self.downlist = downlist    # 传递引用，使所有嵌套共用一个列表，以便管理
-        self.remove_list = remove_list
         self.needpack_name = needpack_name
         self.needpack = needpack
-        self.removepack = removepack
+
+        self.remove_list = remove_list # 同downlist
+        self.removepack = removepack # 需要删除的包
+        self.removepack_name = removepack_name
 
         self.packname = ""
         self.version = 0
@@ -212,7 +214,8 @@ class Pack():
         - mode=1:完全移除
         - mode=0:只移除此包和依赖此包的包
         """
-        pass
+        self.remove_list.append(self)
+        
 
     def data_init(self):
         self.version = self.meta['packversion']
