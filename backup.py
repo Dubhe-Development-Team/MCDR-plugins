@@ -4,7 +4,7 @@ import time
 
 VERSION = "v1.0"
 
-global bkup, config_file, backup_file, server_file, auto_time, auto_judge, backup
+global bkup, config_file, backup_file, server_file, auto_time, autotime, auto_judge, backup, gara, backtime, backupname, stop
 bkup = False
 config_file = "plugins/backup_config.yml"
 backup_file = ""
@@ -12,6 +12,11 @@ server_file = ""
 auto_time = 15
 auto_judge = False
 backup = []
+gara = False
+backtime = 0
+autotime = 0
+backupname = "null"
+stop = False
 """
 备份
 屏蔽特殊字符
@@ -19,6 +24,7 @@ list回档,confirm
 删档
 重命名
 自动备份
+时间区重置
 """
 
 
@@ -56,8 +62,17 @@ def on_load(server, old_module):
         os.makedirs(backup_file)
 
 
+def on_server_startup(server):
+    bktime()
+
+
+def on_mcdr_stop(server):
+    global stop
+    stop = True
+
+
 def on_info(server, info):
-    global bkup, auto_time, auto_judge
+    global bkup, auto_time, auto_judge, backupname, gara
     if info.content.startswith('!!backup'):
         args = info.content.split(' ')
         if args[0] == '!!backup':
@@ -86,7 +101,17 @@ def on_info(server, info):
                                 server.tell(info.player, "§r[Backup] 请使用字母、数字、下划线命名，并且长度不要超过20")
                         elif len(args) == 3 and args[1] == "back":
                             if re.match("^[A-Za-z0-9_]{1,20}$", args[2]):
-                                backbackup(server, args[2])
+                                server.tell(info.player, "§r[Backup] 请在5秒内再次点击回档")
+                                if backupname == "null":
+                                    backupname = args[2]
+                                    backbackup(server, args[2])
+                                elif args[2] == backupname:
+                                    backupname = "null"
+                                    backbackup(server, args[2])
+                                else:
+                                    backupname = args[2]
+                                    gara = False
+                                    backbackup(server, args[2])
                             else:
                                 server.tell(info.player, "§r[Backup] 请使用字母、数字、下划线命名，并且长度不要超过20")
                         elif len(args) == 3 and args[1] == "auto":
@@ -117,6 +142,21 @@ def on_info(server, info):
                         server.tell(info.player, "§r[Backup] §4上一个操作还没结束！")
             else:
                 server.tell(info.player, "§r[Backup] 你没有权限执行此操作")
+
+
+def bktime():
+    global backtime, autotime, gara, stop
+    while True:
+        if stop:
+            return
+        backtime += 1
+        autotime += 1
+        if backtime >= 5:
+            backup_time = 5
+            gara = False
+        if autotime >= 120:
+            autotime = 120
+        sleep(1)
 
 
 def backup_help_msg(server, info):
@@ -185,30 +225,35 @@ def listbackup(server, info):
 
 
 def backbackup(server, name):
-    global backup_file, server_file, bkup, backup
-    bkup = True
-    if os.path.exists(os.path.join(backup_file, name + ".zip")):
-        server.stop()
-        while True:
-            if not server.is_server_running():
-                filelist = os.listdir(server_file)
-                for f in filelist:
-                    filepath = os.path.join(server_file, f)
-                    if os.path.isfile(filepath):
-                        os.remove(filepath)
-                    elif os.path.isdir(filepath):
-                        shutil.rmtree(filepath, True)
+    global backup_file, server_file, bkup, backup, gara, backtime
+    if not gara:
+        gara = True
+        backtime = 0
+    else:
+        gara = False
+        bkup = True
+        if os.path.exists(os.path.join(backup_file, name + ".zip")):
+            server.stop()
+            while True:
+                if not server.is_server_running():
+                    filelist = os.listdir(server_file)
+                    for f in filelist:
+                        filepath = os.path.join(server_file, f)
+                        if os.path.isfile(filepath):
+                            os.remove(filepath)
+                        elif os.path.isdir(filepath):
+                            shutil.rmtree(filepath, True)
+                    sleep(1)
+                    fz = zipfile.ZipFile(os.path.join(backup_file, name + ".zip"), 'r')
+                    for file in fz.namelist():
+                        fz.extract(file, server_file)
+                    server.logger.info("回档完成")
+                    sleep(0.5)
+                    server.logger.info("正在启动服务器")
+                    server.start()
+                    bkup = False
+                    return
                 sleep(1)
-                fz = zipfile.ZipFile(os.path.join(backup_file, name + ".zip"), 'r')
-                for file in fz.namelist():
-                    fz.extract(file, server_file)
-                server.logger.info("回档完成")
-                sleep(0.5)
-                server.logger.info("正在启动服务器")
-                server.start()
-                bkup = False
-                return
-            sleep(1)
 
 
 def renamebackup(server, info, oldname, newname):
@@ -223,21 +268,15 @@ def renamebackup(server, info, oldname, newname):
 
 
 def autobackup(server, info):
-    global auto_time, auto_judge
-    times = 0
+    global auto_time, autotime, auto_judge, stop
     while True:
-        if not server.is_server_running():
+        if stop:
             return
         if auto_judge:
-            if times >= auto_time * 60:
+            if autotime >= auto_time * 60:
                 addbackup(server, info, time.strftime("%Y%m%d%H%M%S", time.localtime()))
-                times = 0
-        if times > 3600:
-            times = 0
+                autotime = 0
         sleep(1)
-        times += 1
-        if not server.is_server_startup():
-            return
 
 
 def autobackuplist(server, info):
