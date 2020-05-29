@@ -36,16 +36,16 @@
 
 ## 给予修改权限的全部权限
 你想做的第一件事情就是给你本插件的所有权限。
-当本插件首次安装后，没有人能够使用LuckPerms插件的有关命令。
+当本插件首次安装后，没有人能够使用PermissionsMange插件的有关命令。
 
-要想做到这个的话，你需要在服务器控制台输入 `!!pm user Luck permission set luckperms.* true` 。
+要想做到这个的话，你需要在服务器控制台输入 `!!pm user Permissions permission set PermissionsMange.* true` 。
 当然，请把我的名字换成你自己的（不用担心，这条命令的使用方法之后会详细讲解）
 
 
-实际上，这条命令起的效果，就是给了 `Luck` 用户 `luckperms.*` 权限。（或者说，为用户设置权限为 true）
+实际上，这条命令起的效果，就是给了 `Permissions` 用户 `PermissionsMange.*` 权限。（或者说，为用户设置权限为 true）
 
 你可能已经注意到了我们刚才在权限字符串的末端使用的 `*` 字符了。
-这个字符叫做通配符，它会给玩家**所有**以 "luckperms" 为开头的权限。
+这个字符叫做通配符，它会给玩家**所有**以 "PermissionsMange" 为开头的权限。
 
 ## 创建第一个权限组
 我们可以使用创建权限组命令来创建一个新的权限组。
@@ -72,7 +72,7 @@
 
 下面的命令是“set”子命令。
 
-你还记得吗，之前我们使用相似的指令来给玩家 "luckperms.*" 权限。这里它也相同
+你还记得吗，之前我们使用相似的指令来给玩家 "PermissionsMange.*" 权限。这里它也相同
 只需要不加参数运行该命令就可以返回该命令的使用方法。举个例子：
 
 举个例子，我想给我的“admin”用户组 "minecraft.command.ban" 权限。
@@ -88,9 +88,9 @@
 ## 将玩家加入到权限组中
 将用户加入到权限组中需要使用 "parent" 命令。（在我们的命令使用页我们经常用“permission”替换“parent”）
 
-举个例子，把我自己加入“admin”权限组中，我需要使用 [`!!pm user Luck parent add admin`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-parent-add) 。
+举个例子，把我自己加入“admin”权限组中，我需要使用 [`!!pm user Permissions parent add admin`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-parent-add) 。
 
-这条命令会将用户 `Luck` 加入到 `admin` 权限组中。
+这条命令会将用户 `Permissions` 加入到 `admin` 权限组中。
 这意味着任何“admin”权限组所拥有的权限我现在也继承下来了。
 
 ## 让一个权限组继承另一个权限组
@@ -119,4 +119,4 @@
 ## 移除继承权限组
 要想移除权限组间的继承关系只需要输入一个类似的命令就好了。
 
-要想让我自己不再继承“admin”权限组，我只要输入 [`!!pm user Luck parent remove admin`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-parent-remove) 就好了。
+要想让我自己不再继承“admin”权限组，我只要输入 [`!!pm user Permissions parent remove admin`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-parent-remove) 就好了。
