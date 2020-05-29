@@ -38,7 +38,7 @@
 你想做的第一件事情就是给你本插件的所有权限。
 当本插件首次安装后，没有人能够使用LuckPerms插件的有关命令。
 
-要想做到这个的话，你需要在服务器控制台输入 `/luckperms user Luck permission set luckperms.* true` 。
+要想做到这个的话，你需要在服务器控制台输入 `!!PermissionsManger user Luck permission set luckperms.* true` 。
 当然，请把我的名字换成你自己的（不用担心，这条命令的使用方法之后会详细讲解）
 
 
@@ -52,19 +52,19 @@
 
 让我们创建一个叫做“admin”的权限组，然后给它附加一条权限吧。
 
-首先，运行 [`/luckperms creategroup admin`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-creategroup) 命令。
+首先，运行 [`!!PermissionsManger creategroup admin`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-creategroup) 命令。
 这会创建一个叫做“admin”的空权限组。
 
 接下来，我们想为“admin”权限组增加一条权限。
-用来修改权限组的命令是 [`/luckperms group <group>`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#group---lp-group-group-)。
+用来修改权限组的命令是 [`!!PermissionsManger group <group>`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#group---lp-group-group-)。
 如果你执行这条命令的话，它会为你显示所有可用的子命令。
 
 你可能注意到了第一个子命令是“info”命令。它只会列举出一些权限组相关的信息。
 
-我们可以运行 [`/luckperms group admin info`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-group-group-info) 来查看新建立的“admin”权限组的一些信息。
+我们可以运行 [`!!PermissionsManger group admin info`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-group-group-info) 来查看新建立的“admin”权限组的一些信息。
 
 接下来就是“permission”命令。这能够帮助你修改权限组的权限。
-再一次，使用 [`/luckperms group admin permission`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#permission---lp-user-user-permission---lp-group-group-permission-) 命令会列出所有可用的子命令。
+再一次，使用 [`!!PermissionsManger group admin permission`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#permission---lp-user-user-permission---lp-group-group-permission-) 命令会列出所有可用的子命令。
 
 再一次，我们看到了更多我们可以执行的命令。
 第一个就是另一个 "info" 子命令。
@@ -76,19 +76,19 @@
 只需要不加参数运行该命令就可以返回该命令的使用方法。举个例子：
 
 举个例子，我想给我的“admin”用户组 "minecraft.command.ban" 权限。
-因此我可以输入 [`/luckperms group admin permission set minecraft.command.ban true`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-permission-set) 。
+因此我可以输入 [`!!PermissionsManger group admin permission set minecraft.command.ban true`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-permission-set) 。
 这条命令就会给予 `admin` 用户组 `minecraft.command.ban permission` 权限。
 末端的true控制我们设置的权限的启用与否。
 你可以将权限的启用与否设置为 `true` 或 `false` 。
 为用户或权限组将权限设置为 true 能够让他们拥有该权限，设置为 false 即该权限无效。（指定他们没有该权限）
 
 如果晚些时候我决定不再让“admin”用户组拥有这个权限了，我可以使用 unset 命令来移除该权限的设定。
-输入 [`/luckperms group admin permission unset minecraft.command.ban`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-permission-unset) 。
+输入 [`!!PermissionsManger group admin permission unset minecraft.command.ban`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-permission-unset) 。
 
 ## 将玩家加入到权限组中
 将用户加入到权限组中需要使用 "parent" 命令。（在我们的命令使用页我们经常用“permission”替换“parent”）
 
-举个例子，把我自己加入“admin”权限组中，我需要使用 [`/luckperms user Luck parent add admin`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-parent-add) 。
+举个例子，把我自己加入“admin”权限组中，我需要使用 [`!!PermissionsManger user Luck parent add admin`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-parent-add) 。
 
 这条命令会将用户 `Luck` 加入到 `admin` 权限组中。
 这意味着任何“admin”权限组所拥有的权限我现在也继承下来了。
@@ -107,9 +107,9 @@
 
 我想让“admin”权限组中的用户拥有“mod”和“default”权限组的权限，同时“mod”权限组中的用户拥有“default”权限组中的权限。要想实现这个的话，我可以设置用户组之间的相互继承。
 
-[`/luckperms group admin parent add mod`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-parent-add) 命令会让“admin”权限组继承所有“mod”权限组中的权限。
+[`!!PermissionsManger group admin parent add mod`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-parent-add) 命令会让“admin”权限组继承所有“mod”权限组中的权限。
 
-然后要想让“mod”继承“default”，同样的道理，我可以输入 `/luckperms group mod parent add default`。
+然后要想让“mod”继承“default”，同样的道理，我可以输入 `!!PermissionsManger group mod parent add default`。
 
 继承是可递归的，所以这样以后“admin”权限组就不仅仅继承了“mod”权限组，还继承了“default”权限组。
 这意味着“admin”权限组中的玩家拥有“mod”**和**“default”两权限组中的权限了。
@@ -119,4 +119,4 @@
 ## 移除继承权限组
 要想移除权限组间的继承关系只需要输入一个类似的命令就好了。
 
-要想让我自己不再继承“admin”权限组，我只要输入 [`/luckperms user Luck parent remove admin`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-parent-remove) 就好了。
+要想让我自己不再继承“admin”权限组，我只要输入 [`!!PermissionsManger user Luck parent remove admin`](https://gitee.com/gu_zt666/MCDR-plugins/tree/PermissionsManger/docs/Command-Usage.md#lp-usergroup-usergroup-parent-remove) 就好了。
