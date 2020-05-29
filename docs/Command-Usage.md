@@ -1,4 +1,4 @@
-当输入无效的参数时，命令的使用方法将会打印在控制台/聊天中，**简单的输入 /pm 或者 /pmb** 会显示当前用户的权限能够使用的所有命令。
+当输入无效的参数时，命令的使用方法将会打印在控制台/聊天中，**简单的输入 !!perm 或者 !!permb** 会显示当前用户的权限能够使用的所有命令。
 
 如果输入命令后返回的只有插件版本，那么你没有权限使用任何插件，你需要使用服务器控制台来给自己使用 PermissionsManger 命令的权限。
 ### 别名
@@ -7,11 +7,11 @@
 
 |           MCDR           |
 |--------------------------|
-| /PermissionsManger       |
-| /perms                   |
-| /permissions             |
-| /perm                    |
-| /pm                      |
+| !!permissionsManger      |
+| !!perms                  |
+| !!permissions            |
+| !!perm                   |
+| !!perm                   |
 
 ### 什么是上下文(Context)
 参数 `context` 在PermissionsManger中使用频率很高，他的意义对大多数的用户可能不是那么显而易见。
@@ -26,7 +26,7 @@ Context，在常识中，意味着环境，某个权限，父组，前缀后缀�
 
 最终，举个例子，我想将 "PermissionsManger.info" 权限在 "nether" 世界设置为 true，只有在 "factions" 服务器有效，命令将会是：
 
-`/PermissionsManger user PermissionsManger set PermissionsManger.info true server=factions world=nether`.
+`!!permissionsManger user PermissionsManger set PermissionsManger.info true server=factions world=nether`.
 
 这就是用来接收上下文的命令的相同的格式。
 
@@ -39,55 +39,55 @@ Context，在常识中，意味着环境，某个权限，父组，前缀后缀�
 
 如果你想在参数中添加空格，你必须像这样 `" "` 使用引号把参数包起来。
 
-下方使用的别名 (/pm) 可以使用上方介绍的别名中的任意一个替换。
+下方使用的别名 (!!perm) 可以使用上方介绍的别名中的任意一个替换。
 
 ### 基础
-*  [/pm](#pm)
-*  [/pm `sync`](#pm-sync)
-*  [/pm `info`](#pm-info)
-*  [/pm `verbose` \<on | record | off | paste\> [filter]](#pm-verbose)
-*  [/pm `tree` [selection] [max level] [player]](#pm-tree)
-*  [/pm `search` \<permission\>](#pm-search)
-*  [/pm `check` \<user\> \<permission\>](#pm-check)
-*  [/pm `networksync`](#pm-networksync)
-*  [/pm `import` \<file\>](#pm-import)
-*  [/pm `export` \<file\>](#pm-export)
-*  [/pm `reloadconfig`](#pm-reloadconfig)
-*  [/pm `bulkupdate`](#pm-bulkupdate)
-*  [/pm `migration`](#pm-migration)
-*  [/pm `creategroup` \<group\>](#pm-creategroup)
-*  [/pm `deletegroup` \<group\>](#pm-deletegroup)
-*  [/pm `listgroups`](#pm-listgroups)
-*  [/pm `createtrack` \<track\>](#pm-createtrack)
-*  [/pm `deletetrack` \<track\>](#pm-deletetrack)
-*  [/pm `listtracks`](#pm-listtracks)
+*  [!!perm](#pm)
+*  [!!perm `sync`](#pm-sync)
+*  [!!perm `info`](#pm-info)
+*  [!!perm `verbose` \<on | record | off | paste\> [filter]](#pm-verbose)
+*  [!!perm `tree` [selection] [max level] [player]](#pm-tree)
+*  [!!perm `search` \<permission\>](#pm-search)
+*  [!!perm `check` \<user\> \<permission\>](#pm-check)
+*  [!!perm `networksync`](#pm-networksync)
+*  [!!perm `import` \<file\>](#pm-import)
+*  [!!perm `export` \<file\>](#pm-export)
+*  [!!perm `reloadconfig`](#pm-reloadconfig)
+*  [!!perm `bulkupdate`](#pm-bulkupdate)
+*  [!!perm `migration`](#pm-migration)
+*  [!!perm `creategroup` \<group\>](#pm-creategroup)
+*  [!!perm `deletegroup` \<group\>](#pm-deletegroup)
+*  [!!perm `listgroups`](#pm-listgroups)
+*  [!!perm `createtrack` \<track\>](#pm-createtrack)
+*  [!!perm `deletetrack` \<track\>](#pm-deletetrack)
+*  [!!perm `listtracks`](#pm-listtracks)
 
-### 用户   (/pm user \<user\> ...)
-*  [/pm user \<user\> `info`](#pm-user-user-info)
-*  [/pm user \<user\> `permission`](#permission---pm-user-user-permission---pm-group-group-permission-)
-*  [/pm user \<user\> `parent`](#parent---pm-user-user-parent---pm-group-group-parent-)
-*  [/pm user \<user\> `meta`](#meta---pm-user-user-meta---pm-group-group-meta-)
-*  [/pm user \<user\> `editor`](#pm-user-user-editor)
-*  [/pm user \<user\> `switchprimarygroup` \<group\>](#pm-user-user-switchprimarygroup)
-*  [/pm user \<user\> `promote` \<track\> [context...]](#pm-user-user-promote)
-*  [/pm user \<user\> `demote` \<track\> [context...]](#pm-user-user-demote)
-*  [/pm user \<user\> `showtracks`](#pm-user-user-showtracks)
-*  [/pm user \<user\> `clear` [context...]](#pm-user-user-clear)
+### 用户   (!!perm user \<user\> ...)
+*  [!!perm user \<user\> `info`](#pm-user-user-info)
+*  [!!perm user \<user\> `permission`](#permission---pm-user-user-permission---pm-group-group-permission-)
+*  [!!perm user \<user\> `parent`](#parent---pm-user-user-parent---pm-group-group-parent-)
+*  [!!perm user \<user\> `meta`](#meta---pm-user-user-meta---pm-group-group-meta-)
+*  [!!perm user \<user\> `editor`](#pm-user-user-editor)
+*  [!!perm user \<user\> `switchprimarygroup` \<group\>](#pm-user-user-switchprimarygroup)
+*  [!!perm user \<user\> `promote` \<track\> [context...]](#pm-user-user-promote)
+*  [!!perm user \<user\> `demote` \<track\> [context...]](#pm-user-user-demote)
+*  [!!perm user \<user\> `showtracks`](#pm-user-user-showtracks)
+*  [!!perm user \<user\> `clear` [context...]](#pm-user-user-clear)
 
-### 组   (/pm group \<group\> ...)
-*  [/pm group \<group\> `info`](#pm-group-group-info)
-*  [/pm group \<group\> `permission`](#permission---pm-user-user-permission---pm-group-group-permission-)
-*  [/pm group \<group\> `parent`](#parent---pm-user-user-parent---pm-group-group-parent-)
-*  [/pm group \<group\> `meta`](#meta---pm-user-user-meta---pm-group-group-meta-)
-*  [/pm group \<group\> `editor`](#pm-group-group-editor)
-*  [/pm group \<group\> `listmembers` [page]](#pm-group-group-listmembers)
-*  [/pm group \<group\> `setweight` \<weight\>](#pm-group-group-setweight)
-*  [/pm group \<group\> `showtracks`](#pm-group-group-showtracks)
-*  [/pm group \<group\> `clear` [context...]](#pm-group-group-clear)
-*  [/pm group \<group\> `rename` \<new name\>](#pm-group-group-rename)
-*  [/pm group \<group\> `clone` \<name of clone\>](#pm-group-group-clone)
+### 组   (!!perm group \<group\> ...)
+*  [!!perm group \<group\> `info`](#pm-group-group-info)
+*  [!!perm group \<group\> `permission`](#permission---pm-user-user-permission---pm-group-group-permission-)
+*  [!!perm group \<group\> `parent`](#parent---pm-user-user-parent---pm-group-group-parent-)
+*  [!!perm group \<group\> `meta`](#meta---pm-user-user-meta---pm-group-group-meta-)
+*  [!!perm group \<group\> `editor`](#pm-group-group-editor)
+*  [!!perm group \<group\> `listmembers` [page]](#pm-group-group-listmembers)
+*  [!!perm group \<group\> `setweight` \<weight\>](#pm-group-group-setweight)
+*  [!!perm group \<group\> `showtracks`](#pm-group-group-showtracks)
+*  [!!perm group \<group\> `clear` [context...]](#pm-group-group-clear)
+*  [!!perm group \<group\> `rename` \<new name\>](#pm-group-group-rename)
+*  [!!perm group \<group\> `clone` \<name of clone\>](#pm-group-group-clone)
 
-### 权限   (/pm user \<user\> permission ... | /pm group \<group\> permission ...)
+### 权限   (!!perm user \<user\> permission ... | !!perm group \<group\> permission ...)
 *  [`info`](#pm-usergroup-usergroup-permission-info)
 *  [`set` \<node\> \<true/false\> [context...]](#pm-usergroup-usergroup-permission-set)
 *  [`unset` \<node\> [context...]](#pm-usergroup-usergroup-permission-unset)
@@ -96,7 +96,7 @@ Context，在常识中，意味着环境，某个权限，父组，前缀后缀�
 *  [`check` \<node\> [context...]](#pm-usergroup-usergroup-permission-check)
 *  [`checkinherits` \<node\> [context...]](#pm-usergroup-usergroup-permission-checkinherits)
 
-### 继承   (/pm user \<user\> parent ... | /pm group \<group\> parent ...)
+### 继承   (!!perm user \<user\> parent ... | !!perm group \<group\> parent ...)
 *  [`info`](#pm-usergroup-usergroup-parent-info)
 *  [`set` \<group\> [context...]](#pm-usergroup-usergroup-parent-set)
 *  [`add` \<group\> [context...]](#pm-usergroup-usergroup-parent-add)
@@ -107,7 +107,7 @@ Context，在常识中，意味着环境，某个权限，父组，前缀后缀�
 *  [`clear` [context...]](#pm-usergroup-usergroup-parent-clear)
 *  [`cleartrack` \<track\> [context...]](#pm-usergroup-usergroup-parent-cleartrack)
 
-### 元数据   (/pm user \<user\> meta ... | /pm group \<group\> meta ...)
+### 元数据   (!!perm user \<user\> meta ... | !!perm group \<group\> meta ...)
 *  [`info`](#pm-usergroup-usergroup-meta-info)
 *  [`set` \<key\> \<value\> [context...]](#pm-usergroup-usergroup-meta-set)
 *  [`unset` \<key\> [context...]](#pm-usergroup-usergroup-meta-unset)
@@ -123,44 +123,44 @@ Context，在常识中，意味着环境，某个权限，父组，前缀后缀�
 *  [`removetempsuffix` \<priority\> [suffix] [context...]](#pm-usergroup-usergroup-meta-removetempsuffix)
 *  [`clear` [context...]](#pm-usergroup-usergroup-meta-clear)
 
-### 轨道   (/pm track \<track\> ...)
-*  [/pm track \<track\> `info`](#pm-track-track-info)
-*  [/pm track \<track\> `append` \<group\>](#pm-track-track-append)
-*  [/pm track \<track\> `insert` \<group\> \<position\>](#pm-track-track-insert)
-*  [/pm track \<track\> `remove` \<group\>](#pm-track-track-remove)
-*  [/pm track \<track\> `clear`](#pm-track-track-clear)
-*  [/pm track \<track\> `rename` \<new name\>](#pm-track-track-rename)
-*  [/pm track \<track\> `clone` \<name of clone\>](#pm-track-track-clone)
+### 轨道   (!!perm track \<track\> ...)
+*  [!!perm track \<track\> `info`](#pm-track-track-info)
+*  [!!perm track \<track\> `append` \<group\>](#pm-track-track-append)
+*  [!!perm track \<track\> `insert` \<group\> \<position\>](#pm-track-track-insert)
+*  [!!perm track \<track\> `remove` \<group\>](#pm-track-track-remove)
+*  [!!perm track \<track\> `clear`](#pm-track-track-clear)
+*  [!!perm track \<track\> `rename` \<new name\>](#pm-track-track-rename)
+*  [!!perm track \<track\> `clone` \<name of clone\>](#pm-track-track-clone)
 
-### 日志   (/pm log ...)
-*  [/pm log `recent` [user] [page]](#pm-log-recent)
-*  [/pm log `search` \<query\> [page]](#pm-log-search)
-*  [/pm log `notify` [on|off]](#pm-log-notify)
-*  [/pm log `export` \<file\>](#pm-log-export)
-*  [/pm log `userhistory` \<user\> [page]](#pm-log-userhistory)
-*  [/pm log `grouphistory` \<group\> [page]](#pm-log-grouphistory)
-*  [/pm log `trackhistory` \<track\> [page]](#pm-log-trackhistory)
+### 日志   (!!perm log ...)
+*  [!!perm log `recent` [user] [page]](#pm-log-recent)
+*  [!!perm log `search` \<query\> [page]](#pm-log-search)
+*  [!!perm log `notify` [on|off]](#pm-log-notify)
+*  [!!perm log `export` \<file\>](#pm-log-export)
+*  [!!perm log `userhistory` \<user\> [page]](#pm-log-userhistory)
+*  [!!perm log `grouphistory` \<group\> [page]](#pm-log-grouphistory)
+*  [!!perm log `trackhistory` \<track\> [page]](#pm-log-trackhistory)
 
 # 命令细节
 
 ### 基础
 ___
-#### `/pm`  
+#### `!!perm`  
 **权限**: n/a  
 基础的 PermissionsManger 命令。将会打印用户有权限使用的所有的命令，包含每个命令的基础信息，和接受的参数。
 
 ___
-#### `/pm sync`  
+#### `!!perm sync`  
 **权限**: PermissionsManger.sync  
 刷新所有加载的数据，如果存储中有变化，那么这个命令将会将服务器的信息添加存储中的更改。
 
 ___
-#### `/pm info`  
+#### `!!perm info`  
 **权限**: PermissionsManger.info  
 列出 PermissionsManger 的一些信息/数据，包括 debug 输出，统计，设置和配置中的一些重要的值。
 
 ___
-#### `/pm verbose`  
+#### `!!perm verbose`  
 **权限**: PermissionsManger.verbose  
 **参数**:  
 * `<on|record|off|paste>` - 启用或禁用日志，或者粘贴日志输出
@@ -179,10 +179,10 @@ ___
 * `!Permissions & !anticheat` - 匹配每个对不是 Permissions 的玩家的对以不是 "anticheat" 开头的权限的检查。
 * `anticheat & !anticheat.check` - matches any checks starting with "anticheat" but not starting with "anticheat.check"    
      
-更多的信息可以在[**这里**](https://github.com/PluginsCDTribe/PermissionsManger/wiki/Verbose)找到。
+更多的信息可以在[**这里**](https://github.com/PluginsCDTribe!!permissionsManger/wiki/Verbose)找到。
 
 ___
-#### `/pm tree`  
+#### `!!perm tree`  
 **权限**: PermissionsManger.tree  
 **参数**:  
 * `[selection]` - 树的根 (指定 `.` 包含所有的权限)
@@ -198,7 +198,7 @@ ___
 Max level 允许你定义最多包括的子分支，举个例子，如果你设置最大等级为 `2`，"PermissionsManger.user" 将会被返回，但是 "PermissionsManger.user.info" 将不会被显示。
 
 ___
-#### `/pm search`  
+#### `!!perm search`  
 **权限**: PermissionsManger.search  
 **参数**:  
 * `<permission>` - 搜索的权限
@@ -206,7 +206,7 @@ ___
 搜索所有用户/组的特定权限，返回分页的所有条目的列表。
 
 ___
-#### `/pm check`  
+#### `!!perm check`  
 **权限**: PermissionsManger.check  
 **参数**:  
 * `<user>` - 检查的玩家
@@ -215,20 +215,20 @@ ___
 执行一个普通的对在线玩家的权限检查，返回结果，这个检查与其他插件的权限检查的结果相同。
 
 ___
-#### `/pm networksync`  
+#### `!!perm networksync`  
 **权限**: PermissionsManger.sync  
 刷新所有存储提供的缓存数据，接着（如果提供了的话）使用消息服务来请求连接的其他的服务器并请求所有服务器同步。
 
 ___
-#### `/pm import`  
+#### `!!perm import`  
 **权限**: PermissionsManger.import  
 **参数**:  
 * `<file>` - 导入的文件
 
-从文件导入 PermissionsManger 的数据，文件必须是一列命令，以 "/PermissionsManger" 开头，这个文件可以使用 export 命令生成，文件必须在插件的目录下。
+从文件导入 PermissionsManger 的数据，文件必须是一列命令，以 "!!permissionsManger" 开头，这个文件可以使用 export 命令生成，文件必须在插件的目录下。
 
 ___
-#### `/pm export`  
+#### `!!perm export`  
 **权限**: PermissionsManger.export  
 **参数**:  
 * `<file>` - 导出的文件
@@ -236,22 +236,22 @@ ___
 将 PermissionsManger 的数据导出到一个文件，这个文件也可以作为一个备份，或者在 PermissionsManger 的安装之间转移数据。这个文件可以使用 import 命令重新导入，生成的文件在插件的目录下。
 
 ___
-#### `/pm reloadconfig`  
+#### `!!perm reloadconfig`  
 **权限**: PermissionsManger.reloadconfig  
 重载配置文件的部分值。不是所有的条目都会被这个命令重载，有些需要一次完全的服务器重启才能生效（比如存储的设置）。
 
 ___
-#### `/pm bulkupdate`  
+#### `!!perm bulkupdate`  
 **权限**: **仅控制台**  
-允许你执行一次对所有权限数据的块编辑。详细的指南可以在[这里](https://github.com/PluginsCDTribe/PermissionsManger/wiki/Bulk-Editing)找到。
+允许你执行一次对所有权限数据的块编辑。详细的指南可以在[这里](https://github.com/PluginsCDTribe!!permissionsManger/wiki/Bulk-Editing)找到。
 
 ___
-#### `/pm migration`  
+#### `!!perm migration`  
 **权限**: PermissionsManger.migration  
-迁移系统使用的主命令。允许你从其他的权限插件导入权限数据，更多的关于这个特性的信息可以在[这里](https://github.com/PluginsCDTribe/PermissionsManger/wiki/Migration)找到。
+迁移系统使用的主命令。允许你从其他的权限插件导入权限数据，更多的关于这个特性的信息可以在[这里](https://github.com/PluginsCDTribe!!permissionsManger/wiki/Migration)找到。
 
 ___
-#### `/pm creategroup`  
+#### `!!perm creategroup`  
 **权限**: PermissionsManger.creategroup  
 **参数**:  
 * `<name>` - 组的名称
@@ -259,7 +259,7 @@ ___
 创建一个新的组。
 
 ___
-#### `/pm deletegroup`  
+#### `!!perm deletegroup`  
 **权限**: PermissionsManger.deletegroup  
 **参数**:  
 * `<name>` - 组的名称
@@ -267,12 +267,12 @@ ___
 永久的删除一个组。
 
 ___
-#### `/pm listgroups`  
+#### `!!perm listgroups`  
 **权限**: PermissionsManger.listgroups  
 显示当前的所有的组。
 
 ___
-#### `/pm createtrack`  
+#### `!!perm createtrack`  
 **权限**: PermissionsManger.createtrack  
 **参数**:  
 * `<name>` - 路线名称
@@ -280,7 +280,7 @@ ___
 创建新的路线。
 
 ___
-#### `/pm deletetrack`  
+#### `!!perm deletetrack`  
 **权限**: PermissionsManger.deletetrack  
 **参数**:  
 * `<name>` - 路线的名称
@@ -288,25 +288,25 @@ ___
 永久删除一个路线。
 
 ___
-#### `/pm listtracks`  
+#### `!!perm listtracks`  
 **权限**: PermissionsManger.listtracks  
 显示当前所有的路线。
 
 ___
 
-### 用户   (/pm user \<user\> ...)
+### 用户   (!!perm user \<user\> ...)
 ___
-#### `/pm user <user> info`  
+#### `!!perm user <user> info`  
 **权限**: PermissionsManger.user.info  
 显示一个用户的信息，包括用户名，主组，继承组，和当前的上下文。
 
 ___
-#### `/pm user <user> editor`  
+#### `!!perm user <user> editor`  
 **权限**: PermissionsManger.user.editor  
 开启编辑指定的用户的权限的网页接口，当更改保存后，你将会收到一条命令，使用后使更改生效。
 
 ___
-#### `/pm user <user> switchprimarygroup`  
+#### `!!perm user <user> switchprimarygroup`  
 **权限**: PermissionsManger.user.switchprimarygroup  
 **参数**:  
 * `<group>` - 切换的组
@@ -316,7 +316,7 @@ ___
 如果 `primary-group-calculation` 选项被设置为不是 "stored" 的其他东西，你应该使用 `parent add`(#pm-usergroup-usergroup-parent-add) 或者 `parent set`(#pm-usergroup-usergroup-parent-set) 命令而不是这个命令。
 
 ___
-#### `/pm user <user> promote`  
+#### `!!perm user <user> promote`  
 **权限**: PermissionsManger.user.promote  
 **参数**:  
 * `<track>` - 升级遵循的路线
@@ -325,7 +325,7 @@ ___
 这个命令将会沿着一条路线提升玩家，命令会检查玩家在给出的上下文里是否在这个路线上，如果用户没有在这条路线，他们将会被加入这条路线的第一个组，如果玩家在这条路线上的不止一个组，命令将会执行失败。在其他情况下，玩家将会被成功提升，并将会被从现有的组移除。如果路线动作影响了用户的主组，他们也会被更新。
 
 ___
-#### `/pm user <user> demote`  
+#### `!!perm user <user> demote`  
 **权限**: PermissionsManger.user.demote  
 **参数**:  
 * `<track>` - 降级的遵循的路线
@@ -334,12 +334,12 @@ ___
 这个命令将会沿着一条路线降级玩家，命令会检查玩家在给出的上下文里是否在这个路线上，如果用户没有在这条路线，或者玩家在这条路线上的不止一个组，命令将会执行失败。在其他情况下，玩家将会被成功降级，并将会被从现有的组移除。如果路线动作影响了用户的主组，他们也会被更新。
 
 ___
-#### `/pm user <user> showtracks`  
+#### `!!perm user <user> showtracks`  
 **权限**: PermissionsManger.user.showtracks  
 显示玩家当前所在的全部路线。
 
 ___
-#### `/pm user <user> clear`  
+#### `!!perm user <user> clear`  
 **权限**: PermissionsManger.user.clear  
 **参数**:  
 * `[context...]` - 用于过滤的上下文
@@ -347,19 +347,19 @@ ___
 清除玩家的权限，继承组和元数据。
 
 ___
-### 组   (/pm group \<group\> ...)
+### 组   (!!perm group \<group\> ...)
 ___
-#### `/pm group <group> info`  
+#### `!!perm group <group> info`  
 **权限**: PermissionsManger.group.info  
 显示一个组的信息。
 
 ___
-#### `/pm group <group> editor`  
+#### `!!perm group <group> editor`  
 **权限**: PermissionsManger.group.editor  
 开启编辑指定的组的权限的网页接口，当更改保存后，你将会收到一条命令，使用后使更改生效。
 
 ___
-#### `/pm group <group> listmembers`  
+#### `!!perm group <group> listmembers`  
 **权限**: PermissionsManger.group.listmembers  
 **参数**:  
 * `[page]` - 查看的页数
@@ -367,7 +367,7 @@ ___
 显示直接继承这个组的用户/组
 
 ___
-#### `/pm group <group> setweight`  
+#### `!!perm group <group> setweight`  
 **权限**: PermissionsManger.group.setweight  
 **参数**:  
 * `<weight>` - 设置的权重
@@ -375,12 +375,12 @@ ___
 设置组的权重值，这决定了决定用户的权限的顺序。越大的值代表越高的权重。
 
 ___
-#### `/pm group <group> showtracks`  
+#### `!!perm group <group> showtracks`  
 **权限**: PermissionsManger.group.showtracks  
 显示一个组所在的所有的路线。
 
 ___
-#### `/pm group <group> clear`  
+#### `!!perm group <group> clear`  
 **权限**: PermissionsManger.group.clear  
 **参数**:  
 * `[context...]` - 用于过滤的上下文
@@ -388,7 +388,7 @@ ___
 清除组的权限，继承组和元数据。
 
 ___
-#### `/pm group <group> rename`  
+#### `!!perm group <group> rename`  
 **权限**: PermissionsManger.group.rename  
 **参数**:  
 * `<new name>` - 组的新的名称
@@ -396,7 +396,7 @@ ___
 更改组的名称，注意任何组的成员都不会知道这个变更，他们还将在原来的旧组的组名。如果你希望更新这些状态，你应该使用块变更特性来更新存在的条目。
 
 ___
-#### `/pm group <group> clone`  
+#### `!!perm group <group> clone`  
 **权限**: PermissionsManger.group.clone  
 **参数**:  
 * `<new name>` - 复制的名称
@@ -404,14 +404,14 @@ ___
 创建一个组的不同名称的拷贝。
 
 ___
-### 权限   (/pm user \<user\> permission ... | /pm group \<group\> permission ...)
+### 权限   (!!perm user \<user\> permission ... | !!perm group \<group\> permission ...)
 ___
-#### `/pm user/group <user|group> permission info`  
+#### `!!perm user/group <user|group> permission info`  
 **权限**: PermissionsManger.user.permission.info 或 PermissionsManger.group.permission.info  
 显示一个用户/组拥有的所有的权限。
 
 ___
-#### `/pm user/group <user|group> permission set`  
+#### `!!perm user/group <user|group> permission set`  
 **权限**: PermissionsManger.user.permission.set or PermissionsManger.group.permission.set  
 **参数**:  
 * `<node>` - 设置的权限节点
@@ -421,7 +421,7 @@ ___
 设置（或给予）某个用户/组一个权限，提供 false 值将会否定这个权限。
 
 ___
-#### `/pm user/group <user|group> permission unset`  
+#### `!!perm user/group <user|group> permission unset`  
 **权限**: PermissionsManger.user.permission.unset or PermissionsManger.group.permission.unset  
 **参数**:  
 * `<node>` - 取消设置的权限节点
@@ -430,7 +430,7 @@ ___
 取消设置一个用户或组的权限节点。
 
 ___
-#### `/pm user/group <user|group> permission settemp`  
+#### `!!perm user/group <user|group> permission settemp`  
 **权限**: PermissionsManger.user.permission.settemp or PermissionsManger.group.permission.settemp  
 **参数**:  
 * `<node>` - 设置的权限节点
@@ -441,7 +441,7 @@ ___
 给一个玩家/组设置临时权限，提供 false 值将会否定这个权限。持续时间应为时间段或者一个标准的 Unix 时间戳，比如 "3d13h45m" 将会设置权限在 3 天, 13 小时 45 分钟后过期。"1482694200" 会设置过期时间为 7:30PM 于 25th December 2016。
 
 ___
-#### `/pm user/group <user|group> permission unsettemp`  
+#### `!!perm user/group <user|group> permission unsettemp`  
 **权限**: PermissionsManger.user.permission.unsettemp or PermissionsManger.group.permission.unsettemp  
 **参数**:  
 * `<node>` - 取消设置的权限节点
@@ -450,7 +450,7 @@ ___
 取消设置一个用户或组的临时权限节点。
 
 ___
-#### `/pm user/group <user|group> permission check`  
+#### `!!perm user/group <user|group> permission check`  
 **权限**: PermissionsManger.user.permission.check or PermissionsManger.group.permission.check  
 **参数**:  
 * `<node>` - 检查的权限节点
@@ -459,7 +459,7 @@ ___
 检查一个组或者玩家有特定的权限
 
 ___
-#### `/pm user/group <user|group> permission checkinherits`  
+#### `!!perm user/group <user|group> permission checkinherits`  
 **权限**: PermissionsManger.user.permission.checkinherits or PermissionsManger.group.permission.checkinherits  
 **参数**:  
 * `<node>` - 检查的权限节点
@@ -469,14 +469,14 @@ ___
 
 ___
 
-### 继承组   (/pm user \<user\> parent ... | /pm group \<group\> parent ...)
+### 继承组   (!!perm user \<user\> parent ... | !!perm group \<group\> parent ...)
 ___
-#### `/pm user/group <user|group> parent info`  
+#### `!!perm user/group <user|group> parent info`  
 **权限**: PermissionsManger.user.parent.info or PermissionsManger.group.parent.info  
 显示一个用户/组的继承的组
 
 ___
-#### `/pm user/group <user|group> parent set`  
+#### `!!perm user/group <user|group> parent set`  
 **权限**: PermissionsManger.user.parent.set or PermissionsManger.group.parent.set  
 **参数**:  
 * `<group>` - 设置的组
@@ -485,7 +485,7 @@ ___
 设置一个用户/组的继承组，不像是 "parent add" 命令，这个命令将会清空所有已经存在的组。"add" 命令只会简单的将组添加到已经存在的组里，如果命令执行时没有上下文环境，这个插件也会更新玩家的主组。
 
 ___
-#### `/pm user/group <user|group> parent add`  
+#### `!!perm user/group <user|group> parent add`  
 **权限**: PermissionsManger.user.parent.add or PermissionsManger.group.parent.add  
 **参数**:  
 * `<group>` - 添加的组
@@ -494,7 +494,7 @@ ___
 添加一个集成组到一个玩家/组，不像是 "parent set" 命令，这个命令只会将组添加进已经存在的组的列表。没有已经存在的继承组会被移除，用户的主组也不会被影响。
 
 ___
-#### `/pm user/group <user|group> parent remove`  
+#### `!!perm user/group <user|group> parent remove`  
 **权限**: PermissionsManger.user.parent.remove or PermissionsManger.group.parent.remove  
 **参数**:  
 * `<group>` - 移除的组
@@ -503,7 +503,7 @@ ___
 移除一个用户/组的继承组。
 
 ___
-#### `/pm user/group <user|group> parent settrack`  
+#### `!!perm user/group <user|group> parent settrack`  
 **权限**: PermissionsManger.user.parent.settrack or PermissionsManger.group.parent.settrack  
 **参数**:  
 * `<track>` - 设置的路线
@@ -513,7 +513,7 @@ ___
 设置用户/组在给出的路线的位置，这个跟 set 命令相同，除了这个将会清除在指定的路线上已经存在的组，其他继承组不会被影响。
 
 ___
-#### `/pm user/group <user|group> parent addtemp`  
+#### `!!perm user/group <user|group> parent addtemp`  
 **权限**: PermissionsManger.user.parent.addtemp or PermissionsManger.group.parent.addtemp  
 **参数**:  
 * `<group>` - 添加的组
@@ -523,7 +523,7 @@ ___
 给一个玩家/组添加临时继承组。持续时间应为时间段或者一个标准的 Unix 时间戳，比如 "3d13h45m" 将会设置权限在 3 天, 13 小时 45 分钟后过期。"1482694200" 会设置过期时间为 7:30PM 于 25th December 2016。
 
 ___
-#### `/pm user/group <user|group> parent removetemp`  
+#### `!!perm user/group <user|group> parent removetemp`  
 **权限**: PermissionsManger.user.parent.removetemp or PermissionsManger.group.parent.removetemp  
 **参数**:  
 * `<group>` - 移除的组
@@ -532,7 +532,7 @@ ___
 移除一个用户/组的临时继承组。
 
 ___
-#### `/pm user/group <user|group> parent clear`  
+#### `!!perm user/group <user|group> parent clear`  
 **权限**: PermissionsManger.user.parent.clear or PermissionsManger.group.parent.clear  
 **参数**:  
 * `[context...]` - 用于过滤的上下文
@@ -540,7 +540,7 @@ ___
 移除所有继承组。
 
 ___
-#### `/pm user/group <user|group> parent cleartrack`  
+#### `!!perm user/group <user|group> parent cleartrack`  
 **权限**: PermissionsManger.user.parent.cleartrack or PermissionsManger.group.parent.cleartrack  
 **参数**:  
 * `<track>` - 移除的路线
@@ -550,14 +550,14 @@ ___
 
 ___
 
-### 元数据   (/pm user \<user\> meta ... | /pm group \<group\> meta ...)
+### 元数据   (!!perm user \<user\> meta ... | !!perm group \<group\> meta ...)
 ___
-#### `/pm user/group <user|group> meta info`  
+#### `!!perm user/group <user|group> meta info`  
 **权限**: PermissionsManger.user.meta.info or PermissionsManger.group.meta.info  
 显示用户/组的继承元数据，前缀和后缀。
 
 ___
-#### `/pm user/group <user|group> meta set`  
+#### `!!perm user/group <user|group> meta set`  
 **权限**: PermissionsManger.user.meta.set or PermissionsManger.group.meta.set  
 **参数**:  
 * `<key>` - 设置的键值
@@ -567,7 +567,7 @@ ___
 设置用户/组的键值对元数据，这些值可以用于读取并且可以通过其他使用 Vault 或者 Sponge Permissions API 的插件更改。
 
 ___
-#### `/pm user/group <user|group> meta unset`  
+#### `!!perm user/group <user|group> meta unset`  
 **权限**: PermissionsManger.user.meta.unset or PermissionsManger.group.meta.unset  
 **参数**:  
 * `<key>` - 取消设置的键
@@ -576,7 +576,7 @@ ___
 取消设置一个用户或组的元数据键值。
 
 ___
-#### `/pm user/group <user|group> meta settemp`  
+#### `!!perm user/group <user|group> meta settemp`  
 **权限**: PermissionsManger.user.meta.settemp or PermissionsManger.group.meta.settemp  
 **参数**:  
 * `<key>` - 设置的键值
@@ -587,7 +587,7 @@ ___
 给一个玩家/组设置临时元数据键值，提供 false 值将会否定这个权限。持续时间应为时间段或者一个标准的 Unix 时间戳，比如 "3d13h45m" 将会设置权限在 3 天, 13 小时 45 分钟后过期。"1482694200" 会设置过期时间为 7:30PM 于 25th December 2016。
 
 ___
-#### `/pm user/group <user|group> meta unsettemp`  
+#### `!!perm user/group <user|group> meta unsettemp`  
 **权限**: PermissionsManger.user.meta.unsettemp or PermissionsManger.group.meta.unsettemp  
 **参数**:  
 * `<key>` - 取消设置的键
@@ -596,7 +596,7 @@ ___
 取消设置一个用户或组的临时元数据。
 
 ___
-#### `/pm user/group <user|group> meta addprefix`  
+#### `!!perm user/group <user|group> meta addprefix`  
 **权限**: PermissionsManger.user.meta.addprefix or PermissionsManger.group.meta.addprefix  
 **参数**:  
 * `<priority>` - 添加前缀的优先度
@@ -606,7 +606,7 @@ ___
 给一个玩家/组设置前缀，使用 " " 来添加空格。
 
 ___
-#### `/pm user/group <user|group> meta addsuffix`  
+#### `!!perm user/group <user|group> meta addsuffix`  
 **权限**: PermissionsManger.user.meta.addsuffix or PermissionsManger.group.meta.addsuffix  
 **参数**:  
 * `<priority>` - 添加后缀的优先度
@@ -616,7 +616,7 @@ ___
 给一个玩家/组设置后缀，使用 " " 来添加空格。
 
 ___
-#### `/pm user/group <user|group> meta removeprefix`  
+#### `!!perm user/group <user|group> meta removeprefix`  
 **权限**: PermissionsManger.user.meta.removeprefix or PermissionsManger.group.meta.removeprefix  
 **参数**:  
 * `<priority>` - 移除前缀的优先度
@@ -626,7 +626,7 @@ ___
 给一个玩家/组移除前缀，使用 " " 来添加空格。
 
 ___
-#### `/pm user/group <user|group> meta removesuffix`  
+#### `!!perm user/group <user|group> meta removesuffix`  
 **权限**: PermissionsManger.user.meta.removesuffix or PermissionsManger.group.meta.removesuffix  
 **参数**:  
 * `<priority>` - 移除后缀的优先度
@@ -636,7 +636,7 @@ ___
 给一个玩家/组移除后缀，使用 " " 来添加空格。
 
 ___
-#### `/pm user/group <user|group> meta addtempprefix`  
+#### `!!perm user/group <user|group> meta addtempprefix`  
 **权限**: PermissionsManger.user.meta.addtempprefix or PermissionsManger.group.meta.addtempprefix  
 **参数**:  
 * `<priority>` - 添加前缀的优先度
@@ -647,7 +647,7 @@ ___
 给一个玩家/组设置临时前缀，提供 false 值将会否定这个权限。持续时间应为时间段或者一个标准的 Unix 时间戳，比如 "3d13h45m" 将会设置权限在 3 天, 13 小时 45 分钟后过期。"1482694200" 会设置过期时间为 7:30PM 于 25th December 2016。
 
 ___
-#### `/pm user/group <user|group> meta addtempsuffix`  
+#### `!!perm user/group <user|group> meta addtempsuffix`  
 **权限**: PermissionsManger.user.meta.addtempsuffix or PermissionsManger.group.meta.addtempsuffix  
 **参数**:  
 * `<priority>` - 添加后缀的优先度
@@ -658,7 +658,7 @@ ___
 给一个玩家/组设置临时后缀，提供 false 值将会否定这个权限。持续时间应为时间段或者一个标准的 Unix 时间戳，比如 "3d13h45m" 将会设置权限在 3 天, 13 小时 45 分钟后过期。"1482694200" 会设置过期时间为 7:30PM 于 25th December 2016。
 
 ___
-#### `/pm user/group <user|group> meta removetempprefix`  
+#### `!!perm user/group <user|group> meta removetempprefix`  
 **权限**: PermissionsManger.user.meta.removetempprefix or PermissionsManger.group.meta.removetempprefix  
 **参数**:  
 * `<priority>` - 移除前缀的优先度
@@ -668,7 +668,7 @@ ___
 给一个玩家/组移除临时前缀，使用 " " 来添加空格。
 
 ___
-#### `/pm user/group <user|group> meta removetempsuffix`  
+#### `!!perm user/group <user|group> meta removetempsuffix`  
 **权限**: PermissionsManger.user.meta.removetempsuffix or PermissionsManger.group.meta.removetempsuffix  
 **参数**:  
 * `<priority>` - 移除后缀的优先度
@@ -678,7 +678,7 @@ ___
 给一个玩家/组移除临时后前缀，使用 " " 来添加空格。
 
 ___
-#### `/pm user/group <user|group> meta clear`  
+#### `!!perm user/group <user|group> meta clear`  
 **权限**: PermissionsManger.user.meta.clear or PermissionsManger.group.meta.clear  
 **参数**:  
 * `[context...]` - 用于过滤的上下文
@@ -687,14 +687,14 @@ ___
 
 ___
 
-### 路线   (/pm track \<track\> ...)
+### 路线   (!!perm track \<track\> ...)
 ___
-#### `/pm track <track> info`  
+#### `!!perm track <track> info`  
 **权限**: PermissionsManger.track.info  
 显示路线中的组。
 
 ___
-#### `/pm track <track> append`  
+#### `!!perm track <track> append`  
 **权限**: PermissionsManger.track.info  
 **参数**:  
 * `<group>` - 添加的组
@@ -702,7 +702,7 @@ ___
 在路线结尾追加一个组。
 
 ___
-#### `/pm track <track> insert`  
+#### `!!perm track <track> insert`  
 **权限**: PermissionsManger.track.insert  
 **参数**:  
 * `<group>` - 插入的组
@@ -711,7 +711,7 @@ ___
 在指定的路线的位置插入一个组，为 1 的位置将会是路径的开始。
 
 ___
-#### `/pm track <track> remove`  
+#### `!!perm track <track> remove`  
 **权限**: PermissionsManger.track.remove  
 **参数**:  
 * `<group>` - 移除的组
@@ -719,12 +719,12 @@ ___
 从路线移除一个组。
 
 ___
-#### `/pm track <track> clear`  
+#### `!!perm track <track> clear`  
 **权限**: PermissionsManger.track.clear  
 移除路线中的所有的组。
 
 ___
-#### `/pm track <track> rename`  
+#### `!!perm track <track> rename`  
 **权限**: PermissionsManger.track.rename  
 **参数**:  
 * `<new name>` - 路线的新名称
@@ -732,7 +732,7 @@ ___
 更改路线的名称。
 
 ___
-#### `/pm track <track> clone`  
+#### `!!perm track <track> clone`  
 **权限**: PermissionsManger.track.clone  
 **参数**:  
 * `<new name>` - 拷贝的名称
@@ -741,9 +741,9 @@ ___
 
 ___
 
-### 日志   (/pm log ...)
+### 日志   (!!perm log ...)
 ___
-#### `/pm log recent`  
+#### `!!perm log recent`  
 **权限**: PermissionsManger.log.recent  
 **参数**:  
 * `[user]` - 用于过滤的名称、UUID
@@ -752,7 +752,7 @@ ___
 显示最近的动作。
 
 ___
-#### `/pm log search`  
+#### `!!perm log search`  
 **权限**: PermissionsManger.log.search  
 **参数**:  
 * `<query>` - 查询的查询
@@ -761,7 +761,7 @@ ___
 搜索匹配查询的所有日志条目。
 
 ___
-#### `/pm log notify`  
+#### `!!perm log notify`  
 **权限**: PermissionsManger.log.notify  
 **参数**:  
 * `[on|off]` - 是否开启
@@ -769,15 +769,15 @@ ___
 开关向发送者发送提醒的功能。
 
 ___
-#### `/pm log export`  
+#### `!!perm log export`  
 **权限**: PermissionsManger.log.export  
 **参数**:  
 * `<file>` - the file to export to
 
-将日志导出为一列命令，可以被 "/pm import" 命令识别，这个特性应该尽量不使用，推荐使用 "/pm export" 命令。
+将日志导出为一列命令，可以被 "!!perm import" 命令识别，这个特性应该尽量不使用，推荐使用 "!!perm export" 命令。
 
 ___
-#### `/pm log userhistory`  
+#### `!!perm log userhistory`  
 **权限**: PermissionsManger.log.userhistory  
 **参数**:  
 * `<user>` - 搜索的玩家
@@ -786,7 +786,7 @@ ___
 搜索有关给出玩家的日志。
 
 ___
-#### `/pm log grouphistory`  
+#### `!!perm log grouphistory`  
 **权限**: PermissionsManger.log.grouphistory  
 **参数**:  
 * `<group>` - 搜索的组
@@ -795,7 +795,7 @@ ___
 搜索有关给出组的日志。
 
 ___
-#### `/pm log trackhistory`  
+#### `!!perm log trackhistory`  
 **权限**: PermissionsManger.log.trackhistory  
 **参数**:  
 * `<track>` - 搜索的路线
