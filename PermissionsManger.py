@@ -2,7 +2,6 @@
 import re
 import traceback
 import copy
-# import requests as rq
 import json
 
 HELP_INFO = '''
@@ -11,3 +10,11 @@ HELP_INFO = '''
 !!pm user <user> ...     编辑用户权限
 !!pm group <group> ...   编辑权限组权限
 '''
+
+MLINE = ''''''
+
+MCDR_PREFFIX = "!!"
+PROGRAM = "pm","perm","permissions","perms","PermissionsManger"
+PLUGIN = PROGRAM
+NOT_PERMITTED = "§c权限不足"
+
