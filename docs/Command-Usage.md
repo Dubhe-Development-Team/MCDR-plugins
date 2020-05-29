@@ -178,8 +178,6 @@ ___
 * `Permissions & (essentials | worldedit)` - 匹配每个检查 Permissions 的以 "essentials" 或 "worldedit" 开头的权限。
 * `!Permissions & !anticheat` - 匹配每个对不是 Permissions 的玩家的对以不是 "anticheat" 开头的权限的检查。
 * `anticheat & !anticheat.check` - matches any checks starting with "anticheat" but not starting with "anticheat.check"    
-     
-更多的信息可以在[**这里**](https://github.com/PluginsCDTribe!!permissionsManger/wiki/Verbose)找到。
 
 ___
 #### `!!pm tree`  
@@ -239,16 +237,6 @@ ___
 #### `!!pm reloadconfig`  
 **权限**: PermissionsManger.reloadconfig  
 重载配置文件的部分值。不是所有的条目都会被这个命令重载，有些需要一次完全的服务器重启才能生效（比如存储的设置）。
-
-___
-#### `!!pm bulkupdate`  
-**权限**: **仅控制台**  
-允许你执行一次对所有权限数据的块编辑。详细的指南可以在[这里](https://github.com/PluginsCDTribe!!permissionsManger/wiki/Bulk-Editing)找到。
-
-___
-#### `!!pm migration`  
-**权限**: PermissionsManger.migration  
-迁移系统使用的主命令。允许你从其他的权限插件导入权限数据，更多的关于这个特性的信息可以在[这里](https://github.com/PluginsCDTribe!!permissionsManger/wiki/Migration)找到。
 
 ___
 #### `!!pm creategroup`  
