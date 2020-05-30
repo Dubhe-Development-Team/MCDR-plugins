@@ -53,7 +53,7 @@ def on_load(server, old_plugin):
     # define commands
     global pack_actions, packobj, datapack_lib, COMMAND_LINKS
     COMMAND_LINKS = {
-        "install": [pack_actions.installPack, 3, 1], # [callobj, permission_lv, extra_arg_cnt]
+        "install": [pack_actions.installPack, 3, 1],  # [callobj, permission_lv, extra_arg_cnt]
         "start": [pack_actions.startDownload, 2, 0],
         "chkupdate": [pack_actions.checkUpdate, 2, 0],
         "refresh_SHA-256": [pack_actions.refreshSHA256, 2, 0],
@@ -147,6 +147,7 @@ def on_info(server, info):
                 pack_actions.delTask(info.player_bcsign)
             except:
                 pass
+
 
 def on_server_startup(server):
     global SERVER_STARTED
