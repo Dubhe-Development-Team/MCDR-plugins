@@ -76,6 +76,9 @@ def on_load(server, old_plugin):
                       'bcfile/cache/sha-256',
                       'bcfile/cache/sha-256/pyplugins',
                       'bcfile/cache/sha-256/datapacks',
+                      'bcfile/cache/files',
+                      'bcfile/cache/files/pyplugins',
+                      'bcfile/cache/files/datapacks',
                       'bcfile/filelink',
                       'bcfile/filelink/pyplugins',
                       'bcfile/filelink/datapacks'):
