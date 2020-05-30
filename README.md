@@ -5,43 +5,58 @@
 BridgeCaller是一个为MCDR和Minecraft数据包提供更多原版数据包无法达到的功能的插件。该插件可以让数据包使用随机数，调用系统时间等功能。该插件同时还可以对插件进行管理，无需服主自行替换。
 
 
-## 使用方法
+# 使用方法
 **_插件尚未开发完毕，可能无法使用！_**
 1. 从release下载最新发行版。若要获得最新特性，可以克隆本仓库**注意：仓库内可能会包含有未完善的功能，谨慎使用**
 2. 将压缩包BCLib和BridgeCaller.py复制到MCDR的plugins文件夹下
 
 ~~注：完成后将会发布release版本~~
 
-## 运行环境
+# 运行环境
 - [Python 3.X ](https://python.org)
 - [MCDReforged](https://github.com/Fallen-Breath/MCDReforged)（版本>=alpha 0.7，否则部分功能无法工作）
 - 确保服务器支持rcon连接（否则datapack_lib相关功能将无法使用）rcon开启方法见[这里](https://gitee.com/gu_zt666/BridgeCaller/blob/master/rcon.md)
 
 
-## 插件管理功能
+# 命令概览
 该插件可以直接安装插件或数据包。
-
-命令列表：
 
 | 命令 | 所需权限 | 作用 |
 | :--------| :-----| :----- |
 | !!bc | All | 显示帮助信息 |
-| !!bc install <包链接> | Admin | 从指定链接安装包|
-| !!bc remove <包名> | Admin | 移除包 **注意：如果有依赖此包的包，也会一起移除！**
-| !!bc enable <包名> | Helper | 启用包 |
-| !!bc disable <包名> | Help | 禁用包 |
-| !!bc update <包名> | Helper | 从包元数据中指定的链接升级包 |
-| !!bc reload | Helper | 重载所有的包 |
-| !!bc refresh-SHA-256 | Helper | 重新计算SHA-256缓存，在同文件判断出现问题时可以使用 |
-| !!bc SHA-256 <路径> | All | 查询对应文件的SHA-256，在下文详细解释 |
-| !!bc list | All | 显示所有已安装的包
-| !!bc listall | All | 显示所有插件和数据包
-| !!bc search <包名> | All | 查询是否已安装此包
-| !!bc on | Admin | 启用bc包管理功能 |
-| !!bc off | Admin | 禁用bc包管理功能 |
+| !!bc packman | - | BridgeCaller包管理功能 |
+| !!bc cache | - | 缓存系统。 |
+| !!bc config | - | BridgeCaller配置 |
+| !!bc reload | Helper | 重新加载BridgeCaller |
+| !!bc about | All | 关于BridgeCaller |
+
+## packman
+插件管理系统。拥有以下命令：
+| 命令 | 所需权限 | 作用 |
+| :--------| :-----| :----- |
+| install <包链接> | Admin | 从指定链接安装包|
+| remove <包名> | Admin | 移除包 **注意：如果有依赖此包的包，也会一起移除！**
+| enable <包名> | Helper | 启用包 |
+| disable <包名> | Help | 禁用包 |
+| update <包名> | Helper | 从包元数据中指定的链接升级包 |
+| reload | Helper | 重载所有的包 |
+| list | All | 显示所有已安装的包
+| search <包名> | All | 查询是否已安装此包
+如：`!!bc packman list`
+
+## cache
+管理缓存系统。拥有以下子命令：
+| 命令 | 所需权限 | 作用 |
+| :--------| :-----| :----- |
+| regen-sha-256 \[filecache\|mainfile\|all\] | Helper | 刷新SHA-256缓存 |
+| clean-file-cache | Helper | 清除文件缓存**若删除，在卸载含有文件冲突的包时需要确保原文件存在**
+| SHA-256 <类型><路径> | All | 查询已计算的SHA-256 |
+| fcSHA-256<类型><路径> | All | 查询已计算的文件缓存SHA-256 |
+| status | All | 查询缓存状态 |
+如：`!!bc packman status`
 
 ### SHA-256
-使用方法：!!bc SHA-256 <路径>
+使用方法：`!!bc cache SHA-256 <路径>`
 
 <路径>为**类型**+**路径**
 
@@ -54,6 +69,7 @@ BridgeCaller是一个为MCDR和Minecraft数据包提供更多原版数据包无�
 !!bc SHA-256 pyplugins/BridgeCaller.py 
 !!bc SHA-256 datapacks/dp1.zip
 ```
+`!!bc cache fcSHA-256`用法一致
 
 ## 数据包支持
 该功能将为数据包提供一些数据包无法达到或很难达到的功能的接口。
