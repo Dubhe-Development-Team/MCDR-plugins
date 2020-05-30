@@ -24,8 +24,8 @@ BridgeCaller是一个为MCDR和Minecraft数据包提供更多原版数据包无�
 | 命令 | 所需权限 | 作用 |
 | :--------| :-----| :----- |
 | !!bc | All | 显示帮助信息 |
-| !!bc packman | - | BridgeCaller包管理功能 |
-| !!bc cache | - | 缓存系统。 |
+| [!!bc packman](https://gitee.com/gu_zt666/BridgeCaller#packman) | - | BridgeCaller包管理功能 |
+| [!!bc cache](https://gitee.com/gu_zt666/BridgeCaller#cache) | - | 缓存系统。 |
 | !!bc config | - | BridgeCaller配置 |
 | !!bc reload | Helper | 重新加载BridgeCaller |
 | !!bc about | All | 关于BridgeCaller |
