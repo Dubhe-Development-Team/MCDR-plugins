@@ -14,12 +14,13 @@ import requests as rq
 import threading as thd
 import importlib as ilib
 
-global pack_actions, packobj, datapack_lib, SERVER_STARTED, DEBUG
+global SERVER_STARTED, DEBUG
 SERVER_STARTED = False
 
-pack_actions = ilib.import_module('plugins.BCLib.pack_actions')
-packobj = ilib.import_module('plugins.BCLib.packobj')
-datapack_lib = ilib.import_module('plugins.BCLib.datapack_lib')
+try:
+    from .BCLib import *
+except:
+    from plugins.BCLib import *
 
 global bgSRV
 bgSRV = None
