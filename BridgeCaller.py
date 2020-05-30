@@ -71,10 +71,16 @@ def on_load(server, old_plugin):
 
     server.add_help_message("!!bc", "BridgeCaller插件管理")
     
-    for directory in ('bcfile', 'bcfile/tmp', 'bcfile/info', 'bcfile/cache',
-                      'bcfile/cache/sha-256', 'bcfile/cache/sha-256/pyplugins',
-                      'bcfile/cache/sha-256/datapacks', 'bcfile/filelink',
-                      'bcfile/filelink/pyplugins', 'bcfile/filelink/datapacks'):
+    for directory in ('bcfile',
+                      'bcfile/tmp',
+                      'bcfile/info',
+                      'bcfile/cache',
+                      'bcfile/cache/sha-256',
+                      'bcfile/cache/sha-256/pyplugins',
+                      'bcfile/cache/sha-256/datapacks',
+                      'bcfile/filelink',
+                      'bcfile/filelink/pyplugins',
+                      'bcfile/filelink/datapacks'):
         try:
             os.mkdir(directory)
             server.logger.info("创建目录：{}".format(directory))
