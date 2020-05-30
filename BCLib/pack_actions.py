@@ -101,6 +101,7 @@ def refreshSHA256(server, info=makeInfo()):
 
 
 def installPack(server, info, name):
+    name = name[0]
     server.logger.info('正在寻找包')
     server.reply(info, '正在寻找包...请稍后')
     try:
@@ -125,6 +126,7 @@ def startDownload(server, info):
 
 
 def checkUpdate(server, info, name):
+    name = name[0]
     PacksTasksNow[info.player_bcsign] = Pack(server, info.player_bcsign)
     PacksTasksNow[info.player_bcsign].from_local(name)
 
@@ -137,3 +139,10 @@ def checkUpdate(server, info, name):
 
 def removePack(server, info, name):
     pass
+
+
+
+class NoEnoughArgError(Exception):
+    '''BridgeCaller命令参数缺失'''
+    def __init__(self, arg):
+        self.args = str(arg)

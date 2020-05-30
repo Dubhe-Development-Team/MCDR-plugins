@@ -40,13 +40,11 @@ COMMAND_LINKS = {
 }
 
 
-def launch_cmd(server, info, launch_target, arg=None):
+def launch_cmd(server, info, launch_target, extarg=[]):
+    if len(extarg) < launch_target[2]: raise Exception(str('参数过少！,至少需要{}个附加参数'.format(launch_target[2])))
     
-    if server.get_permission_level(info) is None or server.get_permission_level(info) >= launch_target[2]:
-        if launch_target[1]:
-            launch_target[0](server, info, arg)
-        else:
-            launch_target[0](server, info)
+    if server.get_permission_level(info) is None or server.get_permission_level(info) >= launch_target[1]:
+        launch_target[0](server, info, extarg)
     else:
         NO_PERMISSION(server, info)
 
@@ -55,11 +53,11 @@ def on_load(server, old_plugin):
     # define commands
     global pack_actions, packobj, datapack_lib, COMMAND_LINKS
     COMMAND_LINKS = {
-        "install": [pack_actions.installPack, True, 3],
-        "start": [pack_actions.startDownload, False, 2],
-        "chkupdate": [pack_actions.checkUpdate, True, 2],
-        "refresh_SHA-256": [pack_actions.refreshSHA256, False, 2],
-        "debug": [pack_actions.debug, False, 1]
+        "install": [pack_actions.installPack, 3, 1], # [callobj, permission_lv, extra_arg_cnt]
+        "start": [pack_actions.startDownload, 2, 0],
+        "chkupdate": [pack_actions.checkUpdate, 2, 0],
+        "refresh_SHA-256": [pack_actions.refreshSHA256, 2, 0],
+        "debug": [pack_actions.debug, 1, 0]
     }
 
     server.logger.info("BridgeCaller {}".format(VERSION))
@@ -121,15 +119,17 @@ def on_info(server, info):
         if len(command) == 1:
             pack_actions.show_help_msg(server, info)
             return 
+
+        # 解析命令
         try:
-            if not COMMAND_LINKS[command[1]][1]:
-                launch_cmd(server, info, COMMAND_LINKS[command[1]])
-            else:
-                launch_cmd(server, info, COMMAND_LINKS[command[1]], command[2])
-        except IndexError as exp:
-            server.reply(info, '§c参数缺失！ {}'.format(pack_actions.format_err_msg(exp)))
-        except KeyError as exp:
+            CMDCALL = COMMAND_LINKS[command[1]]
+        except Exception as exp:
             server.reply(info, '§c参数错误！ {}'.format(pack_actions.format_err_msg(exp)))
+            return
+
+        # 运行命令  
+        try:
+            launch_cmd(server, info, COMMAND_LINKS[command[1]], command[2:])
         except Exception as exp:
             server.reply(info, '§c{}'.format(pack_actions.format_err_msg(exp)))
             try:
