@@ -63,7 +63,7 @@ def on_load(server, old_plugin):
     server.logger.info("BridgeCaller {}".format(VERSION))
     # 动态重载
     
-    for m in (pack_actions, packobj, datapack_lib):
+    for m in (pack_actions, packobj, datapack_lib,command):
         server.logger.info('已加载{}'.format(m))
         ilib.reload(m)
 
@@ -104,7 +104,7 @@ def on_unload(server):
 
 def on_info(server, info):
     global COMMAND_LINKS
-    command = info.content.split(' ')
+    command_line = info.content.split(' ')
     if info.player is None:
         info.player_bcsign = '服务器终端'
     else:
@@ -112,34 +112,41 @@ def on_info(server, info):
 
     global tasks
     if DEBUG:
-        if command[0] == '!!bcexec':
+        if command_line[0] == '!!bcexec':
             try:
-                exec(' '.join(command[1:])), globals(), locals()
+                exec(' '.join(command_line[1:])), globals(), locals()
                 server.reply(info, 'done.')
             except Exception as exp:
                 server.reply(info, str(exp))
-    if command[0] == '!!bc':
-        if len(command) == 1:
+    if command_line[0] == '!!bc':
+        if len(command_line) == 1:
             pack_actions.show_help_msg(server, info)
             return 
 
         # 解析命令
-        try:
-            CMDCALL = COMMAND_LINKS[command[1]]
-        except Exception as exp:
-            server.reply(info, '§c参数错误！ {}'.format(pack_actions.format_err_msg(exp)))
-            return
+        # try: # old command
+        #     CMDCALL = COMMAND_LINKS[command[1]]
+        # except Exception as exp:
+        #     server.reply(info, '§c参数错误！ {}'.format(pack_actions.format_err_msg(exp)))
+        #     return
 
-        # 运行命令  
+        # # 运行命令  
+        # try:
+        #     launch_cmd(server, info, COMMAND_LINKS[command[1]], command[2:])
+        # except Exception as exp:
+        #     server.reply(info, '§c{}'.format(pack_actions.format_err_msg(exp)))
+        #     try:
+        #         pack_actions.delTask(info.player_bcsign)
+        #     except:
+        #         pass
         try:
-            launch_cmd(server, info, COMMAND_LINKS[command[1]], command[2:])
+            command.subcall(server, info, command_line)
         except Exception as exp:
             server.reply(info, '§c{}'.format(pack_actions.format_err_msg(exp)))
             try:
                 pack_actions.delTask(info.player_bcsign)
             except:
                 pass
-
 
 def on_server_startup(server):
     global SERVER_STARTED
