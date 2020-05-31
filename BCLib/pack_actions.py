@@ -117,7 +117,7 @@ def debug(server, info):
     pass
 
 
-def startDownload(server, info):
+def startDownload(server, info, extra=None):
     try:
         DownloadThreads[info.player_bcsign] = thd.Thread(target=PacksTasksNow[info.player_bcsign].start_download(),
                                                          name="BridgeCaller: Download Thread")
