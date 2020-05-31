@@ -97,7 +97,7 @@ def refreshSHA256(server, info=makeInfo()):
     gen_floderSHA('./plugins', './bcfile/cache/sha-256/pyplugins')
     gen_floderSHA('./server/world/datapacks', './bcfile/cache/sha-256/datapacks')
     end_time = time.time()
-    server.reply(info, 'SHA-256缓存更新完毕，用时{}秒。'.format(round(end_time-start_time,5)))
+    server.reply(info, 'SHA-256缓存更新完毕，用时{}秒。'.format(round(end_time-start_time, 5)))
 
 
 def installPack(server, info, name):
@@ -141,8 +141,7 @@ def removePack(server, info, name):
     pass
 
 
-
 class NoEnoughArgError(Exception):
-    '''BridgeCaller命令参数缺失'''
+    """BridgeCaller命令参数缺失"""
     def __init__(self, arg):
         self.args = str(arg)

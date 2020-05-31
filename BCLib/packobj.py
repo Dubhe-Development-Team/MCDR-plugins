@@ -39,8 +39,8 @@ class Pack():
         self.needpack_name = needpack_name
         self.needpack = needpack
 
-        self.remove_list = remove_list # 同downlist
-        self.removepack = removepack # 需要删除的包
+        self.remove_list = remove_list  # 同downlist
+        self.removepack = removepack  # 需要删除的包
         self.removepack_name = removepack_name
 
         self.packname = ""
@@ -207,7 +207,7 @@ class Pack():
         self.from_cloud(self.packlink)
         
         return vernow < self.version
-            
+
     def remove_init(self, mode=0):
         """
         ### 移除包
@@ -216,7 +216,6 @@ class Pack():
         """
         self.removepack.append(self)
         self.removepack_name.append(self.packname)
-        
 
     def data_init(self):
         self.version = self.meta['packversion']
