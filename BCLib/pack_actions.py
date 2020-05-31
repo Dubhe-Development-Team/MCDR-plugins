@@ -17,6 +17,10 @@ DownloadThreads = {}
 }
 '''
 
+global VERSION, NAME
+VERSION = "v0.1"
+NAME = "BridgeCaller"
+
 
 def format_err_msg(msg):
     msg_list = ['§c' + x + '§c' for x in str(msg)]
@@ -65,9 +69,9 @@ def getPackInfo(name):
 
 
 ###### 内部函数，如果不知道这些函数的作用，请勿调用！#####
-def show_help_msg(server, info):
+def show_help_msg(server, info, extra):
     help_msg = """
-###############################################
+§b==BridgeCaller=============================
 §7!!bc    §r显示帮助信息
 §7!!bc install <包链接>   §r从指定链接安装包
 §7!!bc remove <包名>    §r移除包 注意：如果有依赖此包的包，也会一起移除！
@@ -86,8 +90,18 @@ def show_help_msg(server, info):
 
     server.reply(info, help_msg)
 
+def show_about_msg(server, info, extra):
+    ABOUT_MSG = '''
+§b==BridgeCaller=============================
 
-def refreshSHA256(server, info=makeInfo()):
+§l{} {}§r
+由 §l天枢开花组§r 开发
+项目主页：§9§nhttps://gitee.com/gu_zt666/BridgeCaller§r
+欢迎通过提交issues，Pull Requests等方式协助我们开发。
+    '''.format(NAME, VERSION)
+    server.reply(info, ABOUT_MSG)
+
+def refreshSHA256(server, info=makeInfo(), extra=['all']):
     start_time = time.time()
     server.logger.info('开始更新SHA-256缓存')
     for i in ('./bcfile/cache/sha-256/pyplugins', './bcfile/cache/sha-256/datapacks'):
@@ -101,7 +115,7 @@ def refreshSHA256(server, info=makeInfo()):
 
 
 def installPack(server, info, name):
-    name = name[0]
+    name = name[1]
     server.logger.info('正在寻找包')
     server.reply(info, '正在寻找包...请稍后')
     try:

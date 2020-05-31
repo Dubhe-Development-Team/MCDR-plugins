@@ -158,7 +158,10 @@ class Pack():
             self.server.execute('bossbar set down{} value 80'.format(self.randID))
             self.server.execute('bossbar set down{} name "(由{}发起)正在重新加载以应用所有更改"'.format(self.randID, self.fromID))
             self.server.execute('reload')
-            self.server._ServerInterface__server.command_manager.reload_plugins(makeInfo())     # reload all plugins
+            try:
+                self.server._ServerInterface__server.command_manager.reload_plugins(makeInfo())     # reload all plugins # old MCDR version
+            except:
+                self.server.refresh_all_plugins() # new MCDR version
             # refreshSHA256(self.server) # 重载时会自动刷新
             self.server.execute('bossbar remove down{}'.format(self.randID))
 

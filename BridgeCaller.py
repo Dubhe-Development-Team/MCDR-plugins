@@ -6,9 +6,6 @@ BridgeCaller v0.1
 依赖的库：
 - requests
 """
-
-VERSION = "v0.1"
-
 import os
 import requests as rq
 import threading as thd
@@ -32,12 +29,11 @@ NO_PERMISSION = lambda server, info: server.tell(info.player, "§c权限不足")
 # 仅用于功能测试，请不要随意开启！
 DEBUG = True
 
-global tasks, blb, COMMAND_LINKS
-blb = None
+# reload flag.
+
+global tasks
 tasks = pack_actions.getTaskList()
 
-COMMAND_LINKS = {
-}
 
 
 def launch_cmd(server, info, launch_target, extarg=[]):
@@ -51,16 +47,9 @@ def launch_cmd(server, info, launch_target, extarg=[]):
 
 def on_load(server, old_plugin):
     # define commands
-    global pack_actions, packobj, datapack_lib, COMMAND_LINKS
-    COMMAND_LINKS = {
-        "install": [pack_actions.installPack, 3, 1],  # [callobj, permission_lv, extra_arg_cnt]
-        "start": [pack_actions.startDownload, 2, 0],
-        "chkupdate": [pack_actions.checkUpdate, 2, 0],
-        "refresh_SHA-256": [pack_actions.refreshSHA256, 2, 0],
-        "debug": [pack_actions.debug, 1, 0]
-    }
+    global pack_actions, packobj, datapack_lib
 
-    server.logger.info("BridgeCaller {}".format(VERSION))
+    server.logger.info("{} {}".format(pack_actions.NAME,pack_actions.VERSION))
     # 动态重载
     
     for m in (pack_actions, packobj, datapack_lib,command):
@@ -103,7 +92,6 @@ def on_unload(server):
 
 
 def on_info(server, info):
-    global COMMAND_LINKS
     command_line = info.content.split(' ')
     if info.player is None:
         info.player_bcsign = '服务器终端'
@@ -123,22 +111,6 @@ def on_info(server, info):
             pack_actions.show_help_msg(server, info)
             return 
 
-        # 解析命令
-        # try: # old command
-        #     CMDCALL = COMMAND_LINKS[command[1]]
-        # except Exception as exp:
-        #     server.reply(info, '§c参数错误！ {}'.format(pack_actions.format_err_msg(exp)))
-        #     return
-
-        # # 运行命令  
-        # try:
-        #     launch_cmd(server, info, COMMAND_LINKS[command[1]], command[2:])
-        # except Exception as exp:
-        #     server.reply(info, '§c{}'.format(pack_actions.format_err_msg(exp)))
-        #     try:
-        #         pack_actions.delTask(info.player_bcsign)
-        #     except:
-        #         pass
         try:
             command.subcall(server, info, command_line)
         except Exception as exp:

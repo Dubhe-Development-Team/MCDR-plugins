@@ -21,6 +21,7 @@ def launch_cmd(server, info, launch_target, extarg=[]):
 
 
 def subcall(server, info, extra_arg):
+    
     try:
         CMDCALL = CMD_CHART_MAP[extra_arg[0]][extra_arg[1]]
     except Exception as exp:
@@ -40,7 +41,7 @@ MAIN_CMD_LINK = {
     "cache": [subcall, 0, 1],
     "config": [],
     "reload": [],
-    "about": [],
+    "about": [show_about_msg, 0, 0],
     "help": [show_help_msg, 0, 0]
 }
 PACKMAN_CMD_LINK = {
@@ -49,7 +50,11 @@ PACKMAN_CMD_LINK = {
     "chkupdate": [checkUpdate, 2, 0],
 }
 CACHE_CMD_LINK = {
-
+    "regen-sha-256": [refreshSHA256, 3, 1],
+    "clean-file-cache": [],
+    "SHA-256": [refreshSHA256, 1, 1],
+    "fcSHA-256": [],
+    "status": []
 }
 CONFIG_CMD_LINK = {
 
