@@ -152,7 +152,17 @@ def checkUpdate(server, info, name):
 
 
 def removePack(server, info, name):
-    pass
+    name = name[1]
+    server.logger.info('正在寻找包')
+    server.reply(info, '正在寻找包...请稍后')
+    try:
+        del PacksTasksNow[info.player_bcsign]
+    except:
+        pass
+    PacksTasksNow[info.player_bcsign] = Pack(server, info.player_bcsign)
+    PacksTasksNow[info.player_bcsign].remove_init(name)
+    PacksTasksNow[info.player_bcsign].show_status(info)
+
 
 
 class NoEnoughArgError(Exception):

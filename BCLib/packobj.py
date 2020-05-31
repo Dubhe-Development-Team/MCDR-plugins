@@ -66,7 +66,7 @@ class Pack():
         if self.meta['packname'] in self.needpack_name:     # check if tp
             self.server.logger.info('已剔除重复包: {}'.format(self.meta['packname']))
             return
-        self.data_init()
+        self.__cloud_data_init()
         self.server.execute('bossbar remove getmeta{}'.format(self.randID))
         
         return self
@@ -79,10 +79,13 @@ class Pack():
         """
         if not outMCDR:
             file_name = "./bcfile/info/{}.dpmeta".format(file_name)
-
+        
         with open(file_name) as meta:
             self.meta = json.load(meta)
-        self.data_init()
+        if self.meta['packname'] in self.removepack_name:     # check if tp
+            self.server.logger.info('已剔除重复包: {}'.format(self.meta['packname']))
+            return
+        self.__local_data_init()
 
     def start_download_thread(self):
         pass
@@ -211,7 +214,7 @@ class Pack():
         
         return vernow < self.version
 
-    def remove_init(self, mode=0):
+    def remove_init(self, name, mode=0):
         """
         ### 移除包
         - mode=1:完全移除
@@ -219,8 +222,14 @@ class Pack():
         """
         self.removepack.append(self)
         self.removepack_name.append(self.packname)
+        if self.isroot:
+            self.server.execute('bossbar add rmp{} "(由{}发起)正在准备移除{}"'.format(self.randID, self.fromID, self.packlink))
+            self.server.execute('bossbar set rmp{} color green'.format(self.randID))
+            self.server.execute('bossbar set rmp{} players @a'.format(self.randID))
 
-    def data_init(self):
+        self.from_local(name)
+
+    def __cloud_data_init(self):
         self.version = self.meta['packversion']
         self.childPacks = self.meta['child_plugins']
         self.packname = self.meta['packname']
@@ -246,6 +255,39 @@ class Pack():
             self.server.logger.info('下载插件文件源添加: {}'.format(self.downlist['pyplugin'][lib]))
 
         self.server.logger.info('下载文件信息：{}'.format(str(self.downlist)))
+
+    def __local_data_init(self):
+        self.version = self.meta['packversion']
+        self.childPacks = self.meta['child_plugins']
+        self.packname = self.meta['packname']
+        self.removepack_name.append(str(self.packname))
+        if not self.isroot:
+            if self.meta['packname'] in self.removepack_name:     # check if tp
+                self.server.logger.info('已剔除重复包: {}'.format(self.meta['packname']))
+                return
+
+
+        self.removepack = self.removepack+[
+            Pack(self.server, self.fromID, False, 
+                 self.downlist, self.remove_list, self.needpack, self.needpack_name, self.removepack).from_local(pack)
+            for pack in self.childPacks
+        ]
+
+        try:
+            while True:
+                self.needpack.remove(None)
+        except:
+            pass
+
+        for lib in self.meta['downloads']['datapack']:
+            self.remove_list['datapack'][lib] = self.meta['downloads']['datapack'][lib]
+            self.server.logger.info('添加了将要移除的文件: {}'.format(self.downlist['datapack'][lib]))
+        for lib in self.meta['downloads']['pyplugin']:
+            self.remove_list['pyplugin'][lib] = self.meta['downloads']['pyplugin'][lib]
+            self.server.logger.info('添加了将要移除的文件: {}'.format(self.downlist['pyplugin'][lib]))
+
+        self.server.logger.info('移除文件信息{}'.format(str(self.downlist)))
+        
 
     def __del__(self):
         self.server.execute('bossbar remove getmeta{}'.format(self.randID))
