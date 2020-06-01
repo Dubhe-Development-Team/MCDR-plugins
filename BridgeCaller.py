@@ -111,14 +111,14 @@ def on_info(server, info):
             pack_actions.show_help_msg(server, info)
             return 
 
-        try:
-            command.subcall(server, info, command_line)
-        except Exception as exp:
-            server.reply(info, '§c{}'.format(pack_actions.format_err_msg(exp)))
-            try:
-                pack_actions.delTask(info.player_bcsign)
-            except:
-                pass
+        # try:
+        command.subcall(server, info, command_line)
+        # except Exception as exp:
+        #     server.reply(info, '§c{}'.format(pack_actions.format_err_msg(exp)))
+        #     try:
+                # pack_actions.delTask(info.player_bcsign)
+            # except:
+            #     pass
 
 
 def on_server_startup(server):

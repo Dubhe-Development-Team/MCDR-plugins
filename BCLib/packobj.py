@@ -82,10 +82,13 @@ class Pack():
         
         with open(file_name) as meta:
             self.meta = json.load(meta)
-        if self.meta['packname'] in self.removepack_name:     # check if tp
-            self.server.logger.info('已剔除重复包: {}'.format(self.meta['packname']))
-            return
+        
+        if not self.isroot:
+            if self.meta['packname'] in self.removepack_name:     # check if tp
+                self.server.logger.info('已剔除重复包: {}'.format(self.meta['packname']))
+                return
         self.__local_data_init()
+        return self
 
     def start_download_thread(self):
         pass
@@ -221,7 +224,7 @@ class Pack():
         - mode=0:只移除此包和依赖此包的包
         """
         self.removepack.append(self)
-        self.removepack_name.append(self.packname)
+        # self.removepack_name.append(self.packname)
         if self.isroot:
             self.server.execute('bossbar add rmp{} "(由{}发起)正在准备移除{}"'.format(self.randID, self.fromID, self.packlink))
             self.server.execute('bossbar set rmp{} color green'.format(self.randID))
@@ -260,11 +263,11 @@ class Pack():
         self.version = self.meta['packversion']
         self.childPacks = self.meta['child_plugins']
         self.packname = self.meta['packname']
-        self.removepack_name.append(str(self.packname))
         if not self.isroot:
             if self.meta['packname'] in self.removepack_name:     # check if tp
                 self.server.logger.info('已剔除重复包: {}'.format(self.meta['packname']))
                 return
+        self.removepack_name.append(str(self.packname))
 
 
         self.removepack = self.removepack+[
@@ -281,10 +284,10 @@ class Pack():
 
         for lib in self.meta['downloads']['datapack']:
             self.remove_list['datapack'][lib] = self.meta['downloads']['datapack'][lib]
-            self.server.logger.info('添加了将要移除的文件: {}'.format(self.downlist['datapack'][lib]))
+            self.server.logger.info('添加了将要移除的文件: {}'.format(self.remove_list['datapack'][lib]))
         for lib in self.meta['downloads']['pyplugin']:
             self.remove_list['pyplugin'][lib] = self.meta['downloads']['pyplugin'][lib]
-            self.server.logger.info('添加了将要移除的文件: {}'.format(self.downlist['pyplugin'][lib]))
+            self.server.logger.info('添加了将要移除的文件: {}'.format(self.remove_list['pyplugin'][lib]))
 
         self.server.logger.info('移除文件信息{}'.format(str(self.downlist)))
         
