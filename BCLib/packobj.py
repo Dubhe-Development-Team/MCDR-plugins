@@ -232,6 +232,9 @@ class Pack():
 
         self.from_local(name)
 
+    def start_remove(self):
+        pass
+
     def __cloud_data_init(self):
         self.version = self.meta['packversion']
         self.childPacks = self.meta['child_plugins']
