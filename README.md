@@ -23,5 +23,6 @@
 | !!backup rename [oldname] [newname] | 重命名备份 | helper |
 | !!backup back | 回档 | helper |
 | !!backup auto <on/off/[time]> | 自动备份(分钟) | helper |
+| !!backup debug | 查看插件状态 | admin |
 
 **注： [name] 仅可使用字母、数字、下划线，长度限制为20字符以内       < >可不填**
